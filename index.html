@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Porch Project — Steiner Ranch Community</title>
+<meta name="description" content="Your curated guide to trusted local businesses, events, and community resources in Steiner Ranch, Austin TX.">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 80px 24px 60px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 52px;
+  font-weight: 600;
+  color: var(--pp-green);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+.hero .subtitle {
+  font-family: 'Young Serif', Georgia, serif;
+  font-size: 20px;
+  color: var(--pp-gold);
+  margin-bottom: 20px;
+}
+.hero .desc {
+  font-size: 16px;
+  color: var(--pp-medium);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+.hero-leaf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.hero-leaf span { color: var(--pp-sage); font-size: 20px; }
+.hero-leaf::before,
+.hero-leaf::after {
+  content: '';
+  height: 1px;
+  width: 60px;
+  background: var(--pp-border);
+}
+
+/* ── FEATURE CARDS ── */
+.features {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+.feature-card {
+  background: var(--pp-white);
+  border-radius: var(--pp-radius);
+  padding: 36px 32px;
+  box-shadow: var(--pp-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid transparent;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--pp-shadow-hover);
+  border-color: rgba(196,162,101,0.2);
+}
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--pp-sage-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+}
+.feature-card h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--pp-green);
+  margin-bottom: 8px;
+}
+.feature-card p {
+  font-size: 15px;
+  color: var(--pp-medium);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.feature-link {
+  font-size: 14px;
+  color: var(--pp-gold);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.feature-card:hover .feature-link {
+  color: var(--pp-green);
+}
+
+/* ── COMMUNITY STATS ── */
+.stats {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+.stat {
+  text-align: center;
+}
+.stat-number {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--pp-green);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 14px;
+  color: var(--pp-medium);
+  font-weight: 500;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hero { padding: 48px 20px 40px; }
+  .hero h1 { font-size: 36px; }
+  .hero .subtitle { font-size: 17px; }
+  .features { gap: 16px; }
+  .feature-card { padding: 28px 24px; }
+  .stats { gap: 32px; }
+  .stat-number { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-logo">
+      <span>&#127807;</span> The Porch Project
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.site-nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    <ul class="site-nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="directory.html">Directory</a></li>
+      <li><a href="directory.html#events">Events</a></li>
+      <li><a href="camp-planner.html">Camp Planner</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>The Porch Project</h1>
+  <div class="subtitle">Steiner Ranch, Austin TX</div>
+  <div class="hero-leaf"><span>&#127807;</span></div>
+  <p class="desc">Your curated guide to trusted local businesses, community events, and neighborhood resources. Built by neighbors, for neighbors.</p>
+</section>
+
+<!-- COMMUNITY STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number">40+</div>
+    <div class="stat-label">Local Businesses</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">14</div>
+    <div class="stat-label">Community Events</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">1</div>
+    <div class="stat-label">Amazing Community</div>
+  </div>
+</div>
+
+<!-- FEATURE CARDS -->
+<section class="features">
+  <a href="directory.html" class="feature-card">
+    <div class="feature-icon">&#127968;</div>
+    <h2>Business Directory</h2>
+    <p>Discover local businesses, services, and makers in and around Steiner Ranch. Search by category, find Porch Neighbors, and support local.</p>
+    <span class="feature-link">Browse Directory <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+  </a>
+
+  <a href="directory.html#events" class="feature-card">
+    <div class="feature-icon">&#128197;</div>
+    <h2>Community Events</h2>
+    <p>Stay up to date on what's happening in the neighborhood. From markets and meetups to fitness and family fun.</p>
+    <span class="feature-link">See Events <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+  </a>
+
+  <a href="camp-planner.html" class="feature-card">
+    <div class="feature-icon">&#9968;&#65039;</div>
+    <h2>Summer Camp Planner</h2>
+    <p>Find the right summer camps for your kids. Browse by date, filter by age and type, and plan your family's summer.</p>
+    <span class="feature-link">Plan Summer <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer-brand">The Porch Project</div>
+  <div class="site-footer-tagline">Steiner Ranch, Austin TX</div>
+  <div class="site-footer-divider"></div>
+  <div class="site-footer-links">
+    <a href="directory.html">Directory</a>
+    <a href="directory.html#events">Events</a>
+    <a href="camp-planner.html">Camp Planner</a>
+  </div>
+  <p>&copy; 2026 The Porch Project. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

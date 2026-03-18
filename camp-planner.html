@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer Camp Planner — The Porch Project</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep:   #1a3c2e;
+    --green-mid:    #2d6a4f;
+    --green-bright: #40916c;
+    --green-light:  #b7e4c7;
+    --green-pale:   #f0faf4;
+    --gold:         #c9a84c;
+    --gold-light:   #f5e9c9;
+    --cream:        #faf8f3;
+    --text-dark:    #1a1a1a;
+    --text-mid:     #4a5568;
+    --text-light:   #718096;
+    --white:        #ffffff;
+    --shadow-sm:    0 2px 8px rgba(26,60,46,0.08);
+    --shadow-md:    0 6px 24px rgba(26,60,46,0.12);
+    --shadow-lg:    0 16px 48px rgba(26,60,46,0.16);
+    --radius:       14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--green-deep);
+    padding: 28px 40px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(64,145,108,0.25) 0%, transparent 60%);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .logo-area h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--white);
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+  }
+  .logo-area p {
+    font-size: 0.82rem;
+    color: var(--green-light);
+    font-weight: 400;
+    margin-top: 3px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .header-tag {
+    background: var(--gold);
+    color: var(--green-deep);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+  }
+
+  /* ── INTRO ── */
+  .intro {
+    margin-bottom: 28px;
+  }
+  .intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    color: var(--green-deep);
+    margin-bottom: 6px;
+  }
+  .intro p {
+    color: var(--text-mid);
+    font-size: 0.95rem;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  /* ── FILTERS ── */
+  .filters-bar {
+    background: var(--white);
+    border: 1px solid var(--green-light);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    box-shadow: var(--shadow-sm);
+  }
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 160px;
+  }
+  .filter-group label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+  }
+  .filter-group select {
+    padding: 9px 14px;
+    border: 1.5px solid #d1e8da;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    background: var(--green-pale);
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232d6a4f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+  .filter-group select:focus { border-color: var(--green-mid); }
+
+  .filter-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 2px;
+    cursor: pointer;
+  }
+  .filter-toggle input[type=checkbox] {
+    width: 18px; height: 18px;
+    accent-color: var(--green-mid);
+    cursor: pointer;
+  }
+  .filter-toggle span {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    white-space: nowrap;
+  }
+
+  .clear-btn {
+    padding: 9px 18px;
+    background: transparent;
+    border: 1.5px solid var(--green-light);
+    border-radius: 8px;
+    color: var(--green-mid);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    align-self: flex-end;
+    flex-shrink: 0;
+  }
+  .clear-btn:hover { background: var(--green-pale); border-color: var(--green-mid); }
+
+  /* ── LAYOUT ── */
+  .planner-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 820px) {
+    .planner-layout { grid-template-columns: 1fr; }
+  }
+
+  /* ── CALENDAR ── */
+  .calendar-panel {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--green-light);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: var(--green-deep);
+  }
+  .cal-nav button {
+    background: rgba(255,255,255,0.12);
+    border: none;
+    color: var(--white);
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .cal-nav button:hover { background: rgba(255,255,255,0.22); }
+  .cal-month-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--white);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: var(--green-mid);
+    padding: 8px 12px 6px;
+    gap: 2px;
+  }
+  .cal-weekdays span {
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--green-light);
+  }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    padding: 10px 12px 14px;
+    background: var(--green-pale);
+  }
+
+  .cal-day {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px 2px 3px;
+    background: var(--white);
+    border: 1.5px solid transparent;
+    cursor: default;
+    transition: all 0.15s;
+    min-height: 52px;
+    position: relative;
+  }
+  .cal-day.empty { background: transparent; }
+  .cal-day.has-camps {
+    cursor: pointer;
+    border-color: var(--green-light);
+    background: var(--white);
+  }
+  .cal-day.has-camps:hover {
+    border-color: var(--green-mid);
+    box-shadow: 0 2px 10px rgba(45,106,79,0.15);
+    transform: translateY(-1px);
+  }
+  .cal-day.selected {
+    border-color: var(--green-mid);
+    background: var(--green-pale);
+    box-shadow: 0 0 0 2px var(--green-mid);
+  }
+  .cal-day.today .day-num { color: var(--gold); font-weight: 700; }
+
+  .day-num {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    line-height: 1;
+  }
+  .cal-day.empty .day-num { display: none; }
+
+  .camp-dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px;
+    margin-top: 4px;
+    padding: 0 2px;
+  }
+  .camp-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--green-mid);
+    flex-shrink: 0;
+  }
+  .camp-dot.sports    { background: #e07a5f; }
+  .camp-dot.arts      { background: #c9a84c; }
+  .camp-dot.stem      { background: #3d405b; }
+  .camp-dot.nature    { background: #40916c; }
+  .camp-dot.performing{ background: #9b72cf; }
+  .camp-dot.academic  { background: #2196f3; }
+  .camp-dot.general   { background: #78909c; }
+  .camp-dot.faith     { background: #ef9a9a; }
+
+  .cal-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 14px 14px;
+    border-top: 1px solid var(--green-light);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    color: var(--text-mid);
+  }
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── SIDE PANEL ── */
+  .side-panel {}
+
+  .results-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding: 0 2px;
+  }
+  .results-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--green-deep);
+  }
+  .results-count {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+
+  .camp-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 620px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .camp-cards::-webkit-scrollbar { width: 4px; }
+  .camp-cards::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 4px; }
+
+  .camp-card {
+    background: var(--white);
+    border: 1.5px solid var(--green-light);
+    border-radius: var(--radius);
+    padding: 14px 16px 14px 20px;
+    cursor: pointer;
+    transition: all 0.18s;
+    position: relative;
+    overflow: visible;
+    font-family: 'DM Sans', sans-serif !important;
+  }
+  .camp-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--green-mid);
+    border-radius: 0 2px 2px 0;
+  }
+  .camp-card.sports::before    { background: #e07a5f; }
+  .camp-card.arts::before      { background: #c9a84c; }
+  .camp-card.stem::before      { background: #3d405b; }
+  .camp-card.nature::before    { background: #40916c; }
+  .camp-card.performing::before{ background: #9b72cf; }
+  .camp-card.academic::before  { background: #2196f3; }
+  .camp-card.faith::before     { background: #ef9a9a; }
+
+  .camp-card:hover {
+    border-color: var(--green-mid);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  .camp-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .camp-card-name {
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--green-deep);
+    line-height: 1.35;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    flex: 1;
+    min-width: 0;
+  }
+  .status-badge {
+    font-size: 0.67rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .status-open     { background: #d8f3dc; color: #1b5e36; }
+  .status-waitlist { background: var(--gold-light); color: #7a5a00; }
+  .status-full     { background: #fde8e8; color: #8b0000; }
+
+  .camp-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .meta-pill {
+    font-size: 0.72rem;
+    color: var(--text-mid);
+    background: var(--green-pale);
+    border: 1px solid #d1e8da;
+    padding: 2px 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .camp-dates {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .steiner-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--green-mid);
+    background: var(--green-pale);
+    border: 1px solid var(--green-light);
+    padding: 2px 7px;
+    border-radius: 6px;
+    margin-top: 6px;
+  }
+
+  /* ── MODAL ── */
+  .modal-backdrop {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(26,60,46,0.45);
+    backdrop-filter: blur(3px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--white);
+    border-radius: 20px;
+    max-width: 520px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal-header {
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid var(--green-light);
+    position: relative;
+  }
+  .modal-type-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--green-mid);
+    margin-bottom: 6px;
+  }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--green-deep);
+    line-height: 1.2;
+    padding-right: 30px;
+  }
+  .modal-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: var(--green-pale);
+    border: none;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--green-mid);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: var(--green-light); }
+
+  .modal-body {
+    padding: 20px 24px 24px;
+  }
+  .modal-section {
+    margin-bottom: 18px;
+  }
+  .modal-section-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 6px;
+  }
+  .modal-section p, .modal-section a {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+  .modal-section a { color: var(--green-mid); text-decoration: underline; }
+
+  .modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .modal-field { }
+  .modal-field .label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 3px;
+  }
+  .modal-field .value {
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  .register-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: var(--green-mid);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin-top: 4px;
+  }
+  .register-btn:hover { background: var(--green-deep); }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    background: var(--white);
+    border: 1.5px dashed var(--green-light);
+    border-radius: var(--radius);
+    padding: 36px 24px;
+    text-align: center;
+    color: var(--text-light);
+  }
+  .empty-state .emoji { font-size: 2rem; margin-bottom: 10px; }
+  .empty-state p { font-size: 0.88rem; line-height: 1.5; }
+
+  /* ── FOOTER NOTE ── */
+  .footer-note {
+    margin-top: 36px;
+    padding: 18px 22px;
+    background: var(--gold-light);
+    border: 1px solid #e6d49a;
+    border-radius: var(--radius);
+    font-size: 0.82rem;
+    color: #7a5a00;
+    line-height: 1.6;
+  }
+  .footer-note strong { color: #5a3e00; }
+</style>
+</head>
+<body>
+<!-- NAVIGATION -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-logo">
+      <span>&#127807;</span> The Porch Project
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.site-nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    <ul class="site-nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="directory.html">Directory</a></li>
+      <li><a href="directory.html#events">Events</a></li>
+      <li><a href="camp-planner.html" class="active">Camp Planner</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<header>
+  <div class="header-inner">
+    <div class="logo-area">
+      <h1>The Porch Project</h1>
+      <p>Steiner Ranch, Austin TX</p>
+    </div>
+    <span class="header-tag">Summer Camp Planner 2026</span>
+  </div>
+</header>
+
+<main>
+  <div class="intro">
+    <h2>Find the right camp for your kid</h2>
+    <p>Browse camps by date, filter by age or type, and click any day to see what's available. Updated regularly for the Steiner Ranch community.</p>
+  </div>
+
+  <div class="filters-bar">
+    <div class="filter-group">
+      <label>Age / Grade</label>
+      <select id="filter-age">
+        <option value="">All Ages</option>
+        <option value="K-2">K–2nd Grade</option>
+        <option value="3-5">3rd–5th Grade</option>
+        <option value="6-8">6th–8th Grade</option>
+        <option value="9-12">High School</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Camp Type</label>
+      <select id="filter-type">
+        <option value="">All Types</option>
+        <option value="sports">Sports</option>
+        <option value="arts">Arts & Crafts</option>
+        <option value="stem">STEM / Science</option>
+        <option value="nature">Nature / Outdoor</option>
+        <option value="performing">Performing Arts</option>
+        <option value="academic">Academic</option>
+        <option value="general">General / Multi</option>
+        <option value="faith">Faith-Based</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Day Type</label>
+      <select id="filter-day">
+        <option value="">Half & Full Day</option>
+        <option value="half">Half Day Only</option>
+        <option value="full">Full Day Only</option>
+      </select>
+    </div>
+    <div class="filter-group" style="flex: none; min-width: auto; justify-content: flex-end; padding-bottom: 2px;">
+      <label class="filter-toggle">
+        <input type="checkbox" id="filter-steiner">
+        <span>Steiner Ranch Based Only</span>
+      </label>
+    </div>
+    <button class="clear-btn" onclick="clearFilters()">Clear Filters</button>
+  </div>
+
+  <div class="planner-layout">
+    <!-- CALENDAR -->
+    <div class="calendar-panel">
+      <div class="cal-nav">
+        <button onclick="prevMonth()">‹</button>
+        <span class="cal-month-label" id="month-label"></span>
+        <button onclick="nextMonth()">›</button>
+      </div>
+      <div class="cal-weekdays">
+        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span>
+        <span>Thu</span><span>Fri</span><span>Sat</span>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div class="cal-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#e07a5f"></div> Sports</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#c9a84c"></div> Arts</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#3d405b"></div> STEM</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#40916c"></div> Nature</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#9b72cf"></div> Performing</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#2196f3"></div> Academic</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#78909c"></div> General</div>
+      </div>
+    </div>
+
+    <!-- SIDE PANEL -->
+    <div class="side-panel">
+      <div class="results-header">
+        <h3 id="panel-title">All Camps</h3>
+        <span class="results-count" id="results-count"></span>
+      </div>
+      <div class="camp-cards" id="camp-cards"></div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong>Know a camp we're missing?</strong> Help us keep this list complete for Steiner Ranch families. <a href="https://docs.google.com/forms/d/13Qks6WJ5UPrE4CEPXHA86BqXNyMgVWpE73P4ZwAST_k/viewform" target="_blank" style="color:#5a3e00; font-weight:600;">Submit a camp →</a>
+    <br>Last updated: March 2026 &nbsp;·&nbsp; Registration status may change — always verify directly with the camp.
+  </div>
+</main>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-type-tag" id="modal-type"></div>
+      <div class="modal-title" id="modal-title"></div>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────────────────
+const CAMP_CONFIG = {
+  SHEET_ID: '1YM5LUHlzdJvaRRvD51qqcJTxPC0vvETkwCOuM2EGa9A',
+  TAB_NAME: 'Sheet1'  // Change this if your tab has a different name
+};
+
+// ── CSV PARSER ──────────────────────────────────────────────────────────────
+function parseCSV(text) {
+  var rows = [];
+  var row = [];
+  var field = '';
+  var inQuotes = false;
+  var i = 0;
+  while (i < text.length) {
+    var c = text[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (i + 1 < text.length && text[i + 1] === '"') {
+          field += '"';
+          i += 2;
+        } else {
+          inQuotes = false;
+          i++;
+        }
+      } else {
+        field += c;
+        i++;
+      }
+    } else {
+      if (c === '"') {
+        inQuotes = true;
+        i++;
+      } else if (c === ',') {
+        row.push(field.trim());
+        field = '';
+        i++;
+      } else if (c === '\n' || (c === '\r' && i + 1 < text.length && text[i + 1] === '\n')) {
+        row.push(field.trim());
+        rows.push(row);
+        row = [];
+        field = '';
+        i += (c === '\r') ? 2 : 1;
+      } else if (c === '\r') {
+        row.push(field.trim());
+        rows.push(row);
+        row = [];
+        field = '';
+        i++;
+      } else {
+        field += c;
+        i++;
+      }
+    }
+  }
+  if (field || row.length > 0) {
+    row.push(field.trim());
+    rows.push(row);
+  }
+  return rows;
+}
+
+// ── GOOGLE SHEETS FETCH ─────────────────────────────────────────────────────
+function sheetUrl(tabName) {
+  return 'https://docs.google.com/spreadsheets/d/' + CAMP_CONFIG.SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(tabName) + '&_=' + Date.now();
+}
+
+function fetchSheet(tabName, callback) {
+  var url = sheetUrl(tabName);
+  fetch(url).then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.text();
+  }).then(function(text) {
+    // Strip BOM character that Google Sheets adds
+    if (text.charCodeAt(0) === 0xFEFF) text = text.substring(1);
+    var rows = parseCSV(text);
+    if (rows.length < 2) { callback([]); return; }
+    var headers = rows[0].map(function(h) { return h.toLowerCase().trim(); });
+    var data = [];
+    for (var i = 1; i < rows.length; i++) {
+      if (rows[i].join('').trim() === '') continue;
+      var obj = {};
+      for (var j = 0; j < headers.length; j++) {
+        obj[headers[j]] = (rows[i][j] || '').trim();
+      }
+      data.push(obj);
+    }
+    callback(data);
+  }).catch(function(err) {
+    console.warn('Failed to fetch ' + tabName + ':', err);
+    callback(null);
+  });
+}
+
+// ── MAP SHEET ROW TO CAMP OBJECT ────────────────────────────────────────────
+function parsePipeSeparated(str) {
+  if (!str) return [];
+  return str.split('|').map(function(s) { return s.trim(); }).filter(Boolean);
+}
+
+function parseSessions(str) {
+  if (!str) return [];
+  return str.split('|').map(function(s) {
+    var parts = s.trim().split(':');
+    if (parts.length >= 2) {
+      return { start: parts[0].trim(), end: parts[1].trim() };
+    }
+    return null;
+  }).filter(Boolean);
+}
+
+function mapCampRow(row, index) {
+  var yesValues = ['yes', 'true', '1', 'y'];
+  return {
+    id: index + 1,
+    name: row['name'] || '',
+    org: row['org'] || '',
+    type: (row['type'] || 'general').toLowerCase(),
+    ages: parsePipeSeparated(row['ages']),
+    ageText: row['age text'] || '',
+    sessions: parseSessions(row['sessions']),
+    dayType: (row['day type'] || '').toLowerCase() || 'full',
+    hours: row['hours'] || '',
+    beforeCare: yesValues.indexOf((row['before care'] || '').toLowerCase()) !== -1,
+    afterCare: yesValues.indexOf((row['after care'] || '').toLowerCase()) !== -1,
+    location: row['location'] || '',
+    price: row['price'] || '',
+    status: (row['status'] || 'open').toLowerCase(),
+    steiner: yesValues.indexOf((row['steiner'] || '').toLowerCase()) !== -1,
+    campMode: (row['camp mode'] || 'day').toLowerCase(),
+    description: row['description'] || '',
+    website: row['website'] || '',
+    contact: row['contact'] || ''
+  };
+}
+
+// ── DATA ────────────────────────────────────────────────────────────────────
+let CAMPS = [];
+
+/* Demo data removed — camps load exclusively from Google Sheet */
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+let currentYear = 2026;
+let currentMonth = 5; // June = 5
+let selectedDate = null;
+let filters = { age: '', type: '', day: '', steiner: false };
+
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+const MONTHS = ["January","February","March","April","May","June",
+                "July","August","September","October","November","December"];
+
+function dateInRange(dateStr, startStr, endStr) {
+  const d = new Date(dateStr + 'T12:00:00');
+  const s = new Date(startStr + 'T00:00:00');
+  const e = new Date(endStr + 'T23:59:59');
+  return d >= s && d <= e;
+}
+
+function campsOnDate(dateStr) {
+  return CAMPS.filter(c => {
+    return c.sessions.some(s => dateInRange(dateStr, s.start, s.end));
+  });
+}
+
+function applyFilters(camps) {
+  return camps.filter(c => {
+    if (filters.age && !c.ages.includes(filters.age)) return false;
+    if (filters.type && c.type !== filters.type) return false;
+    if (filters.day && c.dayType !== filters.day) return false;
+    if (filters.steiner && !c.steiner) return false;
+    return true;
+  });
+}
+
+function allFilteredCamps() {
+  return applyFilters(CAMPS);
+}
+
+function campsInMonth(year, month) {
+  const active = new Set();
+  for (let d = 1; d <= 31; d++) {
+    const date = new Date(year, month, d);
+    if (date.getMonth() !== month) break;
+    const str = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    campsOnDate(str).forEach(c => active.add(c.id));
+  }
+  return active;
+}
+
+// ── CALENDAR RENDER ──────────────────────────────────────────────────────────
+function renderCalendar() {
+  document.getElementById('month-label').textContent =
+    `${MONTHS[currentMonth]} ${currentYear}`;
+
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const today = new Date();
+
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement('div');
+    empty.className = 'cal-day empty';
+    grid.appendChild(empty);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dayCamps = applyFilters(campsOnDate(dateStr));
+    const isToday = (today.getFullYear()===currentYear && today.getMonth()===currentMonth && today.getDate()===d);
+    const isSelected = selectedDate === dateStr;
+
+    const cell = document.createElement('div');
+    cell.className = 'cal-day' +
+      (dayCamps.length ? ' has-camps' : '') +
+      (isToday ? ' today' : '') +
+      (isSelected ? ' selected' : '');
+
+    const num = document.createElement('div');
+    num.className = 'day-num';
+    num.textContent = d;
+    cell.appendChild(num);
+
+    if (dayCamps.length) {
+      const dots = document.createElement('div');
+      dots.className = 'camp-dots';
+      const shown = dayCamps.slice(0, 5);
+      shown.forEach(c => {
+        const dot = document.createElement('div');
+        dot.className = `camp-dot ${c.type}`;
+        dots.appendChild(dot);
+      });
+      cell.appendChild(dots);
+
+      cell.addEventListener('click', () => selectDate(dateStr));
+    }
+
+    grid.appendChild(cell);
+  }
+}
+
+// ── PANEL RENDER ─────────────────────────────────────────────────────────────
+function renderPanel(camps, title) {
+  document.getElementById('panel-title').textContent = title;
+  document.getElementById('results-count').textContent =
+    camps.length === 1 ? '1 camp' : `${camps.length} camps`;
+
+  const container = document.getElementById('camp-cards');
+  container.innerHTML = '';
+
+  if (!camps.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <p>No camps match your current filters for this selection.<br>Try adjusting your filters or browsing another date.</p>
+      </div>`;
+    return;
+  }
+
+  camps.forEach(c => {
+    const card = document.createElement('div');
+    card.className = `camp-card ${c.type}`;
+    card.innerHTML = `
+      <div class="camp-card-top">
+        <div class="camp-card-name">${c.name}</div>
+        <span class="status-badge status-${c.status}">${c.status === 'waitlist' ? 'Waitlist' : c.status === 'full' ? 'Full' : 'Open'}</span>
+      </div>
+      <div class="camp-meta">
+        <span class="meta-pill">${capitalize(c.type)}</span>
+        ${c.dayType ? '<span class="meta-pill">' + (c.dayType === 'half' ? 'Half Day' : 'Full Day') + '</span>' : ''}
+        ${c.ageText ? '<span class="meta-pill">' + c.ageText + '</span>' : ''}
+      </div>
+      ${c.location ? '<div class="camp-dates">' + c.location + '</div>' : ''}
+      ${c.price ? '<div class="camp-dates" style="margin-top:4px">' + c.price + '</div>' : ''}
+      ${c.steiner ? '<div class="steiner-badge">Steiner Ranch Based</div>' : ''}
+    `;
+    card.addEventListener('click', () => openModal(c));
+    container.appendChild(card);
+  });
+}
+
+function selectDate(dateStr) {
+  selectedDate = selectedDate === dateStr ? null : dateStr;
+  renderCalendar();
+  if (selectedDate) {
+    const [y, m, d] = dateStr.split('-');
+    const label = `${MONTHS[parseInt(m)-1]} ${parseInt(d)}`;
+    renderPanel(applyFilters(campsOnDate(dateStr)), label);
+  } else {
+    renderPanel(allFilteredCamps(), 'All Camps');
+  }
+}
+
+// ── MODAL ────────────────────────────────────────────────────────────────────
+function openModal(camp) {
+  document.getElementById('modal-type').textContent = `${capitalize(camp.type)} Camp`;
+  document.getElementById('modal-title').textContent = camp.name;
+
+  const sessionList = camp.sessions.length ? camp.sessions.map(s => {
+    const start = new Date(s.start + 'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    const end   = new Date(s.end   + 'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    return `${start} – ${end}`;
+  }).join('<br>') : 'Check website for dates';
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-grid">
+      ${camp.org ? '<div class="modal-field"><div class="label">Organization</div><div class="value">' + camp.org + '</div></div>' : ''}
+      ${camp.ageText ? '<div class="modal-field"><div class="label">Ages</div><div class="value">' + camp.ageText + '</div></div>' : ''}
+      ${camp.hours ? '<div class="modal-field"><div class="label">Hours</div><div class="value">' + camp.hours + '</div></div>' : ''}
+      ${camp.dayType ? '<div class="modal-field"><div class="label">Day Type</div><div class="value">' + (camp.dayType === 'half' ? 'Half Day' : 'Full Day') + '</div></div>' : ''}
+      <div class="modal-field"><div class="label">Before Care</div><div class="value">${camp.beforeCare ? '✓ Available' : '✗ Not offered'}</div></div>
+      <div class="modal-field"><div class="label">After Care</div><div class="value">${camp.afterCare ? '✓ Available' : '✗ Not offered'}</div></div>
+      ${camp.price ? '<div class="modal-field"><div class="label">Price</div><div class="value">' + camp.price + '</div></div>' : ''}
+      <div class="modal-field"><div class="label">Status</div><div class="value"><span class="status-badge status-${camp.status}">${camp.status === 'waitlist' ? 'Waitlist' : camp.status === 'full' ? 'Full' : 'Open'}</span></div></div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Session Dates</div>
+      <p>${sessionList}</p>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Location</div>
+      <p>${camp.location}</p>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">About this Camp</div>
+      <p>${camp.description}</p>
+    </div>
+    ${camp.contact ? '<div class="modal-section"><div class="modal-section-title">Contact</div><p>' + (camp.contact.indexOf('@') !== -1 ? '<a href="mailto:' + camp.contact + '">' + camp.contact + '</a>' : camp.contact) + '</p></div>' : ''}
+    ${camp.steiner ? '<div class="steiner-badge" style="margin-bottom:14px">Steiner Ranch Based</div>' : ''}
+    ${camp.website ? '<a href="' + (camp.website.indexOf('http') === 0 ? camp.website : 'https://' + camp.website) + '" target="_blank" class="register-btn">' + (camp.status === 'full' ? 'Join Waitlist →' : 'Register / Learn More →') + '</a>' : ''}
+  `;
+
+  document.getElementById('modal-backdrop').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-backdrop')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modal-backdrop').classList.remove('open');
+}
+
+// ── NAVIGATION ───────────────────────────────────────────────────────────────
+function prevMonth() {
+  if (currentMonth === 0) { currentMonth = 11; currentYear--; }
+  else currentMonth--;
+  selectedDate = null;
+  renderCalendar();
+  renderPanel(allFilteredCamps(), 'All Camps');
+}
+function nextMonth() {
+  if (currentMonth === 11) { currentMonth = 0; currentYear++; }
+  else currentMonth++;
+  selectedDate = null;
+  renderCalendar();
+  renderPanel(allFilteredCamps(), 'All Camps');
+}
+
+// ── FILTERS ──────────────────────────────────────────────────────────────────
+document.getElementById('filter-age').addEventListener('change', e => {
+  filters.age = e.target.value; refresh();
+});
+document.getElementById('filter-type').addEventListener('change', e => {
+  filters.type = e.target.value; refresh();
+});
+document.getElementById('filter-day').addEventListener('change', e => {
+  filters.day = e.target.value; refresh();
+});
+document.getElementById('filter-steiner').addEventListener('change', e => {
+  filters.steiner = e.target.checked; refresh();
+});
+
+function clearFilters() {
+  filters = { age: '', type: '', day: '', steiner: false };
+  document.getElementById('filter-age').value = '';
+  document.getElementById('filter-type').value = '';
+  document.getElementById('filter-day').value = '';
+  document.getElementById('filter-steiner').checked = false;
+  refresh();
+}
+
+function refresh() {
+  renderCalendar();
+  if (selectedDate) {
+    const [y, m, d] = selectedDate.split('-');
+    const label = `${MONTHS[parseInt(m)-1]} ${parseInt(d)}`;
+    renderPanel(applyFilters(campsOnDate(selectedDate)), label);
+  } else {
+    renderPanel(allFilteredCamps(), 'All Camps');
+  }
+}
+
+function capitalize(str) {
+  const map = { sports: 'Sports', arts: 'Arts & Crafts', stem: 'STEM',
+    nature: 'Nature', performing: 'Performing Arts', academic: 'Academic',
+    general: 'General', faith: 'Faith-Based', 'faith-based': 'Faith-Based' };
+  return map[str] || str;
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+function initApp() {
+  renderCalendar();
+  renderPanel(allFilteredCamps(), 'All Camps');
+}
+
+// Load camps from Google Sheet
+fetchSheet(CAMP_CONFIG.TAB_NAME, function(data) {
+  if (data && data.length > 0) {
+    CAMPS = data.map(mapCampRow).filter(function(c) { return c.name; });
+    console.log('Loaded ' + CAMPS.length + ' camps from Google Sheet');
+  } else {
+    CAMPS = [];
+    console.warn('No camp data loaded — check that the Google Sheet is published to web');
+  }
+  initApp();
+});
+</script>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer-brand">The Porch Project</div>
+  <div class="site-footer-tagline">Steiner Ranch, Austin TX</div>
+  <div class="site-footer-divider"></div>
+  <div class="site-footer-links">
+    <a href="index.html">Home</a>
+    <a href="directory.html">Directory</a>
+    <a href="camp-planner.html">Camp Planner</a>
+  </div>
+  <p>&copy; 2026 The Porch Project. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Directory — The Porch Project</title>
+<meta name="description" content="Discover trusted local businesses, services, and community events in Steiner Ranch, Austin TX.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-logo">
+      <span>&#127807;</span> The Porch Project
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.site-nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    <ul class="site-nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="directory.html" class="active">Directory</a></li>
+      <li><a href="directory.html#events">Events</a></li>
+      <li><a href="camp-planner.html">Camp Planner</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- DIRECTORY CONTENT (from porch-directory-sheets.html) -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Young+Serif&display=swap');
+
+.pp-directory * { margin:0; padding:0; box-sizing:border-box; }
+
+.pp-directory {
+  --pp-green: #2C3E2D;
+  --pp-gold: #D44D20;
+  --pp-sage: #ACCAB2;
+  --pp-cream: #FAF5EF;
+  --pp-light-gold: #F0C4B3;
+  --pp-honey: #E9A752;
+  --pp-latte: #786140;
+  --pp-sage-tint: #D5E4D8;
+  --pp-white: #FFFFFF;
+  --pp-dark: #2C3E2D;
+  --pp-medium: #786140;
+  --pp-light: #8A8A7A;
+  --pp-border: #D5E4D8;
+  --pp-shadow: 0 2px 20px rgba(44,62,45,0.08);
+  --pp-shadow-hover: 0 8px 32px rgba(44,62,45,0.14);
+  --pp-radius: 12px;
+  --pp-red: #C0392B;
+  --pp-amber: #E9A752;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--pp-dark);
+  background: var(--pp-cream);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  line-height: 1.6;
+}
+
+/* HEADER */
+.pp-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.pp-header h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--pp-green);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.pp-header .pp-subtitle {
+  font-family: 'Young Serif', Georgia, serif;
+  font-size: 18px;
+  color: var(--pp-gold);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+.pp-header .pp-desc {
+  font-size: 15px;
+  color: var(--pp-medium);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+.pp-leaf-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0;
+}
+.pp-leaf-divider span {
+  color: var(--pp-sage);
+  font-size: 18px;
+}
+.pp-leaf-divider::before,
+.pp-leaf-divider::after {
+  content: '';
+  height: 1px;
+  width: 60px;
+  background: var(--pp-border);
+}
+
+/* NAVIGATION TABS */
+.pp-nav {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 40px;
+  background: var(--pp-white);
+  border-radius: 50px;
+  padding: 4px;
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: var(--pp-shadow);
+}
+.pp-nav-btn {
+  flex: 1;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 50px;
+  background: transparent;
+  color: var(--pp-medium);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+.pp-nav-btn:hover {
+  color: var(--pp-green);
+}
+.pp-nav-btn.active {
+  background: var(--pp-green);
+  color: var(--pp-white);
+  box-shadow: 0 2px 8px rgba(44,62,45,0.2);
+}
+
+/* PAGE SECTIONS */
+.pp-page { display: none; }
+.pp-page.active { display: block; }
+
+/* LOADING */
+.pp-loading {
+  text-align: center;
+  padding: 80px 20px;
+}
+.pp-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--pp-border);
+  border-top-color: var(--pp-gold);
+  border-radius: 50%;
+  animation: ppSpin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes ppSpin {
+  to { transform: rotate(360deg); }
+}
+.pp-loading-text {
+  font-size: 14px;
+  color: var(--pp-light);
+}
+
+/* CONFIG BANNER */
+.pp-config-banner {
+  background: var(--pp-light-gold);
+  border: 1px solid var(--pp-gold);
+  border-radius: var(--pp-radius);
+  padding: 20px 24px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.pp-config-banner p {
+  font-size: 14px;
+  color: var(--pp-medium);
+  margin-bottom: 4px;
+}
+.pp-config-banner strong {
+  color: var(--pp-green);
+}
+
+/* BADGE LEGEND */
+.pp-badge-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.pp-badge-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--pp-medium);
+}
+
+/* SEARCH */
+.pp-search-wrap {
+  max-width: 520px;
+  margin: 0 auto 32px;
+  position: relative;
+}
+.pp-search-wrap svg {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--pp-sage);
+  pointer-events: none;
+}
+.pp-search {
+  width: 100%;
+  padding: 16px 20px 16px 50px;
+  border: 1.5px solid var(--pp-border);
+  border-radius: 50px;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--pp-white);
+  color: var(--pp-dark);
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.pp-search::placeholder { color: var(--pp-light); }
+.pp-search:focus {
+  border-color: var(--pp-gold);
+  box-shadow: 0 0 0 3px rgba(196,162,101,0.15);
+}
+
+/* CATEGORY FILTERS */
+.pp-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+.pp-filter-btn {
+  padding: 10px 20px;
+  border: 1.5px solid var(--pp-border);
+  border-radius: 50px;
+  background: var(--pp-white);
+  color: var(--pp-medium);
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.pp-filter-btn:hover {
+  border-color: var(--pp-gold);
+  color: var(--pp-green);
+}
+.pp-filter-btn.active {
+  background: var(--pp-green);
+  color: var(--pp-white);
+  border-color: var(--pp-green);
+}
+
+/* SUBCATEGORY FILTERS */
+.pp-subfilters {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease, opacity 0.25s ease;
+  opacity: 0;
+  border-top: 1px solid var(--pp-sage-tint, #D5E4D8);
+  margin-top: -4px;
+  padding: 0;
+}
+.pp-subfilters.visible {
+  max-height: 200px;
+  opacity: 1;
+  padding: 12px 0 8px;
+}
+.pp-subfilters .pp-subfilters-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.pp-sub-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--pp-sage-tint, #D5E4D8);
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pp-medium);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.pp-sub-btn:hover {
+  border-color: var(--pp-gold);
+  color: var(--pp-green);
+}
+.pp-sub-btn.active {
+  background: var(--pp-gold);
+  color: white;
+  border-color: var(--pp-gold);
+}
+
+/* RESULTS COUNT */
+.pp-results-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 0 4px;
+}
+.pp-results-count {
+  font-size: 14px;
+  color: var(--pp-light);
+  font-weight: 400;
+}
+
+/* CARD GRID */
+.pp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+/* BUSINESS CARD */
+.pp-card {
+  background: var(--pp-white);
+  border-radius: var(--pp-radius);
+  padding: 28px;
+  box-shadow: var(--pp-shadow);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid transparent;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.pp-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--pp-shadow-hover);
+  border-color: rgba(196,162,101,0.2);
+}
+.pp-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.pp-card-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--pp-white);
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--pp-green);
+}
+.pp-card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+  background: var(--pp-white);
+  border-radius: 12px;
+}
+.pp-card-info { flex: 1; min-width: 0; }
+.pp-card-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--pp-green);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.pp-card-tagline {
+  font-size: 13px;
+  color: var(--pp-medium);
+  font-style: italic;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* CARD REVIEW SUMMARY */
+.pp-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--pp-medium);
+}
+.pp-card-rating .pp-stars-sm { display: flex; gap: 1px; }
+.pp-card-rating .pp-stars-sm svg { width: 14px; height: 14px; }
+
+/* BADGES */
+.pp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.pp-badge-neighbor {
+  background: var(--pp-light-gold);
+  color: #8B6F2A;
+}
+.pp-badge-verified {
+  background: #E8EFE5;
+  color: var(--pp-sage);
+}
+.pp-badge svg { width: 12px; height: 12px; }
+
+.pp-type-badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 50px;
+  font-weight: 600;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.pp-type-mobile { color: #2563eb; background: rgba(37,99,235,0.1); }
+.pp-type-storefront { color: #059669; background: rgba(5,150,105,0.1); }
+.pp-type-home-based { color: #d97706; background: rgba(217,119,6,0.1); }
+
+.pp-card-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.pp-card-cat {
+  font-size: 11px;
+  color: var(--pp-sage);
+  background: rgba(123,139,111,0.08);
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-weight: 500;
+}
+.pp-card-desc {
+  font-size: 14px;
+  color: var(--pp-medium);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+.pp-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--pp-border);
+}
+.pp-card-link {
+  font-size: 13px;
+  color: var(--pp-gold);
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+.pp-card-link:hover { color: var(--pp-green); }
+.pp-card-website {
+  font-size: 12px;
+  color: var(--pp-light);
+  text-decoration: none;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pp-card-website:hover { color: var(--pp-gold); }
+
+/* MODAL */
+.pp-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(44,62,45,0.5);
+  z-index: 10000;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  overflow-y: auto;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.pp-modal-overlay.active { display: flex; }
+.pp-modal {
+  background: var(--pp-white);
+  border-radius: 16px;
+  max-width: 720px;
+  width: 100%;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(44,62,45,0.2);
+  margin: auto;
+  animation: ppSlideUp 0.3s ease;
+}
+@keyframes ppSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.pp-modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--pp-cream);
+  color: var(--pp-medium);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-size: 18px;
+}
+.pp-modal-close:hover {
+  background: var(--pp-green);
+  color: var(--pp-white);
+}
+.pp-modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.pp-modal-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--pp-white);
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--pp-green);
+}
+.pp-modal-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+  background: var(--pp-white);
+  border-radius: 14px;
+}
+.pp-modal-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--pp-green);
+  margin-bottom: 6px;
+}
+.pp-modal-tagline {
+  font-size: 14px;
+  color: var(--pp-medium);
+  font-style: italic;
+  margin-bottom: 8px;
+}
+.pp-modal-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pp-modal-desc {
+  font-size: 15px;
+  color: var(--pp-medium);
+  line-height: 1.7;
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--pp-border);
+}
+.pp-modal-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+.pp-modal-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.pp-modal-detail-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--pp-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--pp-sage);
+}
+.pp-modal-detail-icon svg { width: 16px; height: 16px; }
+.pp-modal-detail-label {
+  font-size: 11px;
+  color: var(--pp-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.pp-modal-detail-value {
+  font-size: 14px;
+  color: var(--pp-dark);
+}
+.pp-modal-detail-value a {
+  color: var(--pp-green);
+  text-decoration: none;
+}
+.pp-modal-detail-value a:hover { color: var(--pp-gold); }
+.pp-modal-socials {
+  display: flex;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--pp-border);
+}
+.pp-modal-social {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--pp-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pp-sage);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.pp-modal-social:hover {
+  background: var(--pp-green);
+  color: var(--pp-white);
+}
+.pp-modal-social svg { width: 18px; height: 18px; }
+.pp-modal-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 14px 28px;
+  background: var(--pp-green);
+  color: var(--pp-white);
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+.pp-modal-cta:hover {
+  background: var(--pp-gold);
+  transform: translateY(-1px);
+}
+
+/* ===== REVIEWS IN MODAL ===== */
+.pp-reviews-section {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--pp-border);
+}
+.pp-reviews-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.pp-reviews-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--pp-green);
+}
+.pp-reviews-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--pp-medium);
+}
+.pp-stars { display: inline-flex; gap: 2px; }
+.pp-stars svg { width: 16px; height: 16px; }
+.pp-star-filled { color: var(--pp-amber); }
+.pp-star-empty { color: var(--pp-border); }
+
+.pp-review-item {
+  background: var(--pp-cream);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+}
+.pp-review-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.pp-review-item-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--pp-dark);
+}
+.pp-review-item-date {
+  font-size: 12px;
+  color: var(--pp-light);
+}
+.pp-review-item-stars {
+  margin-bottom: 8px;
+}
+.pp-review-item-stars svg { width: 14px; height: 14px; }
+.pp-review-item-text {
+  font-size: 14px;
+  color: var(--pp-medium);
+  line-height: 1.6;
+}
+.pp-no-reviews {
+  text-align: center;
+  padding: 20px;
+  color: var(--pp-light);
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* REVIEW FORM */
+.pp-review-form-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: 1.5px solid var(--pp-green);
+  border-radius: 50px;
+  background: transparent;
+  color: var(--pp-green);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pp-review-form-toggle:hover {
+  background: var(--pp-green);
+  color: var(--pp-white);
+}
+.pp-review-form {
+  background: var(--pp-cream);
+  border-radius: var(--pp-radius);
+  padding: 24px;
+  margin-top: 16px;
+  display: none;
+}
+.pp-review-form.active { display: block; }
+.pp-review-form label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pp-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.pp-review-form input,
+.pp-review-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--pp-border);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--pp-dark);
+  background: var(--pp-white);
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 16px;
+}
+.pp-review-form input:focus,
+.pp-review-form textarea:focus {
+  border-color: var(--pp-gold);
+}
+.pp-review-form textarea { min-height: 100px; resize: vertical; }
+
+/* Star rating input */
+.pp-star-input {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+.pp-star-input svg {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  color: var(--pp-border);
+  transition: color 0.15s, transform 0.15s;
+}
+.pp-star-input svg:hover { transform: scale(1.15); }
+.pp-star-input svg.active { color: var(--pp-amber); }
+
+.pp-review-submit {
+  padding: 12px 28px;
+  background: var(--pp-green);
+  color: var(--pp-white);
+  border: none;
+  border-radius: 50px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pp-review-submit:hover { background: var(--pp-gold); }
+.pp-review-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.pp-review-success {
+  text-align: center;
+  padding: 20px;
+  color: var(--pp-sage);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ===== EVENTS PAGE ===== */
+.pp-events-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.pp-events-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--pp-green);
+  margin-bottom: 8px;
+}
+.pp-events-header p {
+  font-size: 15px;
+  color: var(--pp-medium);
+}
+.pp-events-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.pp-event-card {
+  display: flex;
+  gap: 20px;
+  background: var(--pp-white);
+  border-radius: var(--pp-radius);
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--pp-shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid transparent;
+}
+.pp-event-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pp-shadow-hover);
+  border-color: rgba(196,162,101,0.15);
+}
+.pp-event-date-badge {
+  flex-shrink: 0;
+  width: 68px;
+  text-align: center;
+  background: var(--pp-cream);
+  border-radius: 10px;
+  padding: 12px 8px;
+}
+.pp-event-date-month {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--pp-gold);
+  margin-bottom: 2px;
+}
+.pp-event-date-day {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--pp-green);
+  line-height: 1;
+}
+.pp-event-date-year {
+  font-size: 11px;
+  color: var(--pp-light);
+  margin-top: 2px;
+}
+.pp-event-info { flex: 1; min-width: 0; }
+.pp-event-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--pp-green);
+  margin-bottom: 6px;
+}
+.pp-event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--pp-medium);
+}
+.pp-event-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.pp-event-meta-item svg { width: 14px; height: 14px; color: var(--pp-sage); }
+.pp-event-desc {
+  font-size: 14px;
+  color: var(--pp-medium);
+  line-height: 1.6;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pp-event-desc.pp-expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+.pp-event-read-more {
+  font-size: 13px;
+  color: var(--pp-gold);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin-bottom: 12px;
+  font-family: inherit;
+  font-weight: 500;
+}
+.pp-event-read-more:hover {
+  text-decoration: underline;
+}
+.pp-event-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pp-event-cat {
+  font-size: 11px;
+  color: var(--pp-sage);
+  background: rgba(123,139,111,0.08);
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-weight: 500;
+}
+.pp-event-cost {
+  font-size: 11px;
+  color: var(--pp-forest);
+  background: rgba(44,62,45,0.08);
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-weight: 600;
+}
+.pp-event-cost-paid {
+  color: var(--pp-gold);
+  background: rgba(196,162,101,0.12);
+}
+.pp-event-link {
+  font-size: 13px;
+  color: var(--pp-gold);
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pp-event-link:hover { color: var(--pp-green); }
+
+.pp-events-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: var(--pp-light);
+  margin: 32px 0 16px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pp-events-section-title svg {
+  transition: transform 0.2s;
+  width: 18px;
+  height: 18px;
+}
+.pp-events-section-title.open svg {
+  transform: rotate(90deg);
+}
+
+/* VIEW TOGGLE */
+.pp-view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 28px;
+  background: var(--pp-white);
+  border-radius: 50px;
+  padding: 3px;
+  max-width: 220px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 1px 4px rgba(44,62,45,0.06);
+  border: 1px solid var(--pp-border);
+}
+.pp-view-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 50px;
+  background: transparent;
+  color: var(--pp-light);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  justify-content: center;
+  white-space: nowrap;
+}
+.pp-view-btn:hover { color: var(--pp-green); }
+.pp-view-btn.active {
+  background: var(--pp-green);
+  color: var(--pp-white);
+  box-shadow: 0 1px 4px rgba(44,62,45,0.15);
+}
+.pp-view-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+/* CALENDAR */
+.pp-calendar { max-width: 900px; margin: 0 auto; }
+.pp-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+.pp-cal-month-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--pp-green);
+}
+.pp-cal-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--pp-border);
+  background: var(--pp-white);
+  color: var(--pp-medium);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pp-cal-nav-btn:hover {
+  border-color: var(--pp-gold);
+  color: var(--pp-green);
+  background: var(--pp-cream);
+}
+.pp-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--pp-border);
+  border-radius: var(--pp-radius);
+  overflow: hidden;
+  border: 1px solid var(--pp-border);
+}
+.pp-cal-day-header {
+  background: var(--pp-green);
+  color: var(--pp-white);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 10px 4px;
+}
+.pp-cal-cell {
+  background: var(--pp-white);
+  min-height: 100px;
+  padding: 8px;
+  position: relative;
+  vertical-align: top;
+  min-width: 0;
+  overflow: hidden;
+}
+.pp-cal-cell.outside {
+  background: var(--pp-cream);
+  opacity: 0.5;
+}
+.pp-cal-cell.today {
+  background: rgba(196,162,101,0.08);
+}
+.pp-cal-cell.today .pp-cal-day-num span {
+  background: var(--pp-gold);
+  color: var(--pp-white);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.pp-cal-day-num {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pp-medium);
+  margin-bottom: 4px;
+}
+.pp-cal-event {
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  margin-bottom: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: transform 0.15s, box-shadow 0.15s;
+  font-weight: 500;
+  line-height: 1.3;
+  background: rgba(123,139,111,0.15);
+  color: var(--pp-green);
+}
+.pp-cal-event:hover {
+  transform: scale(1.02);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+.pp-cal-event[data-cat="Community"] { background: rgba(44,62,45,0.12); color: #2C3E2D; }
+.pp-cal-event[data-cat="Market"] { background: rgba(196,162,101,0.2); color: #8B6F2A; }
+.pp-cal-event[data-cat="Fitness"] { background: rgba(123,139,111,0.18); color: #4A6741; }
+.pp-cal-event[data-cat="Social"] { background: rgba(196,162,101,0.15); color: #A07D50; }
+.pp-cal-event[data-cat="Kids"] { background: rgba(123,139,111,0.12); color: #5B7A5E; }
+.pp-cal-more {
+  font-size: 11px;
+  color: var(--pp-gold);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+.pp-cal-more:hover { color: var(--pp-green); }
+.pp-cal-dot-row { display: none; }
+
+/* Calendar Popup */
+.pp-cal-popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(44,62,45,0.4);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.pp-cal-popup-overlay.active { display: flex; }
+.pp-cal-popup {
+  background: var(--pp-white);
+  border-radius: var(--pp-radius);
+  padding: 28px;
+  max-width: 520px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 16px 60px rgba(44,62,45,0.2);
+  position: relative;
+  animation: ppSlideUp 0.25s ease;
+}
+.pp-cal-popup-close {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--pp-cream);
+  color: var(--pp-medium);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.2s;
+  z-index: 1;
+}
+.pp-cal-popup-close:hover {
+  background: var(--pp-green);
+  color: var(--pp-white);
+}
+.pp-cal-popup .pp-event-card {
+  box-shadow: none;
+  border: 1px solid var(--pp-border);
+  margin-bottom: 12px;
+}
+
+.pp-events-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--pp-light);
+  max-width: 800px;
+  margin: 0 auto;
+}
+.pp-events-empty h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--pp-sage);
+  margin-bottom: 8px;
+}
+
+/* NO RESULTS */
+.pp-no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--pp-light);
+}
+.pp-no-results h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--pp-sage);
+  margin-bottom: 8px;
+}
+.pp-no-results p { font-size: 15px; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .pp-directory { padding: 24px 16px 60px; }
+  .pp-header h1 { font-size: 32px; }
+  .pp-grid { grid-template-columns: 1fr; gap: 16px; }
+  .pp-card { padding: 22px; }
+  .pp-modal { padding: 28px 22px; }
+  .pp-modal-details { grid-template-columns: 1fr; }
+  .pp-modal-header { flex-direction: column; align-items: center; text-align: center; }
+  .pp-modal-cats { justify-content: center; }
+  .pp-filters { gap: 6px; }
+  .pp-filter-btn { padding: 8px 14px; font-size: 12px; }
+  .pp-badge-legend { flex-direction: column; align-items: center; gap: 8px; }
+  .pp-event-card { flex-direction: column; align-items: center; text-align: center; }
+  .pp-event-meta { justify-content: center; }
+  .pp-event-footer { justify-content: center; }
+  .pp-events-header h2 { font-size: 26px; }
+  .pp-reviews-header { flex-direction: column; align-items: flex-start; }
+  .pp-cal-cell { min-height: 70px; padding: 4px; }
+  .pp-cal-event { font-size: 10px; padding: 2px 4px; }
+  .pp-cal-day-header { font-size: 10px; padding: 6px 2px; }
+  .pp-cal-month-title { font-size: 18px; }
+  .pp-cal-day-num { font-size: 11px; }
+  .pp-cal-popup { padding: 20px 16px; }
+  .pp-cal-popup .pp-event-card { flex-direction: column; align-items: center; text-align: center; }
+  .pp-cal-popup .pp-event-meta { justify-content: center; }
+  .pp-cal-popup .pp-event-footer { justify-content: center; }
+}
+@media (max-width: 480px) {
+  .pp-cal-cell { min-height: 50px; }
+  .pp-cal-event { display: none; }
+  .pp-cal-more { display: none; }
+  .pp-cal-dot-row { display: flex; gap: 2px; flex-wrap: wrap; }
+  .pp-cal-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--pp-sage);
+  }
+  .pp-cal-cell.has-events { cursor: pointer; }
+}
+@media (max-width: 420px) {
+  .pp-grid { grid-template-columns: 1fr; }
+  .pp-card-top { flex-direction: column; align-items: center; text-align: center; }
+  .pp-card-cats { justify-content: center; }
+}
+</style>
+
+<div class="pp-directory">
+  <!-- HEADER -->
+  <div class="pp-header">
+    <h1 id="ppCommunityTitle">Community Directory</h1>
+    <div class="pp-leaf-divider"><span>&#127807;</span></div>
+    <p class="pp-desc">Your curated guide to trusted local businesses, services, and makers in and around the community.</p>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="pp-nav" id="ppNav">
+    <button class="pp-nav-btn active" data-page="directory">Directory</button>
+    <button class="pp-nav-btn" data-page="events">Events</button>
+  </nav>
+
+  <!-- ===== DIRECTORY PAGE ===== -->
+  <div class="pp-page pp-page-directory active" id="ppPageDirectory">
+
+    <!-- BADGE LEGEND -->
+    <div class="pp-badge-legend">
+      <div class="pp-badge-legend-item">
+        <span class="pp-badge pp-badge-neighbor" style="margin:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Porch Neighbor
+        </span>
+        <span style="font-size:12px;">Business owner lives in the neighborhood</span>
+      </div>
+      <div class="pp-badge-legend-item">
+        <span class="pp-badge pp-badge-verified" style="margin:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Porch Verified
+        </span>
+        <span style="font-size:12px;">Regularly serves the community</span>
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="pp-search-wrap">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="pp-search" id="ppSearch" placeholder="Search businesses, services, or categories..." />
+    </div>
+
+    <!-- CATEGORY FILTERS (dynamically generated) -->
+    <div class="pp-filters" id="ppFilters"></div>
+
+    <!-- SUBCATEGORY FILTERS (dynamically generated) -->
+    <div class="pp-subfilters" id="ppSubFilters">
+      <div class="pp-subfilters-inner" id="ppSubInner"></div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="pp-results-bar">
+      <span class="pp-results-count" id="ppCount"></span>
+    </div>
+
+    <!-- CARD GRID -->
+    <div class="pp-grid" id="ppGrid"></div>
+
+    <!-- LOADING -->
+    <div class="pp-loading" id="ppDirLoading" style="display:none;">
+      <div class="pp-spinner"></div>
+      <div class="pp-loading-text">Loading businesses...</div>
+    </div>
+
+    <!-- NO RESULTS -->
+    <div class="pp-no-results" id="ppNoResults" style="display:none;">
+      <h3>No businesses found</h3>
+      <p>Try adjusting your search or clearing the filter.</p>
+    </div>
+  </div>
+
+  <!-- ===== EVENTS PAGE ===== -->
+  <div class="pp-page pp-page-events" id="ppPageEvents">
+    <div class="pp-events-header">
+      <h2>Community Events</h2>
+      <p>What's happening in and around the neighborhood</p>
+    </div>
+
+    <!-- EVENT FILTERS -->
+    <div class="pp-filters" id="ppEventFilters"></div>
+
+    <!-- VIEW TOGGLE -->
+    <div class="pp-view-toggle" id="ppViewToggle">
+      <button class="pp-view-btn active" data-view="list">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        List
+      </button>
+      <button class="pp-view-btn" data-view="calendar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Calendar
+      </button>
+    </div>
+
+    <!-- EVENTS LIST -->
+    <div id="ppEventsContent"></div>
+
+    <!-- CALENDAR VIEW -->
+    <div id="ppCalendarContent" style="display:none;"></div>
+
+    <!-- LOADING -->
+    <div class="pp-loading" id="ppEvtLoading" style="display:none;">
+      <div class="pp-spinner"></div>
+      <div class="pp-loading-text">Loading events...</div>
+    </div>
+
+    <!-- NO EVENTS -->
+    <div class="pp-events-empty" id="ppNoEvents" style="display:none;">
+      <h3>No events yet</h3>
+      <p>Check back soon for upcoming community events.</p>
+    </div>
+  </div>
+
+  <!-- BUSINESS DETAIL MODAL -->
+  <div class="pp-modal-overlay" id="ppModal">
+    <div class="pp-modal" id="ppModalContent"></div>
+  </div>
+
+  <!-- CALENDAR EVENT POPUP -->
+  <div class="pp-cal-popup-overlay" id="ppCalPopup"></div>
+</div>
+
+<script>
+(function(){
+
+  /* ═══════════════════════════════════════════
+     CONFIGURATION — Edit these values
+     ═══════════════════════════════════════════ */
+  var PP_CONFIG = {
+    SHEET_ID: '171eJCF7VLBDw4olLc5tSnQC3eiOMJ1JyQPm8wDXbsg8',                // Paste your Google Sheet ID here
+    APPS_SCRIPT_URL: '',         // (Optional) Paste your Apps Script web app URL for inline reviews
+    COMMUNITY_NAME: 'Steiner Ranch',
+    TABS: {
+      BUSINESSES: 'Businesses',
+      EVENTS: 'Events',
+      REVIEWS: 'Reviews'
+    }
+  };
+
+  /* FALLBACK DATA — empty since Google Sheet is live */
+  var DEMO_BUSINESSES = [];
+  var DEMO_EVENTS = [];
+  /* ═══════════════════════════════════════════
+     STATE
+     ═══════════════════════════════════════════ */
+  var businesses = [];
+  var events = [];
+  var reviews = [];
+  var currentPage = 'directory';
+  var currentCat = 'all';
+  var currentSubcat = 'all';
+  var catSubMap = {};
+  var currentSearch = '';
+  var currentEvtCat = 'all';
+  var currentEvtView = 'list';
+  var calendarMonth = new Date();
+  var isSheetMode = false;
+
+  /* ═══════════════════════════════════════════
+     UTILITIES
+     ═══════════════════════════════════════════ */
+  var avatarColors = ['#2C3E2D','#C4A265','#7B8B6F','#5B7A5E','#8B6F4E','#4A6741','#B8956A','#6B8F71','#A07D50','#3D5C40'];
+
+  function getAvatarColor(name) {
+    var hash = 0;
+    for (var i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    return avatarColors[Math.abs(hash) % avatarColors.length];
+  }
+
+  function getInitials(name) {
+    var upper = name.split(/[\s&]+/).filter(function(w){ return w.length > 0 && w[0] === w[0].toUpperCase(); }).slice(0,2).map(function(w){ return w[0]; }).join('');
+    if (upper) return upper;
+    var words = name.split(/[\s&:]+/).filter(function(w){ return w.length > 0; });
+    if (words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
+    return name.slice(0,2).toUpperCase();
+  }
+
+  function escHtml(str) {
+    var d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  // CSV Parser — handles quoted fields, newlines in quotes, escaped double-quotes
+  function parseCSV(text) {
+    var rows = [];
+    var row = [];
+    var field = '';
+    var inQuotes = false;
+    var i = 0;
+    while (i < text.length) {
+      var c = text[i];
+      if (inQuotes) {
+        if (c === '"') {
+          if (i + 1 < text.length && text[i + 1] === '"') {
+            field += '"';
+            i += 2;
+          } else {
+            inQuotes = false;
+            i++;
+          }
+        } else {
+          field += c;
+          i++;
+        }
+      } else {
+        if (c === '"') {
+          inQuotes = true;
+          i++;
+        } else if (c === ',') {
+          row.push(field.trim());
+          field = '';
+          i++;
+        } else if (c === '\n' || (c === '\r' && i + 1 < text.length && text[i + 1] === '\n')) {
+          row.push(field.trim());
+          rows.push(row);
+          row = [];
+          field = '';
+          i += (c === '\r') ? 2 : 1;
+        } else if (c === '\r') {
+          row.push(field.trim());
+          rows.push(row);
+          row = [];
+          field = '';
+          i++;
+        } else {
+          field += c;
+          i++;
+        }
+      }
+    }
+    if (field || row.length > 0) {
+      row.push(field.trim());
+      rows.push(row);
+    }
+    return rows;
+  }
+
+  function sheetUrl(tabName) {
+    return 'https://docs.google.com/spreadsheets/d/' + PP_CONFIG.SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(tabName) + '&_=' + Date.now();
+  }
+
+  function fetchSheet(tabName, callback) {
+    var url = sheetUrl(tabName);
+    fetch(url).then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    }).then(function(text) {
+      var rows = parseCSV(text);
+      if (rows.length < 2) { callback([]); return; }
+      var headers = rows[0].map(function(h) { return h.toLowerCase().trim(); });
+      var data = [];
+      for (var i = 1; i < rows.length; i++) {
+        if (rows[i].join('').trim() === '') continue;
+        var obj = {};
+        for (var j = 0; j < headers.length; j++) {
+          obj[headers[j]] = (rows[i][j] || '').trim();
+        }
+        data.push(obj);
+      }
+      callback(data);
+    }).catch(function(err) {
+      console.warn('Failed to fetch ' + tabName + ':', err);
+      callback(null);
+    });
+  }
+
+  function parsePipeSeparated(str) {
+    if (!str) return [];
+    return str.split('|').map(function(s) { return s.trim(); }).filter(Boolean);
+  }
+
+  function mapBusinessRow(row) {
+    return {
+      name: row['name'] || '',
+      tagline: row['tagline'] || '',
+      desc: row['description'] || '',
+      categories: parsePipeSeparated(row['categories']),
+      subcategories: parsePipeSeparated(row['subcategories']),
+      badge: (row['badge'] || 'verified').toLowerCase(),
+      website: row['website'] || '',
+      phone: row['phone'] || '',
+      email: row['email'] || '',
+      address: row['address'] || '',
+      hours: row['hours'] || '',
+      facebook: row['facebook'] || '',
+      instagram: row['instagram'] || '',
+      linkedin: row['linkedin'] || '',
+      other: row['other'] || '',
+      logo: row['logo url'] || row['logo'] || '',
+      type: row['type'] || ''
+    };
+  }
+
+  function mapEventRow(row) {
+    return {
+      name: row['event name'] || '',
+      date: row['date'] || '',
+      time: row['time'] || '',
+      endTime: row['end time'] || '',
+      location: row['location'] || '',
+      desc: row['description'] || '',
+      category: row['category'] || '',
+      link: row['link'] || '',
+      image: row['image url'] || row['image'] || '',
+      cost: row['cost'] || ''
+    };
+  }
+
+  function mapReviewRow(row) {
+    return {
+      timestamp: row['timestamp'] || '',
+      business: row['business name'] || '',
+      reviewer: row['reviewer name'] || '',
+      rating: parseInt(row['rating']) || 0,
+      text: row['review text'] || '',
+      approved: (row['approved'] || '').toUpperCase() === 'TRUE'
+    };
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    var d = new Date(dateStr + 'T12:00:00');
+    if (isNaN(d)) return dateStr;
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+  }
+
+  function getDateParts(dateStr) {
+    var d = new Date(dateStr + 'T12:00:00');
+    if (isNaN(d)) return { month: '???', day: '?', year: '' };
+    var months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    return { month: months[d.getMonth()], day: d.getDate(), year: d.getFullYear() };
+  }
+
+  function isUpcoming(dateStr) {
+    if (!dateStr) return true;
+    var d = new Date(dateStr + 'T23:59:59');
+    return d >= new Date();
+  }
+
+  /* ═══════════════════════════════════════════
+     RENDERING HELPERS
+     ═══════════════════════════════════════════ */
+  function makeAvatar(biz, size) {
+    var cls = size === 'lg' ? 'pp-modal-avatar' : 'pp-card-avatar';
+    if (biz.logo) {
+      return '<div class="'+cls+'" style="background:var(--pp-white);"><img src="'+escHtml(biz.logo)+'" alt="'+escHtml(biz.name)+' logo" /></div>';
+    }
+    return '<div class="'+cls+'" style="background:'+getAvatarColor(biz.name)+';">'+escHtml(getInitials(biz.name))+'</div>';
+  }
+
+  function makeBadge(type) {
+    if (type === 'neighbor') {
+      return '<span class="pp-badge pp-badge-neighbor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Porch Neighbor</span>';
+    }
+    return '<span class="pp-badge pp-badge-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Porch Verified</span>';
+  }
+
+  var starSvgFilled = '<svg viewBox="0 0 24 24" fill="currentColor" class="pp-star-filled"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+  var starSvgEmpty = '<svg viewBox="0 0 24 24" fill="currentColor" class="pp-star-empty"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+
+  function makeStars(rating, size) {
+    var html = '<span class="pp-stars' + (size === 'sm' ? ' pp-stars-sm' : '') + '">';
+    for (var i = 1; i <= 5; i++) {
+      html += i <= rating ? starSvgFilled : starSvgEmpty;
+    }
+    return html + '</span>';
+  }
+
+  function getBusinessReviews(bizName) {
+    return reviews.filter(function(r) {
+      return r.approved && r.business.toLowerCase() === bizName.toLowerCase();
+    });
+  }
+
+  function getAvgRating(bizReviews) {
+    if (!bizReviews.length) return 0;
+    var sum = 0;
+    bizReviews.forEach(function(r) { sum += r.rating; });
+    return Math.round(sum / bizReviews.length * 10) / 10;
+  }
+
+  /* ═══════════════════════════════════════════
+     DIRECTORY RENDERING
+     ═══════════════════════════════════════════ */
+  function makeCard(biz, idx) {
+    var websiteEl = '';
+    if (biz.website) {
+      var display = biz.website.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'');
+      websiteEl = '<a href="'+escHtml(biz.website)+'" target="_blank" rel="noopener" class="pp-card-website" onclick="event.stopPropagation();">'+escHtml(display)+'</a>';
+    }
+    var bizReviews = getBusinessReviews(biz.name);
+    var ratingHtml = '';
+    if (bizReviews.length > 0) {
+      var avg = getAvgRating(bizReviews);
+      ratingHtml = '<div class="pp-card-rating">' + makeStars(Math.round(avg), 'sm') + ' <span>' + avg + ' (' + bizReviews.length + ')</span></div>';
+    }
+    return '<div class="pp-card" data-idx="'+idx+'" onclick="ppOpenModal('+idx+')">'+
+      '<div class="pp-card-top">'+makeAvatar(biz,'sm')+
+        '<div class="pp-card-info">'+
+          '<div class="pp-card-name">'+escHtml(biz.name)+'</div>'+
+          (biz.tagline ? '<div class="pp-card-tagline">'+escHtml(biz.tagline)+'</div>' : '')+
+        '</div>'+
+      '</div>'+
+      makeBadge(biz.badge)+
+      (biz.type ? '<span class="pp-type-badge pp-type-'+biz.type.toLowerCase().replace(/[\s]+/g,'-')+'">'+escHtml(biz.type)+'</span>' : '')+
+      ratingHtml+
+      '<div class="pp-card-desc">'+escHtml(biz.desc)+'</div>'+
+      '<div class="pp-card-footer">'+
+        '<span class="pp-card-link">View Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>'+
+        websiteEl+
+      '</div>'+
+    '</div>';
+  }
+
+  function buildFilters() {
+    var cats = {};
+    catSubMap = {};
+    businesses.forEach(function(b) {
+      b.categories.forEach(function(c) {
+        cats[c] = (cats[c] || 0) + 1;
+        if (!catSubMap[c]) catSubMap[c] = {};
+        b.subcategories.forEach(function(s) {
+          catSubMap[c][s] = (catSubMap[c][s] || 0) + 1;
+        });
+      });
+    });
+    var sorted = Object.keys(cats).sort();
+    var html = '<button class="pp-filter-btn active" data-cat="all">All</button>';
+    sorted.forEach(function(c) {
+      html += '<button class="pp-filter-btn" data-cat="'+escHtml(c)+'">'+escHtml(c)+'</button>';
+    });
+    document.getElementById('ppFilters').innerHTML = html;
+  }
+
+  function buildSubFilters() {
+    var subEl = document.getElementById('ppSubFilters');
+    var innerEl = document.getElementById('ppSubInner');
+
+    if (currentCat === 'all' || !catSubMap[currentCat] || Object.keys(catSubMap[currentCat]).length === 0) {
+      subEl.classList.remove('visible');
+      return;
+    }
+
+    var subs = Object.keys(catSubMap[currentCat]).sort();
+    var html = '<button class="pp-sub-btn active" data-sub="all">All ' + escHtml(currentCat) + '</button>';
+    subs.forEach(function(s) {
+      html += '<button class="pp-sub-btn" data-sub="'+escHtml(s)+'">'+escHtml(s)+'</button>';
+    });
+    innerEl.innerHTML = html;
+    subEl.classList.add('visible');
+  }
+
+  function renderDirectory() {
+    var grid = document.getElementById('ppGrid');
+    var noResults = document.getElementById('ppNoResults');
+    var countEl = document.getElementById('ppCount');
+    var searchLower = currentSearch.toLowerCase();
+
+    var filtered = businesses.filter(function(biz) {
+      var catMatch = currentCat === 'all' || biz.categories.indexOf(currentCat) > -1;
+      if (!catMatch) return false;
+      var subMatch = currentSubcat === 'all' || biz.subcategories.indexOf(currentSubcat) > -1;
+      if (!subMatch) return false;
+      if (!searchLower) return true;
+      var searchable = (biz.name + ' ' + biz.tagline + ' ' + biz.desc + ' ' + biz.categories.join(' ') + ' ' + biz.subcategories.join(' ')).toLowerCase();
+      return searchable.indexOf(searchLower) > -1;
+    });
+
+    filtered.sort(function(a, b) {
+      if (a.badge === 'neighbor' && b.badge !== 'neighbor') return -1;
+      if (a.badge !== 'neighbor' && b.badge === 'neighbor') return 1;
+      return a.name.localeCompare(b.name);
+    });
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '';
+      noResults.style.display = 'block';
+      countEl.textContent = 'No results';
+    } else {
+      noResults.style.display = 'none';
+      var html = '';
+      filtered.forEach(function(biz) {
+        var origIdx = businesses.indexOf(biz);
+        html += makeCard(biz, origIdx);
+      });
+      grid.innerHTML = html;
+      countEl.textContent = filtered.length + ' business' + (filtered.length !== 1 ? 'es' : '');
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     EVENTS RENDERING
+     ═══════════════════════════════════════════ */
+  function makeEventCard(evt) {
+    var dp = getDateParts(evt.date);
+    var timeStr = evt.time || '';
+    if (evt.endTime) timeStr += ' \u2013 ' + evt.endTime;
+    var linkHtml = '';
+    if (evt.link) {
+      linkHtml = '<a href="'+escHtml(evt.link)+'" target="_blank" rel="noopener" class="pp-event-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>';
+    }
+    return '<div class="pp-event-card">'+
+      '<div class="pp-event-date-badge">'+
+        '<div class="pp-event-date-month">'+dp.month+'</div>'+
+        '<div class="pp-event-date-day">'+dp.day+'</div>'+
+        '<div class="pp-event-date-year">'+dp.year+'</div>'+
+      '</div>'+
+      '<div class="pp-event-info">'+
+        '<div class="pp-event-name">'+escHtml(evt.name)+'</div>'+
+        '<div class="pp-event-meta">'+
+          (timeStr ? '<span class="pp-event-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'+escHtml(timeStr)+'</span>' : '')+
+          (evt.location ? '<span class="pp-event-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+escHtml(evt.location)+'</span>' : '')+
+        '</div>'+
+        (evt.desc ? '<div class="pp-event-desc">'+escHtml(evt.desc)+'</div><button class="pp-event-read-more" onclick="var d=this.previousElementSibling;if(d.classList.contains(\'pp-expanded\')){d.classList.remove(\'pp-expanded\');this.textContent=\'Read more\';}else{d.classList.add(\'pp-expanded\');this.textContent=\'Show less\';}">Read more</button>' : '')+
+        '<div class="pp-event-footer">'+
+          (evt.category ? '<span class="pp-event-cat">'+escHtml(evt.category)+'</span>' : '')+
+          (evt.cost && evt.cost.toLowerCase() !== 'free' ? '<span class="pp-event-cost pp-event-cost-paid">'+escHtml(/^\d/.test(evt.cost) ? '$'+evt.cost : evt.cost)+'</span>' : '')+
+          linkHtml+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }
+
+  function buildEventFilters() {
+    var cats = {};
+    events.forEach(function(e) {
+      if (e.category) cats[e.category] = (cats[e.category] || 0) + 1;
+    });
+    var sorted = Object.keys(cats).sort();
+    if (sorted.length <= 1) { document.getElementById('ppEventFilters').innerHTML = ''; return; }
+    var html = '<button class="pp-filter-btn active" data-evtcat="all">All</button>';
+    sorted.forEach(function(c) {
+      html += '<button class="pp-filter-btn" data-evtcat="'+escHtml(c)+'">'+escHtml(c)+'</button>';
+    });
+    document.getElementById('ppEventFilters').innerHTML = html;
+  }
+
+  function renderEvents() {
+    var container = document.getElementById('ppEventsContent');
+    var noEvt = document.getElementById('ppNoEvents');
+
+    var filtered = events.filter(function(e) {
+      return currentEvtCat === 'all' || e.category === currentEvtCat;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = '';
+      noEvt.style.display = 'block';
+      return;
+    }
+    noEvt.style.display = 'none';
+
+    // Sort by date
+    filtered.sort(function(a, b) {
+      return (a.date || '').localeCompare(b.date || '');
+    });
+
+    var upcoming = filtered.filter(function(e) { return isUpcoming(e.date); });
+    var past = filtered.filter(function(e) { return !isUpcoming(e.date); });
+
+    var html = '<div class="pp-events-list">';
+
+    if (upcoming.length > 0) {
+      upcoming.forEach(function(e) { html += makeEventCard(e); });
+    } else if (past.length > 0) {
+      html += '<div class="pp-events-empty" style="padding:30px;"><p>No upcoming events right now. Check out past events below.</p></div>';
+    }
+
+    if (past.length > 0) {
+      html += '<div class="pp-events-section-title" id="ppPastToggle" onclick="ppTogglePast()">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>' +
+        'Past Events (' + past.length + ')</div>';
+      html += '<div id="ppPastEvents" style="display:none;">';
+      past.reverse().forEach(function(e) { html += makeEventCard(e); });
+      html += '</div>';
+    }
+
+    html += '</div>';
+    container.innerHTML = html;
+  }
+
+  window.ppTogglePast = function() {
+    var el = document.getElementById('ppPastEvents');
+    var toggle = document.getElementById('ppPastToggle');
+    if (el.style.display === 'none') {
+      el.style.display = 'block';
+      toggle.classList.add('open');
+    } else {
+      el.style.display = 'none';
+      toggle.classList.remove('open');
+    }
+  };
+
+  /* ═══════════════════════════════════════════
+     CALENDAR VIEW
+     ═══════════════════════════════════════════ */
+  function padTwo(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function renderCalendar() {
+    var container = document.getElementById('ppCalendarContent');
+    var noEvt = document.getElementById('ppNoEvents');
+
+    var filtered = events.filter(function(e) {
+      return currentEvtCat === 'all' || e.category === currentEvtCat;
+    });
+
+    // Build lookup: dateStr -> [events]
+    var eventsByDate = {};
+    filtered.forEach(function(e) {
+      if (!e.date) return;
+      if (!eventsByDate[e.date]) eventsByDate[e.date] = [];
+      eventsByDate[e.date].push(e);
+    });
+
+    var year = calendarMonth.getFullYear();
+    var month = calendarMonth.getMonth();
+    var firstDay = new Date(year, month, 1);
+    var lastDay = new Date(year, month + 1, 0);
+    var startDow = firstDay.getDay();
+    var daysInMonth = lastDay.getDate();
+
+    var today = new Date();
+    var todayStr = today.getFullYear() + '-' + padTwo(today.getMonth()+1) + '-' + padTwo(today.getDate());
+
+    var monthNames = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+    var dayHeaders = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    var html = '<div class="pp-calendar">';
+
+    // Header with month navigation
+    html += '<div class="pp-cal-header">';
+    html += '<button class="pp-cal-nav-btn" onclick="ppCalNav(-1)">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>';
+    html += '<span class="pp-cal-month-title">' + monthNames[month] + ' ' + year + '</span>';
+    html += '<button class="pp-cal-nav-btn" onclick="ppCalNav(1)">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>';
+    html += '</div>';
+
+    // Grid
+    html += '<div class="pp-cal-grid">';
+
+    // Day-of-week headers
+    dayHeaders.forEach(function(d) {
+      html += '<div class="pp-cal-day-header">' + d + '</div>';
+    });
+
+    // Leading empty cells (previous month)
+    var prevMonth = new Date(year, month, 0);
+    var prevDays = prevMonth.getDate();
+    for (var i = startDow - 1; i >= 0; i--) {
+      html += '<div class="pp-cal-cell outside"><div class="pp-cal-day-num">' + (prevDays - i) + '</div></div>';
+    }
+
+    // Current month cells
+    for (var d = 1; d <= daysInMonth; d++) {
+      var dateStr = year + '-' + padTwo(month+1) + '-' + padTwo(d);
+      var isToday = dateStr === todayStr;
+      var dayEvents = eventsByDate[dateStr] || [];
+      var cellClass = 'pp-cal-cell';
+      if (isToday) cellClass += ' today';
+      if (dayEvents.length > 0) cellClass += ' has-events';
+
+      html += '<div class="' + cellClass + '"' +
+        (dayEvents.length > 0 ? ' onclick="ppCalDayClick(\'' + dateStr + '\')"' : '') + '>';
+      html += '<div class="pp-cal-day-num"><span>' + d + '</span></div>';
+
+      // Show up to 2 events, then "+N more"
+      var maxShow = 2;
+      for (var j = 0; j < Math.min(dayEvents.length, maxShow); j++) {
+        var evt = dayEvents[j];
+        html += '<div class="pp-cal-event" data-cat="' + escHtml(evt.category) + '" ' +
+          'onclick="event.stopPropagation(); ppCalDayClick(\'' + dateStr + '\')" ' +
+          'title="' + escHtml(evt.name) + '">' + escHtml(evt.name) + '</div>';
+      }
+      if (dayEvents.length > maxShow) {
+        html += '<div class="pp-cal-more" onclick="event.stopPropagation(); ppCalDayClick(\'' + dateStr + '\')">+' +
+          (dayEvents.length - maxShow) + ' more</div>';
+      }
+
+      // Dot row for mobile
+      if (dayEvents.length > 0) {
+        html += '<div class="pp-cal-dot-row">';
+        for (var k = 0; k < dayEvents.length; k++) { html += '<span class="pp-cal-dot"></span>'; }
+        html += '</div>';
+      }
+
+      html += '</div>';
+    }
+
+    // Trailing empty cells
+    var totalCells = startDow + daysInMonth;
+    var remaining = (7 - (totalCells % 7)) % 7;
+    for (var t = 1; t <= remaining; t++) {
+      html += '<div class="pp-cal-cell outside"><div class="pp-cal-day-num">' + t + '</div></div>';
+    }
+
+    html += '</div>'; // grid
+    html += '</div>'; // calendar
+    container.innerHTML = html;
+    noEvt.style.display = 'none';
+  }
+
+  // Calendar navigation
+  window.ppCalNav = function(dir) {
+    calendarMonth.setMonth(calendarMonth.getMonth() + dir);
+    renderCalendar();
+  };
+
+  // Click a day cell
+  window.ppCalDayClick = function(dateStr) {
+    var filtered = events.filter(function(e) {
+      return e.date === dateStr && (currentEvtCat === 'all' || e.category === currentEvtCat);
+    });
+    if (filtered.length === 0) return;
+    ppShowCalPopup(dateStr, filtered);
+  };
+
+  // Show calendar popup
+  function ppShowCalPopup(dateStr, evtList) {
+    var dp = getDateParts(dateStr);
+    var formatted = dp.month.charAt(0) + dp.month.slice(1).toLowerCase() + ' ' + dp.day + ', ' + dp.year;
+
+    var html = '<div class="pp-cal-popup">';
+    html += '<button class="pp-cal-popup-close" onclick="ppCloseCalPopup()">&times;</button>';
+    html += '<div style="font-family:\'Playfair Display\',serif;font-size:20px;font-weight:600;color:var(--pp-green);margin-bottom:16px;padding-right:30px;">' +
+      escHtml(formatted) + '</div>';
+
+    evtList.forEach(function(evt) { html += makeEventCard(evt); });
+    html += '</div>';
+
+    var overlay = document.getElementById('ppCalPopup');
+    overlay.innerHTML = html;
+    overlay.classList.add('active');
+  }
+
+  // Close calendar popup
+  window.ppCloseCalPopup = function() {
+    document.getElementById('ppCalPopup').classList.remove('active');
+  };
+
+  // View toggle
+  function setEvtView(view) {
+    currentEvtView = view;
+    var listEl = document.getElementById('ppEventsContent');
+    var calEl = document.getElementById('ppCalendarContent');
+    document.querySelectorAll('.pp-view-btn').forEach(function(b) { b.classList.remove('active'); });
+    var activeBtn = document.querySelector('.pp-view-btn[data-view="' + view + '"]');
+    if (activeBtn) activeBtn.classList.add('active');
+
+    if (view === 'calendar') {
+      listEl.style.display = 'none';
+      calEl.style.display = 'block';
+      renderCalendar();
+    } else {
+      listEl.style.display = 'block';
+      calEl.style.display = 'none';
+      renderEvents();
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     MODAL + REVIEWS
+     ═══════════════════════════════════════════ */
+  function makeSocialIcon(type) {
+    if (type === 'facebook') return '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>';
+    if (type === 'instagram') return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>';
+    if (type === 'linkedin') return '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>';
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
+  }
+
+  function makeDetail(icon, label, value) {
+    if (!value) return '';
+    return '<div class="pp-modal-detail">'+
+      '<div class="pp-modal-detail-icon">'+icon+'</div>'+
+      '<div><div class="pp-modal-detail-label">'+label+'</div><div class="pp-modal-detail-value">'+value+'</div></div>'+
+    '</div>';
+  }
+
+  function makeReviewSection(bizName) {
+    var bizReviews = getBusinessReviews(bizName);
+    var html = '<div class="pp-reviews-section">';
+    html += '<div class="pp-reviews-header">';
+    html += '<div class="pp-reviews-title">Reviews</div>';
+    if (bizReviews.length > 0) {
+      var avg = getAvgRating(bizReviews);
+      html += '<div class="pp-reviews-summary">' + makeStars(Math.round(avg)) + ' <strong>' + avg + '</strong> (' + bizReviews.length + ' review' + (bizReviews.length !== 1 ? 's' : '') + ')</div>';
+    }
+    html += '</div>';
+
+    if (bizReviews.length > 0) {
+      bizReviews.sort(function(a,b) { return (b.timestamp || '').localeCompare(a.timestamp || ''); });
+      bizReviews.forEach(function(r) {
+        var dateStr = '';
+        if (r.timestamp) {
+          var d = new Date(r.timestamp);
+          if (!isNaN(d)) dateStr = formatDate(d.toISOString().split('T')[0]);
+        }
+        html += '<div class="pp-review-item">';
+        html += '<div class="pp-review-item-header"><span class="pp-review-item-name">'+escHtml(r.reviewer || 'Anonymous')+'</span><span class="pp-review-item-date">'+escHtml(dateStr)+'</span></div>';
+        html += '<div class="pp-review-item-stars">'+makeStars(r.rating, 'sm')+'</div>';
+        html += '<div class="pp-review-item-text">'+escHtml(r.text)+'</div>';
+        html += '</div>';
+      });
+    } else {
+      html += '<div class="pp-no-reviews">No reviews yet. Be the first!</div>';
+    }
+
+    // Review form toggle
+    html += '<button class="pp-review-form-toggle" onclick="ppToggleReviewForm()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Write a Review</button>';
+
+    // Review form
+    html += '<div class="pp-review-form" id="ppReviewForm">';
+    html += '<div id="ppReviewFormContent">';
+    html += '<label>Your Rating</label>';
+    html += '<div class="pp-star-input" id="ppStarInput">';
+    for (var i = 1; i <= 5; i++) {
+      html += '<svg data-val="'+i+'" viewBox="0 0 24 24" fill="currentColor" onclick="ppSetRating('+i+')" onmouseenter="ppHoverRating('+i+')" onmouseleave="ppHoverRating(0)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+    }
+    html += '</div>';
+    html += '<label>Your Name</label>';
+    html += '<input type="text" id="ppReviewName" placeholder="Your name" />';
+    html += '<label>Your Review</label>';
+    html += '<textarea id="ppReviewText" placeholder="Share your experience..."></textarea>';
+    html += '<button class="pp-review-submit" onclick="ppSubmitReview(\''+escHtml(bizName).replace(/'/g,"\\'")+'\')">Submit Review</button>';
+    html += '</div>';
+    html += '<div class="pp-review-success" id="ppReviewSuccess" style="display:none;">Thank you for your review! It will appear after approval.</div>';
+    html += '</div>';
+
+    html += '</div>';
+    return html;
+  }
+
+  var currentRating = 0;
+
+  window.ppToggleReviewForm = function() {
+    var form = document.getElementById('ppReviewForm');
+    form.classList.toggle('active');
+    currentRating = 0;
+  };
+
+  window.ppSetRating = function(val) {
+    currentRating = val;
+    var stars = document.querySelectorAll('#ppStarInput svg');
+    stars.forEach(function(s) {
+      var v = parseInt(s.getAttribute('data-val'));
+      s.classList.toggle('active', v <= val);
+    });
+  };
+
+  window.ppHoverRating = function(val) {
+    var stars = document.querySelectorAll('#ppStarInput svg');
+    if (val === 0) {
+      stars.forEach(function(s) {
+        var v = parseInt(s.getAttribute('data-val'));
+        s.classList.toggle('active', v <= currentRating);
+      });
+    } else {
+      stars.forEach(function(s) {
+        var v = parseInt(s.getAttribute('data-val'));
+        s.classList.toggle('active', v <= val);
+      });
+    }
+  };
+
+  window.ppSubmitReview = function(bizName) {
+    var name = document.getElementById('ppReviewName').value.trim();
+    var text = document.getElementById('ppReviewText').value.trim();
+    if (!currentRating || !name || !text) {
+      alert('Please fill in all fields and select a rating.');
+      return;
+    }
+
+    var data = {
+      business: bizName,
+      name: name,
+      rating: currentRating,
+      review: text
+    };
+
+    if (PP_CONFIG.APPS_SCRIPT_URL) {
+      fetch(PP_CONFIG.APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(data)
+      }).catch(function() {});
+    }
+
+    // Show success regardless (optimistic)
+    document.getElementById('ppReviewFormContent').style.display = 'none';
+    document.getElementById('ppReviewSuccess').style.display = 'block';
+    currentRating = 0;
+  };
+
+  window.ppOpenModal = function(idx) {
+    var biz = businesses[idx];
+    var cats = biz.subcategories.map(function(c){ return '<span class="pp-card-cat">'+escHtml(c)+'</span>'; }).join('');
+    var socials = '';
+    if (biz.facebook) socials += '<a href="'+escHtml(biz.facebook)+'" target="_blank" rel="noopener" class="pp-modal-social" title="Facebook">'+makeSocialIcon('facebook')+'</a>';
+    if (biz.instagram) socials += '<a href="'+escHtml(biz.instagram)+'" target="_blank" rel="noopener" class="pp-modal-social" title="Instagram">'+makeSocialIcon('instagram')+'</a>';
+    if (biz.linkedin) socials += '<a href="'+escHtml(biz.linkedin)+'" target="_blank" rel="noopener" class="pp-modal-social" title="LinkedIn">'+makeSocialIcon('linkedin')+'</a>';
+    if (biz.other && (biz.other.indexOf('http') === 0 || biz.other.toLowerCase().indexOf('tiktok') > -1)) {
+      var otherUrl = biz.other.indexOf('http') === 0 ? biz.other : 'https://' + biz.other;
+      socials += '<a href="'+escHtml(otherUrl)+'" target="_blank" rel="noopener" class="pp-modal-social" title="More">'+makeSocialIcon('other')+'</a>';
+    }
+
+    var phoneIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
+    var emailIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>';
+    var locIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+    var clockIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+
+    var phoneVal = biz.phone ? '<a href="tel:'+biz.phone.replace(/[^\d+]/g,'')+'">'+escHtml(biz.phone)+'</a>' : '';
+    var emailVal = biz.email ? '<a href="mailto:'+escHtml(biz.email)+'">'+escHtml(biz.email)+'</a>' : '';
+
+    var details = '';
+    details += makeDetail(phoneIcon, 'Phone', phoneVal);
+    details += makeDetail(emailIcon, 'Email', emailVal);
+    details += makeDetail(locIcon, 'Location', escHtml(biz.address));
+    details += makeDetail(clockIcon, 'Hours', escHtml(biz.hours));
+
+    var ctaBtn = '';
+    if (biz.website) {
+      ctaBtn = '<a href="'+escHtml(biz.website)+'" target="_blank" rel="noopener" class="pp-modal-cta">Visit Website <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>';
+    } else if (biz.phone) {
+      ctaBtn = '<a href="tel:'+biz.phone.replace(/[^\d+]/g,'')+'" class="pp-modal-cta">Call Now <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/></svg></a>';
+    }
+
+    var html = '<button class="pp-modal-close" onclick="ppCloseModal()">&times;</button>'+
+      '<div class="pp-modal-header">'+makeAvatar(biz,'lg')+
+        '<div>'+
+          '<div class="pp-modal-title">'+escHtml(biz.name)+'</div>'+
+          (biz.tagline ? '<div class="pp-modal-tagline">'+escHtml(biz.tagline)+'</div>' : '')+
+          makeBadge(biz.badge)+
+          (biz.type ? '<span class="pp-type-badge pp-type-'+biz.type.toLowerCase().replace(/[\s]+/g,'-')+'">'+escHtml(biz.type)+'</span>' : '')+
+          '<div class="pp-modal-cats">'+cats+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="pp-modal-desc">'+escHtml(biz.desc)+'</div>'+
+      (details ? '<div class="pp-modal-details">'+details+'</div>' : '')+
+      (socials ? '<div class="pp-modal-socials">'+socials+'</div>' : '')+
+      ctaBtn+
+      makeReviewSection(biz.name);
+
+    document.getElementById('ppModalContent').innerHTML = html;
+    document.getElementById('ppModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.ppCloseModal = function() {
+    document.getElementById('ppModal').classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  document.getElementById('ppModal').addEventListener('click', function(e) {
+    if (e.target === this) ppCloseModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { ppCloseModal(); ppCloseCalPopup(); }
+  });
+
+  /* ═══════════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════════ */
+  function showPage(page) {
+    currentPage = page;
+    document.querySelectorAll('.pp-page').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.pp-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.getElementById(page === 'events' ? 'ppPageEvents' : 'ppPageDirectory').classList.add('active');
+    var btn = document.querySelector('.pp-nav-btn[data-page="'+page+'"]');
+    if (btn) btn.classList.add('active');
+  }
+
+  document.getElementById('ppNav').addEventListener('click', function(e) {
+    var btn = e.target.closest('.pp-nav-btn');
+    if (!btn) return;
+    showPage(btn.getAttribute('data-page'));
+  });
+
+  /* ═══════════════════════════════════════════
+     EVENT LISTENERS
+     ═══════════════════════════════════════════ */
+  // Directory search
+  document.getElementById('ppSearch').addEventListener('input', function() {
+    currentSearch = this.value.trim();
+    renderDirectory();
+  });
+
+  // Directory filters
+  document.getElementById('ppFilters').addEventListener('click', function(e) {
+    var btn = e.target.closest('.pp-filter-btn');
+    if (!btn || !btn.hasAttribute('data-cat')) return;
+    this.querySelectorAll('.pp-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentCat = btn.getAttribute('data-cat');
+    currentSubcat = 'all';
+    buildSubFilters();
+    renderDirectory();
+  });
+
+  // Subcategory filters
+  document.getElementById('ppSubFilters').addEventListener('click', function(e) {
+    var btn = e.target.closest('.pp-sub-btn');
+    if (!btn || !btn.hasAttribute('data-sub')) return;
+    this.querySelectorAll('.pp-sub-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentSubcat = btn.getAttribute('data-sub');
+    renderDirectory();
+  });
+
+  // Event filters
+  document.getElementById('ppEventFilters').addEventListener('click', function(e) {
+    var btn = e.target.closest('.pp-filter-btn');
+    if (!btn || !btn.hasAttribute('data-evtcat')) return;
+    this.querySelectorAll('.pp-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentEvtCat = btn.getAttribute('data-evtcat');
+    if (currentEvtView === 'calendar') {
+      renderCalendar();
+    } else {
+      renderEvents();
+    }
+  });
+
+  // View toggle listener
+  document.getElementById('ppViewToggle').addEventListener('click', function(e) {
+    var btn = e.target.closest('.pp-view-btn');
+    if (!btn) return;
+    setEvtView(btn.getAttribute('data-view'));
+  });
+
+  // Calendar popup: close on click outside
+  document.getElementById('ppCalPopup').addEventListener('click', function(e) {
+    if (e.target === this) ppCloseCalPopup();
+  });
+
+  /* ═══════════════════════════════════════════
+     INITIALIZATION
+     ═══════════════════════════════════════════ */
+  function init() {
+    // Set community name
+    var nameEl = document.getElementById('ppCommunityName') || document.getElementById('ppCommunityTitle');
+    if (nameEl) nameEl.textContent = PP_CONFIG.COMMUNITY_NAME;
+
+    if (!PP_CONFIG.SHEET_ID) {
+      // Use demo data
+      businesses = DEMO_BUSINESSES;
+      events = DEMO_EVENTS;
+      reviews = [];
+      isSheetMode = false;
+      buildFilters();
+      renderDirectory();
+      buildEventFilters();
+      renderEvents();
+      return;
+    }
+
+    isSheetMode = true;
+
+    // Show loading
+    document.getElementById('ppDirLoading').style.display = 'block';
+    document.getElementById('ppEvtLoading').style.display = 'block';
+    document.getElementById('ppGrid').style.display = 'none';
+
+    var loaded = { biz: false, evt: false, rev: false };
+
+    function checkReady() {
+      if (!loaded.biz || !loaded.evt || !loaded.rev) return;
+      // Hide loading, show content
+      document.getElementById('ppDirLoading').style.display = 'none';
+      document.getElementById('ppEvtLoading').style.display = 'none';
+      document.getElementById('ppGrid').style.display = '';
+      buildFilters();
+      renderDirectory();
+      buildEventFilters();
+      renderEvents();
+    }
+
+    // Fetch businesses
+    fetchSheet(PP_CONFIG.TABS.BUSINESSES, function(data) {
+      if (data) {
+        businesses = data.map(mapBusinessRow).filter(function(b) { return b.name; });
+      } else {
+        businesses = DEMO_BUSINESSES;
+      }
+      loaded.biz = true;
+      checkReady();
+    });
+
+    // Fetch events
+    fetchSheet(PP_CONFIG.TABS.EVENTS, function(data) {
+      if (data) {
+        events = data.map(mapEventRow).filter(function(e) { return e.name; });
+      } else {
+        events = DEMO_EVENTS;
+      }
+      loaded.evt = true;
+      checkReady();
+    });
+
+    // Fetch reviews
+    fetchSheet(PP_CONFIG.TABS.REVIEWS, function(data) {
+      if (data) {
+        reviews = data.map(mapReviewRow).filter(function(r) { return r.approved && r.business && r.rating; });
+      } else {
+        reviews = [];
+      }
+      loaded.rev = true;
+      checkReady();
+    });
+  }
+
+  init();
+
+})();
+</script>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer-brand">The Porch Project</div>
+  <div class="site-footer-tagline">Steiner Ranch, Austin TX</div>
+  <div class="site-footer-divider"></div>
+  <div class="site-footer-links">
+    <a href="index.html">Home</a>
+    <a href="directory.html">Directory</a>
+    <a href="camp-planner.html">Camp Planner</a>
+  </div>
+  <p>&copy; 2026 The Porch Project. All rights reserved.</p>
+</footer>
+
+<script>
+// Handle hash-based navigation to events tab
+if (window.location.hash === '#events') {
+  setTimeout(function() {
+    var evtBtn = document.querySelector('.pp-nav-btn[data-page="events"]');
+    if (evtBtn) evtBtn.click();
+  }, 500);
+}
+</script>
+
+</body>
+</html>

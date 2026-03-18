@@ -1,0 +1,198 @@
+/* ============================================
+   THE PORCH PROJECT — Shared Styles
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Young+Serif&family=Playfair+Display:wght@400;700&display=swap');
+
+/* ── Design Tokens ── */
+:root {
+  --pp-green: #2C3E2D;
+  --pp-gold: #D44D20;
+  --pp-sage: #ACCAB2;
+  --pp-cream: #FAF5EF;
+  --pp-light-gold: #F0C4B3;
+  --pp-honey: #E9A752;
+  --pp-latte: #786140;
+  --pp-sage-tint: #D5E4D8;
+  --pp-white: #FFFFFF;
+  --pp-dark: #2C3E2D;
+  --pp-medium: #786140;
+  --pp-light: #8A8A7A;
+  --pp-border: #D5E4D8;
+  --pp-shadow: 0 2px 20px rgba(44,62,45,0.08);
+  --pp-shadow-hover: 0 8px 32px rgba(44,62,45,0.14);
+  --pp-radius: 12px;
+  --pp-red: #C0392B;
+  --pp-amber: #E9A752;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--pp-dark);
+  background: var(--pp-cream);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; }
+
+/* ============================================
+   SITE NAVIGATION
+   ============================================ */
+.site-nav {
+  background: var(--pp-green);
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 12px rgba(44,62,45,0.15);
+}
+
+.site-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.site-nav-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--pp-white);
+  letter-spacing: -0.3px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-nav-logo span {
+  color: var(--pp-sage);
+  font-size: 20px;
+}
+
+.site-nav-links {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+}
+
+.site-nav-links a {
+  display: block;
+  padding: 8px 18px;
+  border-radius: 50px;
+  color: rgba(255,255,255,0.75);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.site-nav-links a:hover {
+  color: var(--pp-white);
+  background: rgba(255,255,255,0.1);
+}
+
+.site-nav-links a.active {
+  color: var(--pp-white);
+  background: rgba(255,255,255,0.15);
+  font-weight: 600;
+}
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--pp-white);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+@media (max-width: 640px) {
+  .nav-toggle {
+    display: block;
+  }
+  .site-nav-links {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--pp-green);
+    flex-direction: column;
+    padding: 8px 16px 16px;
+    box-shadow: 0 8px 24px rgba(44,62,45,0.2);
+  }
+  .site-nav-links.open {
+    display: flex;
+  }
+  .site-nav-links a {
+    padding: 12px 16px;
+    border-radius: 8px;
+  }
+}
+
+/* ============================================
+   SITE FOOTER
+   ============================================ */
+.site-footer {
+  background: var(--pp-green);
+  color: rgba(255,255,255,0.6);
+  padding: 40px 24px;
+  margin-top: 80px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.site-footer a {
+  color: var(--pp-sage);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--pp-white);
+}
+
+.site-footer-brand {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--pp-white);
+  margin-bottom: 8px;
+}
+
+.site-footer-tagline {
+  font-family: 'Young Serif', Georgia, serif;
+  color: var(--pp-sage);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.site-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.site-footer-divider {
+  width: 60px;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  margin: 0 auto 16px;
+}
