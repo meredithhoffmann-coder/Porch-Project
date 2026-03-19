@@ -2448,12 +2448,18 @@
 
 <script>
 // Handle hash-based navigation to events tab
-if (window.location.hash === '#events') {
-  setTimeout(function() {
+function checkEventsHash() {
+  if (window.location.hash === '#events') {
     var evtBtn = document.querySelector('.pp-nav-btn[data-page="events"]');
     if (evtBtn) evtBtn.click();
-  }, 500);
+  }
 }
+checkEventsHash();
+setTimeout(checkEventsHash, 500);
+setTimeout(checkEventsHash, 1500);
+setTimeout(checkEventsHash, 3000);
+window.addEventListener('hashchange', checkEventsHash);
+
 </script>
 
 </body>
