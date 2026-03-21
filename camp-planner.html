@@ -920,8 +920,18 @@ function parseRangeFromText(text, isAge) {
 function getCampGradeRange(camp) {
   var min = 99, max = -1;
 
-  // 1) Try the ages array (pipe-separated column)
-  if (camp.ages && camp.ages.length > 0) {
+    // 1) Try ageText first — it usually has the most accurate grade info
+  if (camp.ageText) {
+    var txt = camp.ageText.trim();
+    // Detect: starts with "Ages" or a number → years old; "Grades" or "K-" → grades
+    var isAge = /^ages?\s/i.test(txt) || /^\d/.test(txt);
+    if (/^grades?\s/i.test(txt) || /^K[-–]/i.test(txt)) isAge = false;
+    var range = parseRangeFromText(txt, isAge);
+    if (range) { min = range.min; max = range.max; }
+  }
+
+  // 2) If ageText was empty/unparseable, try the ages column
+  if (min > max && camp.ages && camp.ages.length > 0) {
     camp.ages.forEach(function(entry) {
       // Check for exact grade buckets first (K-2, 3-5, 6-8, 9-12)
       var buckets = { 'K-2': {min:0,max:2}, '3-5': {min:3,max:5},
@@ -931,22 +941,14 @@ function getCampGradeRange(camp) {
         if (buckets[entry].max > max) max = buckets[entry].max;
         return;
       }
-      // Detect if it says "Ages" → years old, otherwise treat as grades
-      var isAge = /^ages?\s/i.test(entry);
+      // Ages column = always treat bare numbers as years old
+      var isAge = !/^grades?\s/i.test(entry) && !/^K[-–]/i.test(entry);
       var range = parseRangeFromText(entry, isAge);
       if (range) {
         if (range.min < min) min = range.min;
         if (range.max > max) max = range.max;
       }
     });
-  }
-
-  // 2) If ages column was empty, fall back to ageText
-  if (min > max && camp.ageText) {
-    var txt = camp.ageText.trim();
-    var isAge = /^ages?\s/i.test(txt);
-    var range = parseRangeFromText(txt, isAge);
-    if (range) { min = range.min; max = range.max; }
   }
 
   if (min > max) return null;
