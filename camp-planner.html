@@ -824,7 +824,7 @@ function parseCSV(text) {
 
 // ── GOOGLE SHEETS FETCH ─────────────────────────────────────────────────────
 function sheetUrl(tabName) {
-  return 'https://docs.google.com/spreadsheets/d/' + CAMP_CONFIG.SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(tabName) + '&_=' + Date.now();
+  return 'https://docs.google.com/spreadsheets/d/' + CAMP_CONFIG.SHEET_ID + '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent(tabName) + '&_=' + Date.now();
 }
 
 function fetchSheet(tabName, callback) {
