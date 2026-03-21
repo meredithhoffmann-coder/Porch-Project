@@ -860,6 +860,60 @@ function parsePipeSeparated(str) {
   return str.split('|').map(function(s) { return s.trim(); }).filter(Boolean);
 }
 
+  /* Convert any grade value to a number: K/Pre-K → 0, numbers stay as-is */
+function gradeToNum(g) {
+  var s = String(g).trim().toLowerCase();
+  if (s === 'k' || s === 'pre-k' || s === 'kindergarten') return 0;
+  var n = parseInt(s, 10);
+  return isNaN(n) ? null : n;
+}
+
+/* Parse a camp's ages field into a min–max grade range.
+   Handles: "K-2|3-5", "1-7", "grades 1-7", "K-8", "3-5", "6+", etc. */
+function parseGradeRange(agesArray) {
+  var min = 99, max = -1;
+  agesArray.forEach(function(entry) {
+    // Remove common prefixes like "grades", "grade"
+    var cleaned = entry.replace(/grades?\s*/i, '').trim();
+    // Handle ranges like "1-7", "K-5", "6-8"
+    var parts = cleaned.split(/[-–]/);
+    if (parts.length === 2) {
+      var lo = gradeToNum(parts[0]);
+      var hi = gradeToNum(parts[1]);
+      if (lo !== null && lo < min) min = lo;
+      if (hi !== null && hi > max) max = hi;
+    } else {
+      // Handle single values like "K", "5", or "6+"
+      var val = gradeToNum(cleaned.replace('+', ''));
+      if (val !== null) {
+        if (val < min) min = val;
+        if (cleaned.indexOf('+') !== -1) {
+          if (12 > max) max = 12;
+        } else {
+          if (val > max) max = val;
+        }
+      }
+    }
+  });
+  if (min > max) return null; // couldn't parse
+  return { min: min, max: max };
+}
+
+/* Check if a camp's grade range overlaps with a filter bucket */
+function gradeOverlaps(campAges, filterBucket) {
+  var buckets = { 'K-2': {min:0, max:2}, '3-5': {min:3, max:5},
+                  '6-8': {min:6, max:8}, '9-12': {min:9, max:12} };
+  var bucket = buckets[filterBucket];
+  if (!bucket) return false;
+  // First try exact bucket match (backward compatible)
+  if (campAges.indexOf(filterBucket) !== -1) return true;
+  // Then try smart range overlap
+  var range = parseGradeRange(campAges);
+  if (!range) return false;
+  return range.min <= bucket.max && range.max >= bucket.min;
+}
+
+
 function parseSessions(str) {
   if (!str) return [];
   return str.split('|').map(function(s) {
@@ -926,7 +980,7 @@ function campsOnDate(dateStr) {
 
 function applyFilters(camps) {
   return camps.filter(c => {
-    if (filters.age && !c.ages.includes(filters.age)) return false;
+    if (filters.age && !gradeOverlaps(c.ages, filters.age)) return false;
     if (filters.type && c.type !== filters.type) return false;
     if (filters.day && c.dayType !== filters.day) return false;
     if (filters.steiner && !c.steiner) return false;
