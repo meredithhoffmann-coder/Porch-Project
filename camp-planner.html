@@ -874,7 +874,7 @@ function parseGradeRange(agesArray) {
   var min = 99, max = -1;
   agesArray.forEach(function(entry) {
     // Remove common prefixes like "grades", "grade"
-    var cleaned = entry.replace(/grades?\s*/i, '').trim();
+    var cleaned = entry.replace(/^(grades?|ages?)\s*/i, '').trim();
     // Handle ranges like "1-7", "K-5", "6-8"
     var parts = cleaned.split(/[-–]/);
     if (parts.length === 2) {
