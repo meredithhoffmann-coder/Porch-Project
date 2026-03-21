@@ -860,55 +860,106 @@ function parsePipeSeparated(str) {
   return str.split('|').map(function(s) { return s.trim(); }).filter(Boolean);
 }
 
-  /* Convert any grade value to a number: K/Pre-K → 0, numbers stay as-is */
+  /* Convert a grade label to a number: K/Pre-K → 0, numbers stay as-is */
 function gradeToNum(g) {
   var s = String(g).trim().toLowerCase();
-  if (s === 'k' || s === 'pre-k' || s === 'kindergarten') return 0;
+  if (s === 'k' || s === 'pre-k' || s === 'prek' || s === 'kindergarten') return 0;
   var n = parseInt(s, 10);
   return isNaN(n) ? null : n;
 }
 
-/* Parse a camp's ages field into a min–max grade range.
-   Handles: "K-2|3-5", "1-7", "grades 1-7", "K-8", "3-5", "6+", etc. */
-function parseGradeRange(agesArray) {
+/* Convert an age (years old) to an approximate grade: age 5 → K, age 6 → 1, etc. */
+function ageToGrade(age) {
+  if (age <= 5) return 0;    // K
+  if (age >= 18) return 12;
+  return age - 5;            // age 6→1, age 11→6, age 14→9, etc.
+}
+
+/* Parse a text string into a min–max GRADE range.
+   isAge=true means numbers are years old and need conversion.
+   Handles: "K-2", "1-7", "6+", "PreK-12", "18mo-12", etc. */
+function parseRangeFromText(text, isAge) {
   var min = 99, max = -1;
-  agesArray.forEach(function(entry) {
-    // Remove common prefixes like "grades", "grade"
-    var cleaned = entry.replace(/^(grades?|ages?)\s*/i, '').trim();
-    // Handle ranges like "1-7", "K-5", "6-8"
-    var parts = cleaned.split(/[-–]/);
-    if (parts.length === 2) {
-      var lo = gradeToNum(parts[0]);
-      var hi = gradeToNum(parts[1]);
-      if (lo !== null && lo < min) min = lo;
-      if (hi !== null && hi > max) max = hi;
-    } else {
-      // Handle single values like "K", "5", or "6+"
-      var val = gradeToNum(cleaned.replace('+', ''));
-      if (val !== null) {
-        if (val < min) min = val;
-        if (cleaned.indexOf('+') !== -1) {
-          if (12 > max) max = 12;
-        } else {
-          if (val > max) max = val;
-        }
+  // Strip common prefixes
+  var cleaned = text.replace(/^(grades?|ages?)\s*/i, '').trim();
+  // Skip things like "18mo" standalone
+  if (/^\d+\s*mo/i.test(cleaned)) {
+    // "18mo-12" → treat the second part as the meaningful number
+    var dashParts = cleaned.split(/[-–]/);
+    if (dashParts.length === 2) {
+      var hi = parseInt(dashParts[1], 10);
+      if (!isNaN(hi)) {
+        min = 0;
+        max = isAge ? ageToGrade(hi) : hi;
+        return { min: Math.max(0, min), max: Math.min(12, max) };
       }
     }
-  });
-  if (min > max) return null; // couldn't parse
+    return null;
+  }
+  // Remove parentheticals like "(completed K)"
+  cleaned = cleaned.replace(/\(.*?\)/g, '').trim();
+  var parts = cleaned.split(/[-–]/);
+  if (parts.length === 2) {
+    var lo = gradeToNum(parts[0]);
+    var hi = gradeToNum(parts[1]);
+    if (lo !== null) min = isAge ? ageToGrade(lo) : lo;
+    if (hi !== null) max = isAge ? ageToGrade(hi) : hi;
+  } else {
+    var val = gradeToNum(cleaned.replace('+', ''));
+    if (val !== null) {
+      min = isAge ? ageToGrade(val) : val;
+      max = cleaned.indexOf('+') !== -1 ? 12 : min;
+    }
+  }
+  if (min > max) return null;
+  return { min: Math.max(0, min), max: Math.min(12, max) };
+}
+
+/* Get a camp's grade range from its ages array + ageText fallback.
+   Detects whether values are ages (years) or grades and converts. */
+function getCampGradeRange(camp) {
+  var min = 99, max = -1;
+
+  // 1) Try the ages array (pipe-separated column)
+  if (camp.ages && camp.ages.length > 0) {
+    camp.ages.forEach(function(entry) {
+      // Check for exact grade buckets first (K-2, 3-5, 6-8, 9-12)
+      var buckets = { 'K-2': {min:0,max:2}, '3-5': {min:3,max:5},
+                      '6-8': {min:6,max:8}, '9-12': {min:9,max:12} };
+      if (buckets[entry]) {
+        if (buckets[entry].min < min) min = buckets[entry].min;
+        if (buckets[entry].max > max) max = buckets[entry].max;
+        return;
+      }
+      // Detect if it says "Ages" → years old, otherwise treat as grades
+      var isAge = /^ages?\s/i.test(entry);
+      var range = parseRangeFromText(entry, isAge);
+      if (range) {
+        if (range.min < min) min = range.min;
+        if (range.max > max) max = range.max;
+      }
+    });
+  }
+
+  // 2) If ages column was empty, fall back to ageText
+  if (min > max && camp.ageText) {
+    var txt = camp.ageText.trim();
+    var isAge = /^ages?\s/i.test(txt);
+    var range = parseRangeFromText(txt, isAge);
+    if (range) { min = range.min; max = range.max; }
+  }
+
+  if (min > max) return null;
   return { min: min, max: max };
 }
 
 /* Check if a camp's grade range overlaps with a filter bucket */
-function gradeOverlaps(campAges, filterBucket) {
+function gradeOverlaps(camp, filterBucket) {
   var buckets = { 'K-2': {min:0, max:2}, '3-5': {min:3, max:5},
                   '6-8': {min:6, max:8}, '9-12': {min:9, max:12} };
   var bucket = buckets[filterBucket];
   if (!bucket) return false;
-  // First try exact bucket match (backward compatible)
-  if (campAges.indexOf(filterBucket) !== -1) return true;
-  // Then try smart range overlap
-  var range = parseGradeRange(campAges);
+  var range = getCampGradeRange(camp);
   if (!range) return false;
   return range.min <= bucket.max && range.max >= bucket.min;
 }
@@ -980,7 +1031,7 @@ function campsOnDate(dateStr) {
 
 function applyFilters(camps) {
   return camps.filter(c => {
-    if (filters.age && !gradeOverlaps(c.ages, filters.age)) return false;
+    if (filters.age && !gradeOverlaps(c, filters.age)) return false;
     if (filters.type && c.type !== filters.type) return false;
     if (filters.day && c.dayType !== filters.day) return false;
     if (filters.steiner && !c.steiner) return false;
