@@ -679,11 +679,10 @@
     <div class="filter-group">
       <label>Age / Grade</label>
       <select id="filter-age">
-        <option value="">All Ages</option>
         <option value="K-2">K–2nd Grade</option>
-        <option value="3-5">3rd–5th Grade</option>
-        <option value="6-8">6th–8th Grade</option>
-        <option value="9-12">High School</option>
+<option value="3-5">3rd–5th Grade</option>
+<option value="6-7">6th–7th Grade</option>
+<option value="8-12">8th Grade & Up</option>
       </select>
     </div>
     <div class="filter-group">
@@ -944,7 +943,7 @@ function getCampGradeRange(camp) {
     camp.ages.forEach(function(entry) {
       // Check for exact grade buckets first (K-2, 3-5, 6-8, 9-12)
       var buckets = { 'K-2': {min:0,max:2}, '3-5': {min:3,max:5},
-                      '6-8': {min:6,max:8}, '9-12': {min:9,max:12} };
+                '6-7': {min:6,max:7}, '8-12': {min:8,max:12} };
       if (buckets[entry]) {
         if (buckets[entry].min < min) min = buckets[entry].min;
         if (buckets[entry].max > max) max = buckets[entry].max;
@@ -967,7 +966,7 @@ function getCampGradeRange(camp) {
 /* Check if a camp's grade range overlaps with a filter bucket */
 function gradeOverlaps(camp, filterBucket) {
   var buckets = { 'K-2': {min:0, max:2}, '3-5': {min:3, max:5},
-                  '6-8': {min:6, max:8}, '9-12': {min:9, max:12} };
+                '6-7': {min:6, max:7}, '8-12': {min:8, max:12} };
   var bucket = buckets[filterBucket];
   if (!bucket) return false;
   var range = getCampGradeRange(camp);
