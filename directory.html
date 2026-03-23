@@ -1505,64 +1505,8 @@
     d.textContent = str;
     return d.innerHTML;
   }
-
-  // CSV Parser — handles quoted fields, newlines in quotes, escaped double-quotes
-  function parseCSV(text) {
-    var rows = [];
-    var row = [];
-    var field = '';
-    var inQuotes = false;
-    var i = 0;
-    while (i < text.length) {
-      var c = text[i];
-      if (inQuotes) {
-        if (c === '"') {
-          if (i + 1 < text.length && text[i + 1] === '"') {
-            field += '"';
-            i += 2;
-          } else {
-            inQuotes = false;
-            i++;
-          }
-        } else {
-          field += c;
-          i++;
-        }
-      } else {
-        if (c === '"') {
-          inQuotes = true;
-          i++;
-        } else if (c === ',') {
-          row.push(field.trim());
-          field = '';
-          i++;
-        } else if (c === '\n' || (c === '\r' && i + 1 < text.length && text[i + 1] === '\n')) {
-          row.push(field.trim());
-          rows.push(row);
-          row = [];
-          field = '';
-          i += (c === '\r') ? 2 : 1;
-        } else if (c === '\r') {
-          row.push(field.trim());
-          rows.push(row);
-          row = [];
-          field = '';
-          i++;
-        } else {
-          field += c;
-          i++;
-        }
-      }
-    }
-    if (field || row.length > 0) {
-      row.push(field.trim());
-      rows.push(row);
-    }
-    return rows;
-  }
-
   function sheetUrl(tabName) {
-    return 'https://docs.google.com/spreadsheets/d/' + PP_CONFIG.SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(tabName) + '&_=' + Date.now();
+    return 'https://docs.google.com/spreadsheets/d/' + PP_CONFIG.SHEET_ID + '/gviz/tq?tqx=out:json&sheet=' + encodeURIComponent(tabName) + '&_=' + Date.now();
   }
 
   function fetchSheet(tabName, callback) {
@@ -1571,17 +1515,31 @@
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.text();
     }).then(function(text) {
-      var rows = parseCSV(text);
-      if (rows.length < 2) { callback([]); return; }
-      var headers = rows[0].map(function(h) { return h.toLowerCase().trim(); });
+      // Google returns JSONP: google.visualization.Query.setResponse({...})
+      var jsonStr = text.replace(/^[^(]*\(/, '').replace(/\);?\s*$/, '');
+      var json = JSON.parse(jsonStr);
+      var table = json.table;
+      if (!table || !table.cols || !table.rows || table.rows.length === 0) {
+        callback([]);
+        return;
+      }
+      var headers = table.cols.map(function(c) { return (c.label || '').toLowerCase().trim(); });
       var data = [];
-      for (var i = 1; i < rows.length; i++) {
-        if (rows[i].join('').trim() === '') continue;
+      for (var i = 0; i < table.rows.length; i++) {
+        var cells = table.rows[i].c;
+        var isEmpty = true;
         var obj = {};
         for (var j = 0; j < headers.length; j++) {
-          obj[headers[j]] = (rows[i][j] || '').trim();
+          var cell = cells[j];
+          var val = '';
+          if (cell) {
+            val = (cell.f !== undefined && cell.f !== null) ? cell.f : (cell.v !== undefined && cell.v !== null ? String(cell.v) : '');
+          }
+          val = val.trim();
+          if (val) isEmpty = false;
+          obj[headers[j]] = val;
         }
-        data.push(obj);
+        if (!isEmpty) data.push(obj);
       }
       callback(data);
     }).catch(function(err) {
@@ -1589,6 +1547,7 @@
       callback(null);
     });
   }
+  
 
   function parsePipeSeparated(str) {
     if (!str) return [];
