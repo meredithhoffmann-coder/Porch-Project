@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Porch Project — Steiner Ranch, Austin TX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #F6F1E9;
+    --cream-warm: #EEE6D4;
+    --cream-deep: #E5DACA;
+    --green: #2D4A3E;
+    --green-mid: #3D6355;
+    --green-pale: #E4EDE8;
+    --terra: #C4622D;
+    --terra-pale: #F9EDE5;
+    --gold: #C9A84C;
+    --charcoal: #1C1C1A;
+    --ink: #2E2A25;
+    --muted: #7A7268;
+    --border: rgba(45,74,62,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* grain */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 18px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(246, 241, 233, 0.94);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    text-decoration: none;
+  }
+
+  .nav-logo-img {
+    height: 48px;
+    width: auto;
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--green); }
+
+  .nav-join {
+    background: var(--green) !important;
+    color: var(--cream) !important;
+    padding: 9px 20px;
+    border-radius: 40px;
+    font-size: 0.78rem !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-join:hover { background: var(--green-mid) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding-top: 72px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 75% 40%, rgba(45,74,62,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(196,98,45,0.05) 0%, transparent 60%);
+  }
+
+  /* decorative circle */
+  .hero-circle {
+    position: absolute;
+    top: 12%;
+    right: -8%;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    border: 1px solid rgba(45,74,62,0.08);
+    pointer-events: none;
+  }
+
+  .hero-circle::before {
+    content: '';
+    position: absolute;
+    inset: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(45,74,62,0.06);
+  }
+
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 64px;
+    width: 100%;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 60px;
+    align-items: center;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-kicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: up 0.7s ease 0.2s forwards;
+  }
+
+  .kicker-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--terra);
+    animation: pulse 2.5s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.6; }
+  }
+
+  .kicker-text {
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terra);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--charcoal);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: up 0.8s ease 0.35s forwards;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--green);
+  }
+
+  .hero-body {
+    font-family: 'Lora', serif;
+    font-size: 1.12rem;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.85;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: up 0.8s ease 0.5s forwards;
+  }
+
+  .hero-body strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: up 0.8s ease 0.65s forwards;
+  }
+
+  .btn-primary {
+    background: var(--terra);
+    color: white;
+    padding: 15px 32px;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 18px rgba(196,98,45,0.28);
+    white-space: nowrap;
+  }
+
+  .btn-primary:hover {
+    background: #D4733E;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 26px rgba(196,98,45,0.38);
+  }
+
+  .btn-text {
+    color: var(--green);
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: gap 0.2s;
+  }
+
+  .btn-text:hover { gap: 12px; }
+
+  .neighbor-faces {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    opacity: 0;
+    animation: up 0.8s ease 0.8s forwards;
+  }
+
+  .face {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--cream);
+    margin-left: -10px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cream-warm);
+  }
+
+  .face:first-child { margin-left: 0; }
+
+  .face-more {
+    background: var(--green) !important;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem !important;
+    font-weight: 500;
+    color: white;
+    letter-spacing: 0.02em;
+  }
+
+  .faces-label {
+    margin-left: 16px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .faces-label strong {
+    color: var(--ink);
+    font-weight: 500;
+    display: block;
+  }
+
+  /* ── HERO RIGHT ── */
+  .hero-preview {
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1s ease 0.9s forwards;
+  }
+  .editorial-panel {
+    background: white;
+    border-radius: 24px;
+    padding: 44px 40px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.09), 0 4px 16px rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+  }
+
+  .ep-overline {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 20px;
+  }
+
+  .ep-quote-block {
+    margin-bottom: 28px;
+  }
+
+  .ep-quote {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .ep-attr {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  .ep-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+
+  .ep-pillars {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .ep-pillar {
+    flex: 1;
+    padding: 0 16px;
+  }
+
+  .ep-pillar:first-child { padding-left: 0; }
+  .ep-pillar:last-child { padding-right: 0; }
+
+  .ep-pillar-sep {
+    width: 1px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .ep-pillar-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--green);
+    margin-bottom: 5px;
+  }
+
+  .ep-pillar-desc {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .ep-badges-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ep-badge-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+  }
+
+  .ep-badge-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .pn-color { background: var(--green-pale); color: var(--green); }
+  .pt-color { background: var(--terra-pale); color: var(--terra); }
+
+  .ep-badge-text strong {
+    display: block;
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .ep-badge-text span {
+    font-size: 0.74rem;
+    color: var(--muted);
+  }
+
+  .ep-footer {
+    margin-top: 24px;
+    text-align: center;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── SCROLL BAND ── */
+  .scroll-band {
+    background: var(--cream-warm);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    overflow: hidden;
+  }
+
+  .scroll-track {
+    display: flex;
+    gap: 56px;
+    animation: marquee 22s linear infinite;
+    white-space: nowrap;
+  }
+
+  .scroll-item {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .scroll-sep {
+    color: var(--terra);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SECTION SHARED ── */
+  .section-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 64px;
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--terra);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--terra);
+    display: block;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--charcoal);
+  }
+
+  h2 em { font-style: italic; color: var(--green); }
+
+  /* ── WHY SECTION ── */
+  .why-section {
+    padding: 120px 0;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 16px;
+  }
+
+  .why-intro {
+    font-family: 'Lora', serif;
+    font-size: 1.08rem;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-top: 24px;
+  }
+
+  .why-intro strong { color: var(--ink); font-weight: 500; }
+
+  .why-quote {
+    margin-top: 40px;
+    padding: 28px 32px;
+    background: var(--green);
+    border-radius: 16px;
+    position: relative;
+  }
+
+  .why-quote::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.1);
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    line-height: 1;
+  }
+
+  .why-quote p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.75;
+    position: relative;
+    z-index: 1;
+  }
+
+  .why-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 8px;
+  }
+
+  .why-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 22px 24px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: white;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  }
+
+  .why-item:hover {
+    border-color: rgba(45,74,62,0.3);
+    box-shadow: 0 6px 24px rgba(45,74,62,0.07);
+    transform: translateX(4px);
+  }
+
+  .wi-icon {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .wi-text strong {
+    display: block;
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 5px;
+  }
+
+  .wi-text span {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── WHAT'S INSIDE ── */
+  .inside-section {
+    padding: 100px 0 120px;
+    background: var(--cream-warm);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .inside-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  .inside-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 64px;
+  }
+
+  .inside-header p {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-top: 18px;
+  }
+
+  .inside-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .inside-card {
+    background: white;
+    border-radius: 18px;
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .inside-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--green);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .inside-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+  }
+
+  .inside-card:hover::after { transform: scaleX(1); }
+
+  .coming-soon-banner {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--cream-warm);
+    color: var(--muted);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+
+  .ic-coming {
+    opacity: 0.75;
+  }
+
+  .ic-coming:hover {
+    opacity: 1;
+  }
+
+  .ic-coming::after {
+    background: var(--muted) !important;
+  }
+
+  .ic-live-badge {
+    display: inline-block;
+    background: #E8F5EC;
+    color: #2A7A45;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(42,122,69,0.2);
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 18px;
+  }
+
+  .ic-live-badge::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #2A7A45;
+    animation: pulse 2s ease infinite;
+  }
+
+  .ic-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--terra);
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+
+  .ic-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+
+  .inside-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .inside-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── TRUST ── */
+  .trust-section {
+    padding: 120px 0;
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-top: 16px;
+  }
+
+  .trust-visual {
+    position: relative;
+  }
+
+  .badge-display {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 36px;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  }
+
+  .bd-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  .badge-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .badge-card {
+    padding: 22px 24px;
+    border-radius: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .badge-card.porch-neighbor {
+    background: var(--green-pale);
+    border: 1px solid rgba(45,74,62,0.15);
+  }
+
+  .badge-card.porch-verified {
+    background: var(--terra-pale);
+    border: 1px solid rgba(196,98,45,0.15);
+  }
+
+  .bc-icon { font-size: 1.8rem; flex-shrink: 0; }
+
+  .bc-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .porch-neighbor .bc-name { color: var(--green); }
+  .porch-verified .bc-name { color: var(--terra); }
+
+  .bc-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .trust-right h2 { margin-bottom: 20px; }
+
+  .trust-body {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.85;
+    margin-bottom: 32px;
+  }
+
+  .trust-body strong { color: var(--ink); font-weight: 500; }
+
+  .trust-points {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .tp {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  .tp::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--green-pale);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%232D4A3E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+  }
+
+  /* ── NEWSLETTER CTA ── */
+  .newsletter-section {
+    padding: 100px 0;
+    background: var(--green);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .newsletter-section::before {
+    content: 'STEINER RANCH';
+    font-family: 'Playfair Display', serif;
+    font-size: 14rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.03);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nl-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nl-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: white;
+    max-width: 700px;
+    margin: 0 auto 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nl-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .nl-sub {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.6);
+    max-width: 460px;
+    margin: 0 auto 44px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nl-form {
+    display: flex;
+    gap: 10px;
+    max-width: 440px;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nl-input {
+    flex: 1;
+    padding: 15px 20px;
+    border-radius: 50px;
+    border: none;
+    background: rgba(255,255,255,0.12);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    transition: background 0.2s;
+  }
+
+  .nl-input::placeholder { color: rgba(255,255,255,0.4); }
+  .nl-input:focus { background: rgba(255,255,255,0.18); }
+
+  .nl-btn {
+    background: var(--terra);
+    color: white;
+    border: none;
+    padding: 15px 28px;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+
+  .nl-btn:hover { background: #D4733E; }
+
+  .nl-note {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.35);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal);
+    padding: 52px 64px 32px;
+  }
+
+  .footer-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 64px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    margin-bottom: 32px;
+  }
+
+  .footer-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .footer-place {
+    font-size: 0.76rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 18px;
+  }
+
+  .footer-about {
+    font-size: 0.84rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    max-width: 300px;
+  }
+
+  .fc-h {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+    margin-bottom: 16px;
+  }
+
+  .fc-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .fc-links a {
+    font-size: 0.84rem;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .fc-links a:hover { color: white; }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.22);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes up {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .directory-disclaimer {
+    margin-top: 20px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+    opacity: 0;
+    animation: up 0.8s ease 0.8s forwards;
+  }
+
+  .disclaimer-link {
+    color: var(--green);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(45,74,62,0.25);
+    transition: border-color 0.2s;
+    white-space: nowrap;
+  }
+
+  .disclaimer-link:hover { border-color: var(--green); }
+
+  /* ── SUBMIT SECTION ── */
+  .submit-section {
+    padding: 100px 0;
+    background: var(--cream-warm);
+    border-top: 1px solid var(--border);
+  }
+
+  .submit-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .submit-body {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.85;
+    margin-top: 20px;
+    margin-bottom: 16px;
+  }
+
+  .submit-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .submit-note::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--green-pale);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%232D4A3E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+  }
+
+  .submit-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 36px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+  }
+
+  .sc-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 24px;
+  }
+
+  .sc-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .sc-input {
+    padding: 13px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--ink);
+    background: var(--cream);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .sc-input:focus {
+    border-color: var(--green);
+    background: white;
+  }
+
+  .sc-input::placeholder { color: var(--muted); }
+
+  .sc-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.2s;
+    margin-bottom: 12px;
+  }
+
+  .sc-btn:hover {
+    background: var(--green-mid);
+    transform: translateY(-1px);
+  }
+
+  .sc-fine {
+    text-align: center;
+    font-size: 0.74rem;
+    color: var(--muted);
+  }
+
+  .rd1 { transition-delay: 0.1s; }
+  .rd2 { transition-delay: 0.2s; }
+  .rd3 { transition-delay: 0.3s; }
+  .rd4 { transition-delay: 0.4s; }
+  .rd5 { transition-delay: 0.5s; }
+  .rd6 { transition-delay: 0.6s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="PP_logo_just_text.png" alt="Porch Project Steiner Ranch" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li><a href="directory.html">Directory</a></li>
+    <li><a href="welcome.html#whats-inside">What's Inside</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="directory.html" class="nav-join">Join the Community</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-circle"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-kicker">
+        <div class="kicker-dot"></div>
+        <span class="kicker-text">Now Live — Steiner Ranch, Austin TX</span>
+      </div>
+
+      <h1>
+        Your neighborhood,<br>
+        all in <em>one place.</em>
+      </h1>
+
+      <p class="hero-body">
+        The Porch Project is Steiner Ranch's own platform — a <strong>curated business directory</strong>, weekly newsletter, local events guide, and newcomer resource built by someone who actually lives here.
+        <br><br>
+        Your neighbors are already asking great questions. Now there's a place that holds the answers — <strong>permanently, searchably, and free from the scroll.</strong>
+      </p>
+
+      <div class="hero-ctas">
+        <a href="directory.html" class="btn-primary">Explore the Directory</a>
+        <a href="welcome.html#whats-inside" class="btn-text">See what's inside →</a>
+      </div>
+
+      <div class="directory-disclaimer">
+        The directory is small but growing every day. 
+        <a href="directory.html" class="disclaimer-link">Know a business that belongs here? Add them. →</a>
+      </div>
+
+    </div>
+
+    <div class="hero-preview">
+      <div class="editorial-panel">
+        <div class="ep-overline">A note from the founder</div>
+
+        <div class="ep-quote-block">
+          <div class="ep-quote">There's more talent in this zip code than most people know — neighbors who run businesses, organize events, and make this place what it is. I built this because I kept watching those things get lost. I wanted to give them a little oxygen.</div>
+          <div class="ep-quote">The bigger vision is simple: more connection. There's real science behind why it matters — knowing your neighbors turns out to be one of the quiet superpowers of a good life. Consider this our front porch.</div>
+          <div class="ep-attr">— Meredith, Steiner Ranch resident of 7 years</div>
+        </div>
+
+        <div class="ep-divider"></div>
+
+        <div class="ep-pillars">
+          <div class="ep-pillar">
+            <div class="ep-pillar-label">Curated</div>
+            <div class="ep-pillar-desc">Every listing reviewed before it goes live</div>
+          </div>
+          <div class="ep-pillar-sep"></div>
+          <div class="ep-pillar">
+            <div class="ep-pillar-label">Local</div>
+            <div class="ep-pillar-desc">Built for Steiner Ranch by someone who lives here</div>
+          </div>
+          <div class="ep-pillar-sep"></div>
+          <div class="ep-pillar">
+            <div class="ep-pillar-label">Permanent</div>
+            <div class="ep-pillar-desc">Answers that don't disappear into the scroll</div>
+          </div>
+        </div>
+
+        <div class="ep-divider"></div>
+
+        <div class="ep-badges-row">
+          <div class="ep-badge-item">
+            <div class="ep-badge-icon pn-color">PP</div>
+            <div class="ep-badge-text">
+              <strong>Porch Neighbor</strong>
+              <span>Resident-owned business</span>
+            </div>
+          </div>
+          <div class="ep-badge-item">
+            <div class="ep-badge-icon pt-color">✓</div>
+            <div class="ep-badge-text">
+              <strong>Porch Verified</strong>
+              <span>Community-recommended</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ep-footer">
+          The signal, not the noise.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCROLL BAND -->
+<div class="scroll-band">
+  <div class="scroll-track">
+    <div class="scroll-item">Steiner Ranch Directory</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Weekly Newsletter</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Events Guide</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Local Podcast</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Newcomer Guide</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Summer Camp Guide</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Neighbor-Verified</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">The Signal, Not the Noise</div>
+    <div class="scroll-sep">·</div>
+    <!-- repeat -->
+    <div class="scroll-item">Steiner Ranch Directory</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Weekly Newsletter</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Events Guide</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Local Podcast</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Newcomer Guide</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Summer Camp Guide</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">Neighbor-Verified</div>
+    <div class="scroll-sep">·</div>
+    <div class="scroll-item">The Signal, Not the Noise</div>
+    <div class="scroll-sep">·</div>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="why-section">
+  <div class="section-wrap">
+    <div class="why-grid">
+      <div class="why-left reveal">
+        <div class="eyebrow">Why The Porch Project</div>
+        <h2>Our community shows up.<br>We made it <em>stick.</em></h2>
+        <p class="why-intro">
+          Someone asks for a plumber recommendation in the neighborhood group — and 40 neighbors show up to help within the hour. That's one of the best things about Steiner Ranch. <strong>We actually take care of each other.</strong>
+          <br><br>
+          The only problem? That question gets asked 47 times a year, and the answers disappear into the scroll every single time.
+          <br><br>
+          The Porch Project is where <strong>those answers finally live.</strong> A permanent, curated resource built from the collective knowledge of the people already in this community — so the next neighbor who needs a plumber at 7am can just find one.
+        </p>
+        <div class="why-quote">
+          <p>"The people who care most about a community are the ones already living in it. We're just building them the front porch they've been missing."</p>
+        </div>
+      </div>
+
+      <div class="why-right">
+        <ul class="why-list">
+          <li class="why-item reveal rd1">
+            <div class="wi-text">
+              <strong>Great recommendations, all in one place</strong>
+              <span>Your neighbors' collective knowledge is invaluable — we've just organized it so you can get what you need without wading through the noise.</span>
+            </div>
+          </li>
+          <li class="why-item reveal rd2">
+            <div class="wi-text">
+              <strong>Just moved in and not sure where to start?</strong>
+              <span>From the best after-school activities and sports leagues to where to actually meet people — our newcomer page has the things it takes a year to figure out on your own.</span>
+            </div>
+          </li>
+          <li class="why-item reveal rd3">
+            <div class="wi-text">
+              <strong>Never miss what's happening around you</strong>
+              <span>Our events page keeps everything in one spot — so you always know what's going on in and around Steiner Ranch.</span>
+            </div>
+          </li>
+          <li class="why-item reveal rd4">
+            <div class="wi-text">
+              <strong>Want to support neighbors who run businesses</strong>
+              <span>Our "Porch Neighbor" badge flags businesses owned by people who actually live in Steiner Ranch.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section class="inside-section" id="whats-inside">
+  <div class="section-wrap">
+    <div class="inside-header reveal">
+      <div class="eyebrow" style="justify-content:center;">What's Inside</div>
+      <h2>Everything your neighborhood<br><em>deserves to have.</em></h2>
+      <p>Six ways The Porch Project makes Steiner Ranch easier to live in, and easier to love.</p>
+    </div>
+
+    <div class="inside-grid">
+      <div class="inside-card reveal rd1">
+        <div class="ic-num">01</div>
+        <h3>Business Directory</h3>
+        <div class="ic-live-badge">Live Now</div>
+        <p>A curated guide to local businesses — searchable by category, reviewed before they're listed, and updated as the community grows.</p>
+      </div>
+      <div class="inside-card reveal rd2">
+        <div class="ic-num">02</div>
+        <h3>Summer Camp Guide</h3>
+        <div class="ic-live-badge">Live Now</div>
+        <p>Every summer camp option for Steiner Ranch families — local, nearby, and worth knowing about. Submitted by parents, curated for this community.</p>
+      </div>
+      <div class="inside-card reveal rd3">
+        <div class="ic-num">03</div>
+        <h3>Events Guide</h3>
+        <div class="ic-live-badge">Live Now</div>
+        <p>One place for everything happening in and around the neighborhood. Concerts, farmers markets, school events, community meetups — all in one calendar.</p>
+      </div>
+      <div class="inside-card ic-coming reveal rd4">
+        <div class="coming-soon-banner">Coming Soon</div>
+        <div class="ic-num">04</div>
+        <h3>The Porch Post</h3>
+        <p>A newsletter for Steiner Ranch — local news, events, and community updates, when there's something worth sharing.</p>
+      </div>
+      <div class="inside-card ic-coming reveal rd5">
+        <div class="coming-soon-banner">Coming Soon</div>
+        <div class="ic-num">05</div>
+        <h3>Newcomer Guide</h3>
+        <p>A dedicated page for anyone new to Steiner Ranch — from the best after-school programs and sports leagues to where to meet people and plug in. Everything it takes a year to figure out, in one place.</p>
+      </div>
+      <div class="inside-card ic-coming reveal rd6">
+        <div class="coming-soon-banner">Coming Soon</div>
+        <div class="ic-num">06</div>
+        <h3>Pull Up a Chair</h3>
+        <p>Our neighborhood podcast. Real conversations with Steiner Ranch residents — the people building businesses, raising families, and making this place worth living in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust-section" id="directory">
+  <div class="section-wrap">
+    <div class="trust-grid">
+      <div class="trust-visual reveal">
+        <div class="badge-display">
+          <div class="bd-title">How we vet every listing</div>
+          <div class="badge-cards">
+            <div class="badge-card porch-neighbor">
+              <div class="bc-icon">🏡</div>
+              <div>
+                <div class="bc-name">Porch Neighbor</div>
+                <div class="bc-desc">This business is owned or operated by someone who lives in Steiner Ranch. Supporting them means supporting your actual neighbors.</div>
+              </div>
+            </div>
+            <div class="badge-card porch-verified">
+              <div class="bc-icon">✓</div>
+              <div>
+                <div class="bc-name">Porch Verified</div>
+                <div class="bc-desc">A community-recommended business that's been vouched for by Steiner Ranch residents — vetted, reviewed, and worth calling.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trust-right reveal rd2">
+        <div class="eyebrow">Built on Trust</div>
+        <h2>We do our best<br>to know <em>who's in here.</em></h2>
+        <p class="trust-body">
+          The badges mean something specific. <strong>Porch Neighbor</strong> means the owner lives in Steiner Ranch. <strong>Porch Verified</strong> means the community has spoken well of them. Down the road, there may be options for businesses to have greater visibility on the platform — but a badge can't be bought, and being here still means you belong here.
+          <br><br>
+          Beyond that, we rely on you. This directory is only as good as the people behind it — and that includes everyone who lives here. If a listing doesn't belong, let us know.
+        </p>
+        <div class="trust-points">
+          <div class="tp">Resident-owned businesses clearly identified</div>
+          <div class="tp">Badges reflect community standing, not spend</div>
+          <div class="tp">Listings removed if they stop serving the community</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBMIT A BUSINESS -->
+<section class="submit-section" id="submit">
+  <div class="section-wrap">
+    <div class="submit-inner">
+      <div class="submit-left reveal">
+        <div class="eyebrow">Grow the Directory</div>
+        <h2>Know someone<br>who should be <em>here?</em></h2>
+        <p class="submit-body">The directory grows one good recommendation at a time. If you know a business — a neighbor who does great work, a service you trust, a local gem — tell us about them. We'll review and add them.</p>
+        <div class="submit-note">Every submission is personally reviewed before it goes live.</div>
+      </div>
+      <div class="submit-right reveal rd2">
+        <div class="submit-card">
+          <div class="sc-label">Submit a Business</div>
+          <div class="sc-fields">
+            <input type="text" placeholder="Business name" class="sc-input">
+            <input type="text" placeholder="What do they do?" class="sc-input">
+            <input type="text" placeholder="Are you the owner, or recommending someone?" class="sc-input">
+            <input type="email" placeholder="Your email address" class="sc-input">
+            <input type="tel" placeholder="Your phone number (optional)" class="sc-input">
+          </div>
+          <button class="sc-btn">Submit for Review</button>
+          <div class="sc-fine">Free to submit. We'll be in touch if we need more details.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter-section" id="newsletter">
+  <div class="section-wrap">
+    <div class="nl-eyebrow">The Porch Post · Weekly Newsletter</div>
+    <h2 class="nl-headline reveal">
+      Stay in the loop<br>
+      without the <em>noise.</em>
+    </h2>
+    <p class="nl-sub reveal">
+      Sign up to be among the first Steiner Ranch neighbors to receive The Porch Post — local events, new listings, and community news, nothing else.
+    </p>
+    <div class="nl-form reveal">
+      <input type="email" class="nl-input" placeholder="your@email.com">
+      <button class="nl-btn">Subscribe Free</button>
+    </div>
+    <div class="nl-note reveal">Free forever for Steiner Ranch residents. Unsubscribe anytime.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">The Porch Project</div>
+      <div class="footer-place">Steiner Ranch · Austin, TX</div>
+      <p class="footer-about">A hyperlocal community platform built by and for Steiner Ranch residents. The signal, not the noise.</p>
+    </div>
+    <div>
+      <div class="fc-h">Explore</div>
+      <ul class="fc-links">
+        <li><a href="directory.html">Business Directory</a></li>
+        <li><a href="camp-planner.html">Summer Camp Guide</a></li>
+        <li><a href="directory.html#events">Events Guide</a></li>
+        <li><a href="#">Newcomer Guide — Coming Soon</a></li>
+        <li><a href="#">Pull Up a Chair — Coming Soon</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fc-h">Community</div>
+      <ul class="fc-links">
+        <li><a href="#">The Porch Post Newsletter</a></li>
+        <li><a href="#">Submit a Business</a></li>
+        <li><a href="#">Suggest an Event</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 The Porch Project · Steiner Ranch, Austin TX</span>
+    <span>Privacy · Terms</span>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // nav shadow on scroll
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.boxShadow =
+      window.scrollY > 30 ? '0 4px 24px rgba(0,0,0,0.07)' : 'none';
+  });
+
+  // tab click (purely visual)
+  document.querySelectorAll('.ptab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
