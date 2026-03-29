@@ -887,6 +887,19 @@
   max-width: 800px;
   margin: 0 auto;
 }
+  .pp-event-banner {
+  width: 100%;
+  max-height: 200px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+.pp-event-banner img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
 .pp-event-card {
   display: flex;
   gap: 20px;
@@ -1826,7 +1839,8 @@
     if (evt.link) {
       linkHtml = '<a href="'+escHtml(evt.link)+'" target="_blank" rel="noopener" class="pp-event-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>';
     }
-    return '<div class="pp-event-card">'+
+    return '<div class="pp-event-card">'+ 
+  (evt.image ? '<div class="pp-event-banner"><img src="'+escHtml(evt.image)+'" alt="'+escHtml(evt.name)+' flyer"></div>' : '')+
       '<div class="pp-event-date-badge">'+
         '<div class="pp-event-date-month">'+dp.month+'</div>'+
         '<div class="pp-event-date-day">'+dp.day+'</div>'+
