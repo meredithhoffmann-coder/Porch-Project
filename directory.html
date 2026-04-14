@@ -897,8 +897,6 @@
 }
 .pp-event-banner {
   width: 100%;
-  border-radius: 12px 12px 0 0;
-  overflow: hidden;
 }
 .pp-event-banner img {
   width: 100%;
@@ -908,14 +906,16 @@
 
 .pp-event-card {
   display: flex;
+  flex-direction: column;
   gap: 20px;
   background: var(--pp-white);
   border-radius: var(--pp-radius);
-  padding: 24px;
+  padding: 0;
   margin-bottom: 16px;
   box-shadow: var(--pp-shadow);
   transition: transform 0.2s, box-shadow 0.2s;
   border: 1px solid transparent;
+  overflow: hidden;
 }
 .pp-event-card:hover {
   transform: translateY(-2px);
@@ -950,7 +950,7 @@
   color: var(--pp-light);
   margin-top: 2px;
 }
-.pp-event-info { flex: 1; min-width: 0; }
+.pp-event-info { flex: 1; min-width: 0; padding: 20px 24px 24px; }
 .pp-event-name {
   font-family: 'Playfair Display', serif;
   font-size: 18px;
