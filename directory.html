@@ -1879,9 +1879,120 @@
     }
   }
 
-  /* ═══════════════════════════════════════════
+   /* ═══════════════════════════════════════════
      EVENTS RENDERING
      ═══════════════════════════════════════════ */
+
+  // Parse "6:00 PM" / "18:00" into { h: 0-23, m: 0-59 }, or null if unparseable.
+  function parseEvtTime(t) {
+    if (!t) return null;
+    var s = String(t).trim();
+    var m = s.match(/^(\d{1,2})(?::(\d{2}))?\s*([AaPp][Mm])?$/);
+    if (!m) return null;
+    var h = parseInt(m[1], 10);
+    var min = m[2] ? parseInt(m[2], 10) : 0;
+    var ampm = m[3] ? m[3].toUpperCase() : null;
+    if (ampm === 'PM' && h < 12) h += 12;
+    if (ampm === 'AM' && h === 12) h = 0;
+    if (h > 23 || min > 59) return null;
+    return { h: h, m: min };
+  }
+
+  // Pad number to 2 digits.
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+  // Return { start, end, allDay } in calendar formats.
+  // Timed: "YYYYMMDDTHHMMSS" (floating local time). All-day: "YYYYMMDD".
+  // If endTime missing: defaults to start + 1 hour (timed) or same day (all-day).
+  function toCalDateTime(dateStr, timeStr, endTimeStr) {
+    if (!dateStr) return null;
+    var dm = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!dm) return null;
+    var y = parseInt(dm[1], 10), mo = parseInt(dm[2], 10), d = parseInt(dm[3], 10);
+    var start = parseEvtTime(timeStr);
+    if (!start) {
+      // All-day: DTEND is exclusive (next day) per iCal/Google spec.
+      var dStart = new Date(Date.UTC(y, mo - 1, d));
+      var dEnd = new Date(Date.UTC(y, mo - 1, d + 1));
+      var fmt = function(dt) {
+        return dt.getUTCFullYear() + pad2(dt.getUTCMonth() + 1) + pad2(dt.getUTCDate());
+      };
+      return { start: fmt(dStart), end: fmt(dEnd), allDay: true };
+    }
+    var end = parseEvtTime(endTimeStr);
+    if (!end) {
+      end = { h: start.h + 1, m: start.m };
+      if (end.h > 23) end.h = 23, end.m = 59;
+    }
+    var fmtDT = function(hh, mm) {
+      return '' + y + pad2(mo) + pad2(d) + 'T' + pad2(hh) + pad2(mm) + '00';
+    };
+    return { start: fmtDT(start.h, start.m), end: fmtDT(end.h, end.m), allDay: false };
+  }
+
+  // Build Google Calendar event-creation URL. Works on Android, iPhone, and desktop.
+  function buildGoogleCalUrl(evt) {
+    var dt = toCalDateTime(evt.date, evt.time, evt.endTime);
+    if (!dt) return '#';
+    var params = [
+      'action=TEMPLATE',
+      'text=' + encodeURIComponent(evt.name || ''),
+      'dates=' + dt.start + '/' + dt.end,
+      'location=' + encodeURIComponent(evt.location || ''),
+      'details=' + encodeURIComponent((evt.desc || '') + (evt.link ? '\n\n' + evt.link : ''))
+    ];
+    if (!dt.allDay) {
+      params.push('ctz=America/Chicago');
+    }
+    return 'https://www.google.com/calendar/render?' + params.join('&');
+  }
+
+  // Escape a string for an .ics TEXT field per RFC 5545.
+  function icsEscape(s) {
+    return String(s || '')
+      .replace(/\\/g, '\\\\')
+      .replace(/\n/g, '\\n')
+      .replace(/,/g, '\\,')
+      .replace(/;/g, '\\;');
+  }
+
+  // Build and download a .ics file. iPhone opens natively in Calendar;
+  // Outlook/Apple Mail recognize as invites; Android offers Google Calendar import.
+  function downloadIcs(evt) {
+    var dt = toCalDateTime(evt.date, evt.time, evt.endTime);
+    if (!dt) return;
+    var slug = (evt.name || 'event').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    var uid = slug + '-' + (evt.date || '') + '@porchproject.co';
+    var now = new Date();
+    var dtstamp = now.getUTCFullYear() + pad2(now.getUTCMonth() + 1) + pad2(now.getUTCDate())
+      + 'T' + pad2(now.getUTCHours()) + pad2(now.getUTCMinutes()) + pad2(now.getUTCSeconds()) + 'Z';
+    var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Porch Project//EN', 'CALSCALE:GREGORIAN',
+                 'METHOD:PUBLISH', 'BEGIN:VEVENT', 'UID:' + uid, 'DTSTAMP:' + dtstamp];
+    if (dt.allDay) {
+      lines.push('DTSTART;VALUE=DATE:' + dt.start);
+      lines.push('DTEND;VALUE=DATE:' + dt.end);
+    } else {
+      lines.push('DTSTART;TZID=America/Chicago:' + dt.start);
+      lines.push('DTEND;TZID=America/Chicago:' + dt.end);
+    }
+    lines.push('SUMMARY:' + icsEscape(evt.name));
+    if (evt.location) lines.push('LOCATION:' + icsEscape(evt.location));
+    var desc = evt.desc || '';
+    if (evt.link) desc += (desc ? '\n\n' : '') + evt.link;
+    if (desc) lines.push('DESCRIPTION:' + icsEscape(desc));
+    lines.push('END:VEVENT', 'END:VCALENDAR');
+    var ics = lines.join('\r\n');
+    var blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = slug + '.ics';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+  }
+
   function makeEventCard(evt) {
     var dp = getDateParts(evt.date);
     var timeStr = evt.time || '';
