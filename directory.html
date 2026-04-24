@@ -1036,9 +1036,8 @@
   gap: 4px;
 }
 .pp-event-link:hover { color: var(--pp-green); }
-.pp-event-cal { position: relative; display: inline-block; }
 .pp-event-cal-btn {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--pp-sage);
   background: rgba(123,139,111,0.08);
   border: 1px solid rgba(123,139,111,0.18);
@@ -1053,64 +1052,7 @@
   line-height: 1;
 }
 .pp-event-cal-btn:hover { color: var(--pp-green); background: rgba(123,139,111,0.16); }
-.pp-event-cal-btn svg { width: 14px; height: 14px; }
-.pp-event-cal-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: #fff;
-  border: 1px solid rgba(44,62,45,0.12);
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.10);
-  padding: 6px;
-  min-width: 180px;
-  z-index: 9999;
-  display: none;
-}
-.pp-event-cal.open .pp-event-cal-menu { display: block; }
-.pp-event-cal-menu button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  background: transparent;
-  border: 0;
-  padding: 8px 12px;
-  font-size: 13px;
-  color: var(--pp-green);
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: inherit;
-}
-.pp-event-cal-menu button:hover { background: var(--pp-cream); color: var(--pp-gold); }
-.pp-event-cal-btn svg { width: 14px; height: 14px; }
-.pp-event-cal-menu {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  background: #fff;
-  border: 1px solid rgba(44,62,45,0.12);
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.10);
-  padding: 6px;
-  min-width: 180px;
-  z-index: 20;
-  display: none;
-}
-.pp-event-cal.open .pp-event-cal-menu { display: block; }
-.pp-event-cal-menu button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  background: transparent;
-  border: 0;
-  padding: 8px 12px;
-  font-size: 13px;
-  color: var(--pp-green);
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: inherit;
-}
-.pp-event-cal-menu button:hover { background: var(--pp-cream); color: var(--pp-gold); }
+.pp-event-cal-btn svg { width: 13px; height: 13px; }
 .pp-events-section-title {
   font-family: 'Playfair Display', serif;
   font-size: 18px;
@@ -2022,29 +1964,20 @@
     setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
   }
 
-  // Toggle the Add-to-Calendar dropdown. Uses position:fixed + computed coords
-  // so the menu escapes any ancestor overflow/stacking context.
-  window.ppToggleCalMenu = function(btn, ev) {    if (ev) ev.stopPropagation();
-    var wrap = btn.parentNode;
-    var wasOpen = wrap.classList.contains('open');
-    // Close any other open menus first.
-    document.querySelectorAll('.pp-event-cal.open').forEach(function(x) { x.classList.remove('open'); });
-    if (wasOpen) return;
-    var menu = wrap.querySelector('.pp-event-cal-menu');
-    if (!menu) return;
-    // Position relative to the viewport, just below the button.
-    var r = btn.getBoundingClientRect();
-    menu.style.top = (r.bottom + 6) + 'px';
-    menu.style.left = r.left + 'px';
-    wrap.classList.add('open');
-    // If the menu would overflow the right edge of the viewport, nudge it left.
-    var mr = menu.getBoundingClientRect();
-    var vw = window.innerWidth || document.documentElement.clientWidth;
-    if (mr.right > vw - 8) {
-      menu.style.left = Math.max(8, vw - 8 - mr.width) + 'px';
-    }
+   // Inline onclick handlers for the two calendar buttons. Exposed on window
+  // so HTML inline attributes (which run in global scope) can find them.
+  window.ppAddGoogleCal = function(btn) {
+    try {
+      var evt = JSON.parse(decodeURIComponent(btn.getAttribute('data-evt') || ''));
+      window.open(buildGoogleCalUrl(evt), '_blank', 'noopener');
+    } catch (err) { /* no-op */ }
   };
-
+  window.ppAddIcsCal = function(btn) {
+    try {
+      var evt = JSON.parse(decodeURIComponent(btn.getAttribute('data-evt') || ''));
+      downloadIcs(evt);
+    } catch (err) { /* no-op */ }
+  };
   function makeEventCard(evt) {
     var dp = getDateParts(evt.date);
     var timeStr = evt.time || '';
@@ -2070,16 +2003,16 @@
                 '<div class="pp-event-footer">'+
           (evt.category ? '<span class="pp-event-cat">'+escHtml(evt.category)+'</span>' : '')+
           (evt.cost && evt.cost.toLowerCase() !== 'free' ? '<span class="pp-event-cost pp-event-cost-paid">'+escHtml(/^\d/.test(evt.cost) ? '$'+evt.cost : evt.cost)+'</span>' : '')+
-          '<div class="pp-event-cal" data-evt="'+encodeURIComponent(JSON.stringify({name:evt.name,date:evt.date,time:evt.time,endTime:evt.endTime,location:evt.location,desc:evt.desc,link:evt.link}))+'">'+
-                                  '<button type="button" class="pp-event-cal-btn" onclick="ppToggleCalMenu(this,event);">'+
+                   (function(){ var evtData = encodeURIComponent(JSON.stringify({name:evt.name,date:evt.date,time:evt.time,endTime:evt.endTime,location:evt.location,desc:evt.desc,link:evt.link})); return (
+            '<button type="button" class="pp-event-cal-btn" title="Add to Google Calendar" data-evt="'+evtData+'" onclick="ppAddGoogleCal(this);">'+
               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'+
-              'Add to Calendar'+
+              'Google'+
             '</button>'+
-            '<div class="pp-event-cal-menu">'+
-              '<button type="button" class="pp-cal-google">Google Calendar</button>'+
-              '<button type="button" class="pp-cal-ics">Apple / Outlook (.ics)</button>'+
-            '</div>'+
-          '</div>'+
+            '<button type="button" class="pp-event-cal-btn" title="Add to Apple Calendar / Outlook (.ics)" data-evt="'+evtData+'" onclick="ppAddIcsCal(this);">'+
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'+
+              'Apple'+
+            '</button>'
+          ); })()+
           linkHtml+
         '</div>'+
       '</div>'+
@@ -2599,30 +2532,6 @@
     if (e.target === this) ppCloseCalPopup();
   });
 
-    // "Add to Calendar" dropdown: handle menu item clicks + close on outside click.
-  document.addEventListener('click', function(e) {
-    var gBtn = e.target.closest('.pp-cal-google');
-    var iBtn = e.target.closest('.pp-cal-ics');
-    if (gBtn || iBtn) {
-      var wrap = (gBtn || iBtn).closest('.pp-event-cal');
-      if (!wrap) return;
-      try {
-        var evt = JSON.parse(decodeURIComponent(wrap.getAttribute('data-evt') || ''));
-        if (gBtn) {
-          window.open(buildGoogleCalUrl(evt), '_blank', 'noopener');
-        } else {
-          downloadIcs(evt);
-        }
-      } catch (err) { /* no-op */ }
-      wrap.classList.remove('open');
-      e.stopPropagation();
-      return;
-    }
-    // Click outside any open menu: close them all.
-    if (!e.target.closest('.pp-event-cal.open')) {
-      document.querySelectorAll('.pp-event-cal.open').forEach(function(x) { x.classList.remove('open'); });
-    }
-  });
   // Close any open calendar menu on scroll/resize (its fixed position would drift).
   window.addEventListener('scroll', function() {
     document.querySelectorAll('.pp-event-cal.open').forEach(function(x) { x.classList.remove('open'); });
