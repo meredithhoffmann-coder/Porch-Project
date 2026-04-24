@@ -2547,6 +2547,30 @@
     if (e.target === this) ppCloseCalPopup();
   });
 
+  // "Add to Calendar" dropdown: handle menu item clicks + close on outside click.
+  document.addEventListener('click', function(e) {
+    var gBtn = e.target.closest('.pp-cal-google');
+    var iBtn = e.target.closest('.pp-cal-ics');
+    if (gBtn || iBtn) {
+      var wrap = (gBtn || iBtn).closest('.pp-event-cal');
+      if (!wrap) return;
+      try {
+        var evt = JSON.parse(decodeURIComponent(wrap.getAttribute('data-evt') || ''));
+        if (gBtn) {
+          window.open(buildGoogleCalUrl(evt), '_blank', 'noopener');
+        } else {
+          downloadIcs(evt);
+        }
+      } catch (err) { /* no-op */ }
+      wrap.classList.remove('open');
+      e.stopPropagation();
+      return;
+    }
+    // Click outside any open menu: close them all.
+    if (!e.target.closest('.pp-event-cal.open')) {
+      document.querySelectorAll('.pp-event-cal.open').forEach(function(x) { x.classList.remove('open'); });
+    }
+  });
   /* ═══════════════════════════════════════════
      INITIALIZATION
      ═══════════════════════════════════════════ */
