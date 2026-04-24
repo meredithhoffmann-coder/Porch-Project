@@ -2024,8 +2024,7 @@
 
   // Toggle the Add-to-Calendar dropdown. Uses position:fixed + computed coords
   // so the menu escapes any ancestor overflow/stacking context.
-  function ppToggleCalMenu(btn, ev) {
-    if (ev) ev.stopPropagation();
+  window.ppToggleCalMenu = function(btn, ev) {    if (ev) ev.stopPropagation();
     var wrap = btn.parentNode;
     var wasOpen = wrap.classList.contains('open');
     // Close any other open menus first.
@@ -2044,7 +2043,7 @@
     if (mr.right > vw - 8) {
       menu.style.left = Math.max(8, vw - 8 - mr.width) + 'px';
     }
-  }
+  };
 
   function makeEventCard(evt) {
     var dp = getDateParts(evt.date);
