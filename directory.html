@@ -1036,7 +1036,52 @@
   gap: 4px;
 }
 .pp-event-link:hover { color: var(--pp-green); }
-
+.pp-event-cal { position: relative; display: inline-block; }
+.pp-event-cal-btn {
+  font-size: 13px;
+  color: var(--pp-sage);
+  background: rgba(123,139,111,0.08);
+  border: 1px solid rgba(123,139,111,0.18);
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
+  line-height: 1;
+}
+.pp-event-cal-btn:hover { color: var(--pp-green); background: rgba(123,139,111,0.16); }
+.pp-event-cal-btn svg { width: 14px; height: 14px; }
+.pp-event-cal-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: #fff;
+  border: 1px solid rgba(44,62,45,0.12);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+  padding: 6px;
+  min-width: 180px;
+  z-index: 20;
+  display: none;
+}
+.pp-event-cal.open .pp-event-cal-menu { display: block; }
+.pp-event-cal-menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--pp-green);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.pp-event-cal-menu button:hover { background: var(--pp-cream); color: var(--pp-gold); }
 .pp-events-section-title {
   font-family: 'Playfair Display', serif;
   font-size: 18px;
