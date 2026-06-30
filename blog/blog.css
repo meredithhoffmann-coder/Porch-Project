@@ -1,0 +1,227 @@
+/* ============================================
+   THE PORCH PROJECT — Blog styles
+   Self-contained. Loaded only by pages in /blog/.
+   Uses the design tokens (--pp-*) defined in ../styles.css.
+   ============================================ */
+
+/* ── Blog listing page ── */
+.blog-hero {
+  text-align: center;
+  padding: 64px 24px 44px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.blog-hero .eyebrow {
+  font-family: 'Young Serif', Georgia, serif;
+  font-size: 15px;
+  color: var(--pp-gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.blog-hero h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--pp-green);
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+.blog-hero p {
+  font-size: 16px;
+  color: var(--pp-medium);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.blog-list {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  display: grid;
+  gap: 24px;
+}
+.post-card {
+  display: block;
+  background: var(--pp-white);
+  border-radius: var(--pp-radius);
+  padding: 32px;
+  box-shadow: var(--pp-shadow);
+  border: 1px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--pp-shadow-hover);
+  border-color: rgba(196,162,101,0.2);
+}
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--pp-light);
+  margin-bottom: 12px;
+}
+.post-tag {
+  background: var(--pp-sage-tint);
+  color: var(--pp-green);
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+}
+.post-card h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--pp-green);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.post-card p {
+  font-size: 15px;
+  color: var(--pp-medium);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.post-readmore {
+  font-size: 14px;
+  color: var(--pp-gold);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.post-card:hover .post-readmore { color: var(--pp-green); }
+
+/* ── Article page ── */
+.article {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 24px 64px;
+}
+.article-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pp-gold);
+  margin-bottom: 32px;
+}
+.article-back:hover { color: var(--pp-green); }
+.article-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.article-header .post-meta {
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.article-header h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 44px;
+  font-weight: 600;
+  color: var(--pp-green);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.article-header .lede {
+  font-family: 'Young Serif', Georgia, serif;
+  font-size: 19px;
+  color: var(--pp-latte);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.article-hero-img {
+  width: 100%;
+  border-radius: var(--pp-radius);
+  margin-bottom: 40px;
+  box-shadow: var(--pp-shadow);
+}
+.article-body {
+  font-size: 17px;
+  color: var(--pp-dark);
+  line-height: 1.8;
+}
+.article-body p { margin-bottom: 22px; }
+.article-body h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--pp-green);
+  margin: 40px 0 14px;
+}
+.article-body h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 23px;
+  font-weight: 600;
+  color: var(--pp-green);
+  margin: 30px 0 10px;
+}
+.article-body a {
+  color: var(--pp-gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.article-body a:hover { color: var(--pp-green); }
+.article-body ul,
+.article-body ol { margin: 0 0 22px 22px; }
+.article-body li { margin-bottom: 8px; }
+.article-body blockquote {
+  border-left: 3px solid var(--pp-sage);
+  background: var(--pp-sage-tint);
+  padding: 16px 24px;
+  border-radius: 0 8px 8px 0;
+  margin: 0 0 22px;
+  font-family: 'Young Serif', Georgia, serif;
+  font-size: 18px;
+  color: var(--pp-green);
+}
+.article-body img {
+  border-radius: var(--pp-radius);
+  margin: 8px 0 22px;
+  box-shadow: var(--pp-shadow);
+}
+
+/* ── Newsletter call-to-action (drop your Flodesk form inside) ── */
+.newsletter-cta {
+  max-width: 720px;
+  margin: 56px auto 0;
+  background: var(--pp-white);
+  border: 1px solid var(--pp-border);
+  border-radius: var(--pp-radius);
+  padding: 36px 32px;
+  text-align: center;
+  box-shadow: var(--pp-shadow);
+}
+.newsletter-cta h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--pp-green);
+  margin-bottom: 8px;
+}
+.newsletter-cta p {
+  font-size: 15px;
+  color: var(--pp-medium);
+  max-width: 460px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .blog-hero { padding: 44px 20px 32px; }
+  .blog-hero h1 { font-size: 34px; }
+  .post-card { padding: 24px; }
+  .post-card h2 { font-size: 23px; }
+  .article-header h1 { font-size: 32px; }
+  .article-body { font-size: 16px; }
+  .article-body h2 { font-size: 25px; }
+}

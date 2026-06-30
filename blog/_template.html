@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ▼▼▼ EDIT THESE FOR EACH NEW POST ▼▼▼ -->
+<title>POST TITLE HERE — The Porch Project</title>
+<meta name="description" content="One-sentence summary of this post (shows up in Google + when shared on social).">
+<!-- ▲▲▲ EDIT THESE FOR EACH NEW POST ▲▲▲ -->
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<!-- NAVIGATION (leave as-is) -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="../index.html" class="site-nav-logo">
+      <span>&#127807;</span> The Porch Project
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.site-nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    <ul class="site-nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../directory.html">Directory</a></li>
+      <li><a href="../directory.html#events">Events</a></li>
+      <li><a href="../camp-planner.html">Camp Planner</a></li>
+      <li><a href="index.html" class="active">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ARTICLE -->
+<article class="article">
+
+  <a href="index.html" class="article-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Blog
+  </a>
+
+  <header class="article-header">
+    <div class="post-meta">
+      <!-- ▼ EDIT: category + date ▼ -->
+      <span class="post-tag">Category</span>
+      <span>Month DD, YYYY</span>
+    </div>
+    <!-- ▼ EDIT: headline ▼ -->
+    <h1>Your Post Title Goes Here</h1>
+    <!-- ▼ EDIT: one-line intro (optional — delete if not needed) ▼ -->
+    <p class="lede">A short, inviting one-sentence summary that draws the reader in.</p>
+  </header>
+
+  <!-- ▼ OPTIONAL hero image — put the file in site/blog/images/ and update the name.
+       Delete this line if the post has no image. ▼ -->
+  <!-- <img class="article-hero-img" src="images/your-image.jpg" alt="Describe the image"> -->
+
+  <!-- ▼▼▼ WRITE YOUR POST BELOW. Each paragraph = one <p>...</p>. ▼▼▼ -->
+  <div class="article-body">
+
+    <p>Start writing here. Each paragraph goes between its own &lt;p&gt; and &lt;/p&gt; tags.</p>
+
+    <h2>A Section Heading</h2>
+    <p>Use an &lt;h2&gt; for major sections and &lt;h3&gt; for smaller ones.</p>
+
+    <p>Add a <a href="https://example.com">link like this</a>. To link to your directory, use <a href="../directory.html">../directory.html</a>.</p>
+
+    <ul>
+      <li>A bulleted list item</li>
+      <li>Another item</li>
+    </ul>
+
+    <blockquote>A pull quote or highlight goes here.</blockquote>
+
+  </div>
+  <!-- ▲▲▲ END OF POST BODY ▲▲▲ -->
+
+</article>
+
+<!-- NEWSLETTER SIGNUP (leave as-is, or delete to remove from this post) -->
+<section class="newsletter-cta">
+  <h3>Enjoyed this?</h3>
+  <p>Get new posts and local finds in your inbox &mdash; join the Porch Project newsletter.</p>
+  <!-- FLODESK FORM: paste your Flodesk inline form embed code here -->
+  <p style="color:var(--pp-light);font-size:13px;">&larr; Flodesk signup form goes here</p>
+</section>
+
+<!-- FOOTER (leave as-is) -->
+<footer class="site-footer">
+  <div class="site-footer-brand">The Porch Project</div>
+  <div class="site-footer-tagline">Steiner Ranch, Austin TX</div>
+  <div class="site-footer-divider"></div>
+  <div class="site-footer-links">
+    <a href="../index.html">Home</a>
+    <a href="../directory.html">Directory</a>
+    <a href="../camp-planner.html">Camp Planner</a>
+    <a href="index.html">Blog</a>
+  </div>
+  <p>&copy; 2026 The Porch Project. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

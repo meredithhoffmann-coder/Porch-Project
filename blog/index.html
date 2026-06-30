@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — The Porch Project</title>
+<meta name="description" content="Stories, guides, and neighborhood news from Steiner Ranch, Austin TX — by The Porch Project.">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="../index.html" class="site-nav-logo">
+      <span>&#127807;</span> The Porch Project
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.site-nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    <ul class="site-nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../directory.html">Directory</a></li>
+      <li><a href="../directory.html#events">Events</a></li>
+      <li><a href="../camp-planner.html">Camp Planner</a></li>
+      <li><a href="index.html" class="active">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="blog-hero">
+  <div class="eyebrow">From the Porch</div>
+  <h1>Stories &amp; Guides</h1>
+  <p>Neighborhood news, local guides, and the people behind Steiner Ranch. New posts land in your inbox first &mdash; <a href="#newsletter" style="color:var(--pp-gold);font-weight:600;">join the newsletter</a>.</p>
+</section>
+
+<!-- ========================================================= -->
+<!-- POST LIST                                                 -->
+<!-- To add a new post: copy one <a class="post-card"> block,  -->
+<!-- paste it at the TOP of this list (newest first), and      -->
+<!-- update the link, tag, date, title, and summary.           -->
+<!-- ========================================================= -->
+<section class="blog-list">
+
+  <a href="welcome.html" class="post-card">
+    <div class="post-meta">
+      <span class="post-tag">Community</span>
+      <span>June 29, 2026</span>
+    </div>
+    <h2>Welcome to the Porch Project Blog</h2>
+    <p>A little about why we started this, what you'll find here, and how to get the good stuff delivered straight to your inbox.</p>
+    <span class="post-readmore">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+  </a>
+
+  <!-- Next post card goes here -->
+
+</section>
+
+<!-- NEWSLETTER SIGNUP -->
+<section class="newsletter-cta" id="newsletter">
+  <h3>Never miss a post</h3>
+  <p>Join the Porch Project newsletter for new articles, local finds, and community events &mdash; delivered to your inbox.</p>
+  <!-- FLODESK FORM: paste your Flodesk inline form embed code here -->
+  <!-- (In Flodesk: Forms &rarr; your form &rarr; Share &rarr; "Embed on your site" &rarr; copy the Inline code.) -->
+  <p style="color:var(--pp-light);font-size:13px;">&larr; Flodesk signup form goes here</p>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer-brand">The Porch Project</div>
+  <div class="site-footer-tagline">Steiner Ranch, Austin TX</div>
+  <div class="site-footer-divider"></div>
+  <div class="site-footer-links">
+    <a href="../index.html">Home</a>
+    <a href="../directory.html">Directory</a>
+    <a href="../camp-planner.html">Camp Planner</a>
+    <a href="index.html">Blog</a>
+  </div>
+  <p>&copy; 2026 The Porch Project. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
