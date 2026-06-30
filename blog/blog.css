@@ -216,6 +216,101 @@
   line-height: 1.6;
 }
 
+/* ── Blog landing: welcome / about intro ── */
+.about-intro {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 24px 16px;
+  text-align: center;
+}
+.about-intro .eyebrow {
+  font-family: 'Young Serif', Georgia, serif;
+  font-size: 15px;
+  color: var(--pp-gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.about-intro h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 44px;
+  font-weight: 600;
+  color: var(--pp-green);
+  line-height: 1.15;
+  margin-bottom: 28px;
+}
+.about-photo {
+  display: block;
+  width: 240px;
+  height: auto;
+  border-radius: 18px;
+  margin: 0 auto 32px;
+  box-shadow: var(--pp-shadow);
+  border: 5px solid var(--pp-white);
+  outline: 1px solid var(--pp-border);
+}
+.about-body {
+  text-align: left;
+  font-size: 17px;
+  color: var(--pp-dark);
+  line-height: 1.8;
+}
+.about-body p { margin-bottom: 22px; }
+.about-sign {
+  font-family: 'Young Serif', Georgia, serif;
+  font-size: 18px;
+  color: var(--pp-latte);
+  margin-top: 4px;
+}
+
+/* Buttons */
+.about-cta {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 34px 0 10px;
+}
+.pp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.pp-btn-primary { background: var(--pp-gold); color: var(--pp-white); }
+.pp-btn-primary:hover { background: var(--pp-green); }
+.pp-btn-secondary {
+  background: var(--pp-white);
+  color: var(--pp-green);
+  border: 1px solid var(--pp-border);
+}
+.pp-btn-secondary:hover { border-color: var(--pp-sage); background: var(--pp-sage-tint); }
+
+/* "From the blog" section heading on the landing page */
+.blog-section-head {
+  max-width: 760px;
+  margin: 48px auto 0;
+  padding: 0 24px;
+  text-align: center;
+}
+.blog-section-head .leaf {
+  color: var(--pp-sage);
+  font-size: 20px;
+  display: block;
+  margin-bottom: 8px;
+}
+.blog-section-head h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--pp-green);
+}
+
 @media (max-width: 768px) {
   .blog-hero { padding: 44px 20px 32px; }
   .blog-hero h1 { font-size: 34px; }
@@ -224,4 +319,9 @@
   .article-header h1 { font-size: 32px; }
   .article-body { font-size: 16px; }
   .article-body h2 { font-size: 25px; }
+  .about-intro { padding: 44px 20px 12px; }
+  .about-intro h1 { font-size: 33px; }
+  .about-photo { width: 190px; }
+  .about-body { font-size: 16px; }
+  .about-cta .pp-btn { width: 100%; justify-content: center; }
 }
