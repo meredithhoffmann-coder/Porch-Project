@@ -190,6 +190,31 @@
   box-shadow: var(--pp-shadow);
 }
 
+/* Figures + captions */
+.article-body figure { margin: 10px 0 28px; }
+.article-body figure img { margin: 0; display: block; width: 100%; }
+.article-body figcaption {
+  font-family: 'Young Serif', Georgia, serif;
+  font-size: 14px;
+  color: var(--pp-latte);
+  text-align: center;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* Two photos side by side */
+.photo-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 10px 0 28px;
+  align-items: start;
+}
+.photo-row figure { margin: 0; }
+@media (max-width: 600px) {
+  .photo-row { grid-template-columns: 1fr; gap: 8px; }
+}
+
 /* ── Newsletter call-to-action (drop your Flodesk form inside) ── */
 .newsletter-cta {
   max-width: 720px;
