@@ -639,6 +639,126 @@
     line-height: 1.6;
   }
   .footer-note strong { color: #5a3e00; }
+/* ── NEWSLETTER POP-UP ── */
+.pp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(44,62,45,0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.pp-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.pp-modal {
+  position: relative;
+  background: var(--pp-white);
+  border-radius: 20px;
+  max-width: 440px;
+  width: 100%;
+  padding: 44px 40px 40px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(44,62,45,0.28);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+.pp-modal-overlay.open .pp-modal {
+  transform: translateY(0) scale(1);
+}
+.pp-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: var(--pp-cream);
+  color: var(--pp-medium);
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.pp-modal-close:hover {
+  background: var(--pp-sage-tint);
+  color: var(--pp-green);
+}
+.pp-modal-leaf {
+  font-size: 30px;
+  color: var(--pp-sage);
+  margin-bottom: 12px;
+}
+.pp-modal h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--pp-green);
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.pp-modal p {
+  font-size: 15px;
+  color: var(--pp-medium);
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0 auto 22px;
+}
+.pp-modal-form {
+  margin-top: 4px;
+}
+.pp-modal-dismiss {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--pp-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.pp-modal-dismiss:hover { color: var(--pp-medium); }
+
+/* Override Flodesk's built-in chrome so the embed matches the pop-up. */
+.pp-modal-form [class*="__title"],
+.pp-modal-form [class*="__subtitle"] {
+  display: none !important;
+}
+.pp-modal-form [class*="__container"],
+.pp-modal-form [class*="__content"] {
+  padding: 0 !important;
+  background: transparent !important;
+}
+.pp-modal-form [class*="__button"] {
+  background: var(--pp-green) !important;
+  color: var(--pp-white) !important;
+  font-family: 'DM Sans', -apple-system, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  border-radius: 50px !important;
+  letter-spacing: 0.3px !important;
+  box-shadow: none !important;
+  transition: background 0.2s ease !important;
+}
+.pp-modal-form [class*="__button"]:hover {
+  background: var(--pp-gold) !important;
+}
+
+@media (max-width: 768px) {
+  .pp-modal { padding: 40px 26px 32px; border-radius: 16px; }
+  .pp-modal h2 { font-size: 27px; }
+}
 </style>
 </head>
 <body>
@@ -1308,5 +1428,91 @@ fetchSheet(CAMP_CONFIG.TAB_NAME, function(data) {
   <p>&copy; 2026 The Porch Project. All rights reserved.</p>
 </footer>
 
+<!-- Flodesk universal embed code (powers the signup form) -->
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
+
+<!-- NEWSLETTER POP-UP -->
+<div class="pp-modal-overlay" id="ppNewsletter" role="dialog" aria-modal="true" aria-labelledby="ppNewsletterTitle" aria-hidden="true">
+  <div class="pp-modal">
+    <button class="pp-modal-close" id="ppNewsletterClose" aria-label="Close">&times;</button>
+    <div class="pp-modal-leaf">&#127807;</div>
+    <h2 id="ppNewsletterTitle">Join the neighborhood</h2>
+    <p>Get new local finds, community events, and neighborhood stories in your inbox &mdash; from The Porch Project.</p>
+    <!-- Flodesk newsletter signup form (same list as the blog) -->
+    <div class="pp-modal-form"><div id="fd-form-6a431bec28b82ee8e4ff3e2e"></div></div>
+    <button class="pp-modal-dismiss" id="ppNewsletterDismiss">No thanks</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var STORAGE_KEY = 'pp_newsletter_seen';
+  var SHOW_AFTER_MS = 4500;      // show ~4.5s after load
+  var SNOOZE_DAYS = 7;           // don't show again for 7 days once seen
+
+  var overlay = document.getElementById('ppNewsletter');
+  if (!overlay) return;
+
+  try {
+    var last = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+    if (last && (Date.now() - last) < SNOOZE_DAYS * 86400000) return;
+  } catch (e) {}
+
+  var formLoaded = false;
+  function loadForm() {
+    if (formLoaded || typeof window.fd !== 'function') return;
+    formLoaded = true;
+    window.fd('form', {
+      formId: '6a431bec28b82ee8e4ff3e2e',
+      containerEl: '#fd-form-6a431bec28b82ee8e4ff3e2e'
+    });
+  }
+
+  function markSeen() {
+    try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch (e) {}
+  }
+  function openModal() {
+    loadForm();
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    markSeen();
+  }
+  function closeModal() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  document.getElementById('ppNewsletterClose').addEventListener('click', closeModal);
+  document.getElementById('ppNewsletterDismiss').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+  });
+
+  setTimeout(openModal, SHOW_AFTER_MS);
+})();
+</script>
 </body>
 </html>
