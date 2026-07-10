@@ -1,0 +1,42 @@
+name: Build directory pages
+
+# Turns each business in your Google Sheet into a real, crawlable web page.
+# You never run anything on your computer — this runs on GitHub's servers.
+
+on:
+  workflow_dispatch:        # the "Run workflow" button in the Actions tab
+  schedule:
+    - cron: "0 9 * * *"     # also runs automatically once a day (09:00 UTC)
+
+# Let the job commit the generated pages back into the repo.
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate the business pages + sitemap
+        env:
+          PP_GA4_ID: ${{ vars.PP_GA4_ID }}
+        run: python3 build_directory.py
+
+      - name: Commit and push any changes
+        run: |
+          git config user.name  "porch-project-bot"
+          git config user.email "actions@github.com"
+          git add directory sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No changes — the directory is already up to date."
+          else
+            git commit -m "Rebuild directory pages from the Google Sheet"
+            git push
+          fi
