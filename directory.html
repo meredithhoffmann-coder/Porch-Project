@@ -2404,8 +2404,13 @@
     currentRating = 0;
   };
 
+  window.ppCurrentBizName = '';
   window.ppOpenModal = function(idx) {
     var biz = businesses[idx];
+    window.ppCurrentBizName = biz.name;
+    if (typeof gtag === 'function') {
+      gtag('event', 'select_business', { business: biz.name });
+    }
     var cats = biz.subcategories.map(function(c){ return '<span class="pp-card-cat">'+escHtml(c)+'</span>'; }).join('');
     var socials = '';
     if (biz.facebook) socials += '<a href="'+escHtml(biz.facebook)+'" target="_blank" rel="noopener" class="pp-modal-social" title="Facebook">'+makeSocialIcon('facebook')+'</a>';
@@ -2469,6 +2474,32 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') { ppCloseModal(); ppCloseCalPopup(); }
   });
+
+  /* Track clicks on a business's website / phone / email / social links, tagged
+     with the business name — so the sponsor dashboard can show per-business clicks.
+     Capture phase (3rd arg = true) so the cards' stopPropagation can't block it. */
+  document.addEventListener('click', function(e) {
+    if (typeof gtag !== 'function') return;
+    var a = e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (!/^(https?:|tel:|mailto:)/i.test(href)) return;
+    var name = '';
+    var card = a.closest('.pp-card');
+    if (card && card.getAttribute('data-idx') !== null) {
+      var b = businesses[card.getAttribute('data-idx')];
+      name = b ? b.name : '';
+    } else if (a.closest('#ppModalContent')) {
+      name = window.ppCurrentBizName || '';
+    } else {
+      return; // a nav/footer link, not a business link — ignore
+    }
+    var type = /^tel:/i.test(href) ? 'phone'
+             : /^mailto:/i.test(href) ? 'email'
+             : (a.className && a.className.indexOf('social') > -1) ? 'social'
+             : 'website';
+    gtag('event', 'business_link_click', { business: name, link_type: type, link_url: a.href });
+  }, true);
 
   /* ═══════════════════════════════════════════
      NAVIGATION
