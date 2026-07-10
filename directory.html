@@ -295,7 +295,7 @@
   padding: 0;
 }
 .pp-subfilters.visible {
-  max-height: 200px;
+  max-height: 600px;
   opacity: 1;
   padding: 12px 0 8px;
 }
@@ -1326,6 +1326,8 @@
   .pp-modal-cats { justify-content: center; }
   .pp-filters { gap: 6px; }
   .pp-filter-btn { padding: 8px 14px; font-size: 12px; }
+    .pp-subfilters .pp-subfilters-inner { gap: 5px; }
+  .pp-sub-btn { padding: 5px 11px; font-size: 11px; }
   .pp-badge-legend { flex-direction: column; align-items: center; gap: 8px; }
   .pp-event-card { flex-direction: column; align-items: center; text-align: center; }
   .pp-event-meta { justify-content: center; }
@@ -1809,9 +1811,19 @@
     subs.forEach(function(s) {
       html += '<button class="pp-sub-btn" data-sub="'+escHtml(s)+'">'+escHtml(s)+'</button>';
     });
-    innerEl.innerHTML = html;
+        innerEl.innerHTML = html;
     subEl.classList.add('visible');
+    // Expand to the exact content height so no row is ever clipped.
+    subEl.style.maxHeight = subEl.scrollHeight + 'px';
   }
+
+  window.addEventListener('resize', function() {
+    var subEl = document.getElementById('ppSubFilters');
+    if (subEl && subEl.classList.contains('visible')) {
+      subEl.style.maxHeight = 'none';
+      subEl.style.maxHeight = subEl.scrollHeight + 'px';
+    }
+  });
 
   function renderDirectory() {
     var grid = document.getElementById('ppGrid');
