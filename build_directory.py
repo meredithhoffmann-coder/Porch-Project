@@ -260,7 +260,7 @@ def business_page(row, slug):
 {ga4_head()}</head>
 <body>
   <main class="pp-page">
-    <a class="pp-back" href="{SITE_URL}/{DIRECTORY_SUBPATH}/">← Back to the {esc(COMMUNITY)} directory</a>
+    <a class="pp-back" href="{SITE_URL}/directory.html">← Back to the {esc(COMMUNITY)} directory</a>
     <div class="pp-head">
       {logo_html}
       <div>
@@ -274,7 +274,7 @@ def business_page(row, slug):
     <section class="pp-contact">
 {contact_rows(row, name)}
     </section>
-    <p class="pp-foot">Listed in the <a href="{SITE_URL}/{DIRECTORY_SUBPATH}/">{esc(COMMUNITY)} neighborhood directory</a> · <a href="{SITE_URL}/">Porch Project</a></p>
+    <p class="pp-foot">Listed in the <a href="{SITE_URL}/directory.html">{esc(COMMUNITY)} neighborhood directory</a> · <a href="{SITE_URL}/">Porch Project</a></p>
   </main>
 {ga4_click_script()}</body>
 </html>
