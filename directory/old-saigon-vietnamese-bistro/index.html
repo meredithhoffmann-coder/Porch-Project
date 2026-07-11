@@ -51,6 +51,13 @@
     .pp-foot{margin-top:40px;font-size:.9rem;color:#9a9a9a}
     .pp-foot a{color:#356a3a;text-decoration:none}
   </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P33RNWQCBJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P33RNWQCBJ');
+  </script>
 </head>
 <body>
   <main class="pp-page">
@@ -79,5 +86,16 @@ The balance what we strive for every day is quality you can taste, and quantity 
     </section>
     <p class="pp-foot">Listed in the <a href="https://porchproject.co/directory.html">Steiner Ranch neighborhood directory</a> · <a href="https://porchproject.co/">Porch Project</a></p>
   </main>
+  <script>
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[data-pp-track]');
+      if (!a || typeof gtag !== 'function') return;
+      gtag('event', 'business_link_click', {
+        business: a.getAttribute('data-pp-business') || '',
+        link_type: a.getAttribute('data-pp-track') || 'link',
+        link_url: a.href
+      });
+    });
+  </script>
 </body>
 </html>
