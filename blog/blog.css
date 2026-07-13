@@ -215,6 +215,52 @@
   .photo-row { grid-template-columns: 1fr; gap: 8px; }
 }
 
+/* Tables (e.g. workout blocks) */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 26px;
+  border-radius: 10px;
+  box-shadow: var(--pp-shadow);
+}
+.data-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  background: var(--pp-white);
+  font-size: 15px;
+}
+.data-table thead th {
+  background: var(--pp-green);
+  color: var(--pp-white);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  text-align: left;
+  padding: 11px 14px;
+}
+.data-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--pp-border);
+  vertical-align: top;
+  line-height: 1.55;
+}
+.data-table tbody tr:nth-child(even) { background: rgba(213, 228, 216, 0.35); }
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table td:first-child { font-weight: 600; color: var(--pp-green); }
+.data-table td:nth-child(2) { white-space: nowrap; color: var(--pp-latte); font-weight: 600; }
+
+/* Closing disclaimer / fine print */
+.article-note {
+  font-size: 14px;
+  color: var(--pp-light);
+  border-top: 1px solid var(--pp-border);
+  padding-top: 22px;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
 /* ── Newsletter call-to-action (drop your Flodesk form inside) ── */
 .newsletter-cta {
   max-width: 720px;
