@@ -48,7 +48,7 @@ def load_rows():
     else:
         url = (
             f"https://docs.google.com/spreadsheets/d/{SHEET_ID}"
-            f"/gviz/tq?tqx=out:csv&sheet={urllib.parse.quote(TAB)}"
+            f"/gviz/tq?tqx=out:csv&headers=1&sheet={urllib.parse.quote(TAB)}"
         )
         with urllib.request.urlopen(url, timeout=30) as resp:
             text = resp.read().decode("utf-8")
