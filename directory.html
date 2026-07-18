@@ -1600,7 +1600,7 @@
   }
 
   function sheetUrl(tabName) {
-    return 'https://docs.google.com/spreadsheets/d/' + PP_CONFIG.SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(tabName) + '&_=' + Date.now();
+    return 'https://docs.google.com/spreadsheets/d/' + PP_CONFIG.SHEET_ID + '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent(tabName) + '&_=' + Date.now();
   }
 
   function fetchSheet(tabName, callback) {
