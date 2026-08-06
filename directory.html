@@ -1873,6 +1873,20 @@
     return { h: h, m: min };
   }
 
+  // Start time as minutes past midnight, for sorting. Untimed / all-day
+  // events return -1 so they sort to the top of their day.
+  function evtStartMinutes(e) {
+    var t = parseEvtTime(e && e.time);
+    return t ? (t.h * 60 + t.m) : -1;
+  }
+
+  // Order events by day, then by start time (morning before afternoon).
+  function evtSortCmp(a, b) {
+    var d = (a.date || '').localeCompare(b.date || '');
+    if (d !== 0) return d;
+    return evtStartMinutes(a) - evtStartMinutes(b);
+  }
+
   // Pad number to 2 digits.
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
@@ -2052,10 +2066,8 @@
     }
     noEvt.style.display = 'none';
 
-    // Sort by date
-    filtered.sort(function(a, b) {
-      return (a.date || '').localeCompare(b.date || '');
-    });
+    // Sort by date, then start time (morning first)
+    filtered.sort(evtSortCmp);
 
     var upcoming = filtered.filter(function(e) { return isUpcoming(e.date); });
     var past = filtered.filter(function(e) { return !isUpcoming(e.date); });
@@ -2634,6 +2646,7 @@
       } else {
         events = DEMO_EVENTS;
       }
+      events.sort(evtSortCmp);   // day, then start time (morning first)
       loaded.evt = true;
       checkReady();
     });
