@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P33RNWQCBJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P33RNWQCBJ');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faces of Steiner — Neighbor Stories & Podcast | The Porch Project</title>
+<meta name="description" content="Faces of Steiner: a podcast and story series from The Porch Project spotlighting the people who make Steiner Ranch home. Listen and read.">
+<link rel="stylesheet" href="../styles.css">
+<style>
+/* ── SECTION HERO ── */
+.fos-hero {
+  text-align: center;
+  padding: 72px 24px 48px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.fos-hero .fos-eyebrow {
+  font-family: 'Young Serif', Georgia, serif;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pp-gold);
+  margin-bottom: 16px;
+}
+.fos-hero h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 54px;
+  font-weight: 600;
+  line-height: 1.08;
+  color: var(--pp-green);
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+.fos-hero p {
+  font-size: 17px;
+  color: var(--pp-medium);
+  line-height: 1.7;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.fos-hero-leaf {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; margin: 26px 0 0;
+}
+.fos-hero-leaf span { color: var(--pp-sage); font-size: 20px; }
+.fos-hero-leaf::before, .fos-hero-leaf::after {
+  content: ''; height: 1px; width: 60px; background: var(--pp-border);
+}
+
+/* ── EPISODE LIST ── */
+.fos-episodes {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 8px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.fos-card {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  background: var(--pp-white);
+  border-radius: var(--pp-radius);
+  overflow: hidden;
+  box-shadow: var(--pp-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid transparent;
+}
+.fos-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--pp-shadow-hover);
+  border-color: rgba(196,162,101,0.2);
+}
+.fos-card-img {
+  position: relative;
+  min-height: 240px;
+  background: var(--pp-sage-tint);
+}
+.fos-card-img img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.fos-card-body {
+  padding: 30px 32px;
+  display: flex;
+  flex-direction: column;
+}
+.fos-card-num {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pp-gold);
+  margin-bottom: 10px;
+}
+.fos-card h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--pp-green);
+  margin-bottom: 6px;
+}
+.fos-card .fos-card-sub {
+  font-family: 'Young Serif', Georgia, serif;
+  font-size: 16px;
+  color: var(--pp-latte);
+  margin-bottom: 14px;
+}
+.fos-card p {
+  font-size: 15px;
+  color: var(--pp-medium);
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+.fos-card-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.fos-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.fos-btn-primary { background: var(--pp-gold); color: var(--pp-white); }
+.fos-btn-primary:hover { background: #b83d15; }
+.fos-btn-ghost { background: var(--pp-cream); color: var(--pp-green); border: 1px solid var(--pp-border); }
+.fos-btn-ghost:hover { background: var(--pp-sage-tint); }
+
+/* ── PITCH / SUGGEST STRIP ── */
+.fos-pitch {
+  max-width: 760px;
+  margin: 24px auto 0;
+  padding: 30px 28px;
+  background: var(--pp-green);
+  border-radius: var(--pp-radius);
+  text-align: center;
+  color: rgba(255,255,255,0.85);
+}
+.fos-pitch h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 26px;
+  color: var(--pp-white);
+  margin-bottom: 8px;
+}
+.fos-pitch p { font-size: 15px; max-width: 480px; margin: 0 auto 16px; line-height: 1.6; }
+.fos-pitch a {
+  display: inline-block;
+  background: var(--pp-sage);
+  color: var(--pp-green);
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.fos-pitch a:hover { background: var(--pp-white); }
+
+@media (max-width: 640px) {
+  .fos-hero h1 { font-size: 38px; }
+  .fos-card { grid-template-columns: 1fr; }
+  .fos-card-img { min-height: 220px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="../index.html" class="site-nav-logo">
+      <span>&#127807;</span> The Porch Project
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.site-nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    <ul class="site-nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../directory.html">Directory</a></li>
+      <li><a href="../directory.html#events">Events</a></li>
+      <li><a href="index.html" class="active">Faces of Steiner</a></li>
+      <li><a href="../blog/index.html">Blog</a></li>
+      <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSd_zx7pP5Z4ewQqgY7RiAxoq1GYVuKvvwcJb8VqO5rW0i0y6w/viewform?usp=header" target="_blank" class="nav-list-btn">+ List Your Business</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="fos-hero">
+  <div class="fos-eyebrow">A Porch Project Series</div>
+  <h1>Faces of Steiner</h1>
+  <p>The people who make Steiner Ranch home &mdash; their stories, their passions, and the small ways they make the neighborhood bigger. Listen to the podcast, read the story.</p>
+  <div class="fos-hero-leaf"><span>&#127807;</span></div>
+</section>
+
+<!-- EPISODES -->
+<section class="fos-episodes">
+
+  <article class="fos-card">
+    <a href="audrey.html" class="fos-card-img">
+      <img src="images/audrey-portrait.jpg" alt="Audrey Handelsman">
+    </a>
+    <div class="fos-card-body">
+      <div class="fos-card-num">Episode 1</div>
+      <h2>Opening Central Texas Homes to the World</h2>
+      <div class="fos-card-sub">Meet Audrey Handelsman</div>
+      <p>A personal trainer of 30+ years, Audrey's real passion project is matching foreign exchange students with host families across the Austin area &mdash; and building connections that outlast the school year.</p>
+      <div class="fos-card-actions">
+        <a href="audrey.html" class="fos-btn fos-btn-primary"><span>&#127911;</span> Listen &amp; Read</a>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<!-- PITCH -->
+<div class="fos-pitch">
+  <h3>Know a face worth featuring?</h3>
+  <p>Every neighborhood is full of quiet stories. If there's a Steiner neighbor you think we should meet, we'd love to hear about them.</p>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSd_zx7pP5Z4ewQqgY7RiAxoq1GYVuKvvwcJb8VqO5rW0i0y6w/viewform?usp=header" target="_blank" rel="noopener">Suggest a Neighbor</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer-brand">The Porch Project</div>
+  <div class="site-footer-tagline">Steiner Ranch, Austin TX</div>
+  <div class="site-footer-divider"></div>
+  <div class="site-footer-links">
+    <a href="../directory.html">Directory</a>
+    <a href="../directory.html#events">Events</a>
+    <a href="index.html">Faces of Steiner</a>
+    <a href="../blog/index.html">Blog</a>
+  </div>
+  <p>&copy; 2026 The Porch Project. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
