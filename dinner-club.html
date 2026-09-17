@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Analytics (GA4) — same property as the blog -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P33RNWQCBJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P33RNWQCBJ');
+</script>
+
+<title>Dinner Club · The Porch Project</title>
+<meta name="description" content="The Porch Project Dinner Club: one night out with Steiner Ranch neighbors, tables of six at a local restaurant, then a Community Nightcap. Take a short quiz, get matched, meet new people.">
+
+<!-- Social share preview (add your own image when ready) -->
+<meta property="og:title" content="The Porch Project Dinner Club">
+<meta property="og:description" content="One night out, tables of six, new friends. Meet your neighbors in Steiner Ranch.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://porchproject.co/dinner-club.html">
+<!-- <meta property="og:image" content="https://porchproject.co/images/dinner-club-preview.jpg"> -->
+
+<!-- Shared site styles (nav, footer, design tokens) -->
+<link rel="stylesheet" href="styles.css">
+
+<!-- Flodesk universal embed code (powers the signup form) -->
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
+
+<style>
+  /* Landing-page-specific styles. Colors reuse the site's brand palette
+     (defined in styles.css) under local aliases so the mockup markup stays
+     unchanged and everything matches The Porch Project. */
+  :root{
+    --green:#2C3E2D;
+    --terracotta:#D44D20;
+    --sage:#ACCAB2;
+    --cream:#FAF5EF;
+    --honey:#E9A752;
+    --latte:#786140;
+    --green-soft:#3d5340;
+    --ink:#2b2620;
+    --paper:#fffdf9;
+  }
+
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'DM Sans',system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1;color:var(--green);margin:0;}
+  .landing a:not(.btn){color:var(--terracotta);}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+
+  /* ---- eyebrow ---- */
+  .eyebrow{
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    font-weight:600;color:var(--latte);
+  }
+
+  /* ---- buttons ---- */
+  .btn{
+    display:inline-block;font-family:'DM Sans',sans-serif;font-weight:600;
+    font-size:1rem;text-decoration:none;border-radius:999px;
+    padding:14px 30px;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor:pointer;border:none;
+  }
+  .btn-primary{background:var(--terracotta);color:#fff;box-shadow:0 6px 18px rgba(212,77,32,.28);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(212,77,32,.34);color:#fff;}
+  .btn-ghost{background:transparent;color:var(--green);border:1.5px solid var(--green);}
+  .btn-ghost:hover{background:var(--green);color:var(--cream);}
+  a.btn:focus-visible,button:focus-visible{outline:3px solid var(--honey);outline-offset:3px;}
+
+  /* ---- hero ---- */
+  .hero{
+    background:
+      radial-gradient(1200px 500px at 80% -10%, rgba(172,202,178,.45), transparent 60%),
+      linear-gradient(180deg, var(--paper), var(--cream));
+    padding:64px 0 56px;
+    border-bottom:1px solid rgba(120,97,64,.14);
+  }
+  .hero .eyebrow{margin-bottom:18px;}
+  .hero h1{font-size:clamp(2.8rem,8vw,4.6rem);letter-spacing:-.01em;}
+  .hero p.lead{
+    font-size:1.18rem;max-width:34em;margin:20px 0 30px;color:var(--green-soft);
+  }
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+  .hero-note{font-size:.9rem;color:var(--latte);margin-top:18px;}
+
+  /* animated arrival */
+  .reveal{opacity:0;transform:translateY(14px);animation:rise .7s ease forwards;}
+  .reveal.d1{animation-delay:.08s;}
+  .reveal.d2{animation-delay:.16s;}
+  .reveal.d3{animation-delay:.24s;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+
+  /* ---- section shell ---- */
+  .landing section{padding:56px 0;}
+  .sec-head{max-width:40em;margin-bottom:34px;}
+  .sec-head h2{font-size:clamp(2rem,5vw,2.9rem);margin-bottom:10px;}
+  .sec-head p{color:var(--green-soft);margin:0;font-size:1.05rem;}
+
+  /* ---- start-here cards ---- */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .card{
+    background:var(--paper);border:1px solid rgba(120,97,64,.16);border-radius:16px;
+    padding:26px 24px;text-decoration:none;color:inherit;display:block;
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  a.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(44,62,45,.12);border-color:var(--sage);}
+  .card .tag{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta);font-weight:600;}
+  .card h3{font-size:1.55rem;margin:8px 0 8px;}
+  .card p{margin:0;font-size:.97rem;color:var(--green-soft);}
+
+  /* coming-soon placeholder card (not yet a real page) */
+  .card.soon{opacity:.72;cursor:default;}
+  .card.soon .tag{color:var(--latte);}
+
+  /* ---- checklist ---- */
+  .checklist{list-style:none;margin:0;padding:0;counter-reset:step;}
+  .checklist li{
+    position:relative;padding:18px 0 18px 56px;border-bottom:1px dashed rgba(120,97,64,.28);
+  }
+  .checklist li:last-child{border-bottom:none;}
+  .checklist li::before{
+    counter-increment:step;content:counter(step);
+    position:absolute;left:0;top:16px;width:36px;height:36px;border-radius:50%;
+    background:var(--sage);color:var(--green);font-family:'Cormorant Garamond',serif;
+    font-weight:700;font-size:1.25rem;display:flex;align-items:center;justify-content:center;
+  }
+  .checklist h3{font-size:1.3rem;margin-bottom:2px;}
+  .checklist p{margin:0;font-size:.97rem;color:var(--green-soft);}
+
+  /* facebook groups list inside the checklist */
+  .fb-heading{
+    margin:16px 0 6px !important;font-family:'Cormorant Garamond',serif;
+    font-weight:600;font-size:1.15rem;color:var(--green) !important;line-height:1.2;
+  }
+  .fb-groups{list-style:none;margin:0;padding:0;}
+  .fb-groups li{position:relative;padding:4px 0 4px 18px;}
+  .fb-groups li::before{
+    content:'';position:absolute;left:0;top:12px;
+    width:6px;height:6px;border-radius:50%;background:var(--sage);
+  }
+  .checklist .fb-groups a{color:var(--terracotta);text-decoration:none;font-weight:600;}
+  .checklist .fb-groups a:hover{text-decoration:underline;}
+
+  /* ---- newsletter band ---- */
+  .band{
+    background:var(--green);color:var(--cream);border-radius:22px;
+    padding:48px 40px;text-align:center;
+  }
+  .band h2{color:var(--cream);font-size:clamp(2rem,5vw,2.9rem);}
+  .band p{max-width:32em;margin:14px auto 26px;color:rgba(250,245,239,.86);}
+  .band-form{max-width:420px;margin:0 auto;}
+
+  /* Make the embedded Flodesk form legible on the dark green band.
+     Scoped to .band-form so the blog/homepage embeds are unaffected. */
+  .band-form [class*="__title"],
+  .band-form [class*="__subtitle"]{display:none !important;}
+  .band-form [class*="__container"],
+  .band-form [class*="__content"]{
+    padding:0 !important;background:transparent !important;
+  }
+  .band-form [class*="__input"]{
+    background:#fff !important;color:var(--ink) !important;
+    border-radius:50px !important;
+  }
+  .band-form [class*="__button"]{
+    background:var(--terracotta) !important;color:#fff !important;
+    font-family:'DM Sans',-apple-system,sans-serif !important;font-weight:700 !important;
+    font-size:15px !important;border-radius:50px !important;letter-spacing:.3px !important;
+    box-shadow:0 8px 22px rgba(0,0,0,.25) !important;transition:background .2s ease !important;
+  }
+  .band-form [class*="__button"]:hover{background:var(--honey) !important;}
+  .band-form [class*="__success"],
+  .band-form [class*="__message"],
+  .band-form p{color:var(--cream) !important;}
+
+  @media (max-width:640px){
+    .grid{grid-template-columns:1fr;}
+    .hero-cta .btn{width:100%;text-align:center;}
+    .band{padding:38px 22px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{animation:none;opacity:1;transform:none;}
+    html{scroll-behavior:auto;}
+    .btn:hover,.card:hover{transform:none;}
+  }
+
+  /* ---- dinner club specifics ---- */
+  .price-pill{
+    display:inline-block;background:var(--sage);color:var(--green);border-radius:999px;
+    padding:6px 16px;font-weight:600;font-size:.95rem;margin-bottom:18px;
+  }
+  .detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .detail-grid .card h3{font-size:1.35rem;}
+  .quote{
+    border-left:4px solid var(--honey);padding:6px 0 6px 22px;margin:28px 0 0;
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:1.35rem;line-height:1.35;color:var(--green);
+  }
+  .quote cite{display:block;font-family:'DM Sans',sans-serif;font-style:normal;font-size:.9rem;color:var(--latte);margin-top:8px;}
+  .band .btn-primary{margin-top:4px;}
+  .band .band-note{font-size:.92rem;color:rgba(250,245,239,.8);margin:18px auto 0;}
+  .band .band-note a{color:var(--honey);}
+  .hero-photo{
+    display:block;width:100%;max-width:960px;margin:34px auto 0;border-radius:18px;
+    box-shadow:0 14px 36px rgba(44,62,45,.16);aspect-ratio:3/2;object-fit:cover;object-position:center 62%;
+  }
+  .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px;}
+  .photo-grid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;display:block;box-shadow:0 8px 22px rgba(44,62,45,.12);}
+  .photo-caption{font-size:.9rem;color:var(--latte);margin-top:12px;text-align:center;}
+  @media (max-width:760px){.detail-grid{grid-template-columns:1fr;}.photo-grid{grid-template-columns:1fr 1fr;}.hero-photo{aspect-ratio:4/3;border-radius:14px;}}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION (shared across the site) -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-logo">
+      <span>&#127807;</span> The Porch Project
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.site-nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    <ul class="site-nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="welcome.html">Newcomers</a></li>
+      <li><a href="directory.html">Directory</a></li>
+      <li><a href="directory.html#events">Events</a></li>
+      <li><a href="dinner-club.html" class="active">Dinner Club</a></li>
+      <li><a href="faces-of-steiner/index.html">Faces of Steiner</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="landing">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow reveal">The Porch Project &middot; Steiner Ranch</p>
+    <h1 class="reveal d1">Dinner Club</h1>
+    <p class="lead reveal d2">Interested in meeting some new people in and around Steiner? Come alone or bring a plus one. One night out, tables of six at a local restaurant &mdash; then everyone meets up afterward for a Community Nightcap.</p>
+    <div class="hero-cta reveal d3">
+      <a class="btn btn-primary" href="https://porchprojectdinnerclub.dnnr.io" target="_blank" rel="noopener">See upcoming dinners &amp; register</a>
+      <a class="btn btn-ghost" href="#how">How it works</a>
+    </div>
+    <p class="hero-note reveal d3">Our first Dinner Club just happened. Nobody wanted to leave their table &mdash; which is exactly the point. Don't miss the next one.</p>
+    <img class="hero-photo reveal d3" src="dinner-club-nightcap.jpeg" alt="A big group of smiling Steiner Ranch neighbors holding drinks at the Community Nightcap after the first Dinner Club.">
+  </div>
+</header>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">How it works</p>
+      <h2>Four steps to a table full of new friends</h2>
+      <p>No awkward mixers, no name tags. Just a good dinner with five neighbors you haven't met yet.</p>
+    </div>
+    <ol class="checklist">
+      <li>
+        <h3>Grab a ticket</h3>
+        <p>Pick an upcoming dinner and register on the <a href="https://porchprojectdinnerclub.dnnr.io" target="_blank" rel="noopener">Dinner Club page</a>. Coming with a friend or partner? Get two tickets and you'll be seated together.</p>
+      </li>
+      <li>
+        <h3>Take a short personality quiz</h3>
+        <p>A few quick questions so we can match you with a table you'll actually enjoy. It takes about two minutes.</p>
+      </li>
+      <li>
+        <h3>Meet your table</h3>
+        <p>You (and your plus one) will be seated with five other Steiner residents for dinner at a local restaurant. We handle the matching and the reservation; you just show up.</p>
+      </li>
+      <li>
+        <h3>Community Nightcap</h3>
+        <p>After dinner, everyone from every table meets up in one spot &mdash; so you leave having met a lot more than five people. At our first one I practically had to hurry people away from their tables to get there. Then the fun exploded.</p>
+      </li>
+    </ol>
+    <div class="photo-grid">
+      <img src="dinner-club-table-1.jpeg" alt="A long table of neighbors smiling at the camera over dinner at the first Dinner Club.">
+      <img src="dinner-club-table-2.jpeg" alt="Table selfie mid-laugh at the first Dinner Club.">
+      <img src="dinner-club-table-3.jpeg" alt="A table of six neighbors with tacos and drinks at the first Dinner Club.">
+    </div>
+    <p class="photo-caption">Scenes from the first Dinner Club, September 2026.</p>
+  </div>
+</section>
+
+<!-- ============ DETAILS ============ -->
+<section style="background:var(--paper);border-top:1px solid rgba(120,97,64,.12);border-bottom:1px solid rgba(120,97,64,.12);">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The details</p>
+      <h2>What to know before you book</h2>
+    </div>
+    <div class="detail-grid">
+      <div class="card">
+        <span class="tag">Tickets</span>
+        <h3>$15.99 per seat</h3>
+        <p>Covers your seat and the matching. Food and drinks at the restaurant are on you.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Who</span>
+        <h3>Steiner residents</h3>
+        <p>In and around Steiner Ranch. Come solo or bring a plus one &mdash; both are very welcome.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Where</span>
+        <h3>A local restaurant</h3>
+        <p>Each dinner is at a different local spot. Details come with your ticket once you're matched.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REGISTER BAND ============ -->
+<section id="register">
+  <div class="wrap">
+    <div class="band">
+      <p class="eyebrow" style="color:var(--honey);">Pull up a chair</p>
+      <h2>Join the next dinner</h2>
+      <p>All upcoming dinners, dates, and tickets live on our Dinner Club page. Grab your seat before the tables fill up.</p>
+      <a class="btn btn-primary" href="https://porchprojectdinnerclub.dnnr.io" target="_blank" rel="noopener">See upcoming dinners &amp; register</a>
+      <p class="band-note">Questions? Email <a href="mailto:hello@porchproject.co">hello@porchproject.co</a>. Hope you can join us!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section id="subscribe" style="padding-top:0;">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center;margin:0 auto 24px;">
+      <p class="eyebrow">Hear about the next one first</p>
+      <h2>Get the newsletter</h2>
+      <p>New Dinner Club dates go out to the newsletter before anywhere else.</p>
+    </div>
+    <!-- Flodesk newsletter signup form (same list as the blog & homepage) -->
+    <div style="max-width:480px;margin:0 auto;">
+      <div id="fd-form-6a431bec28b82ee8e4ff3e2e"></div>
+      <script>
+        window.fd('form', {
+          formId: '6a431bec28b82ee8e4ff3e2e',
+          containerEl: '#fd-form-6a431bec28b82ee8e4ff3e2e'
+        });
+      </script>
+    </div>
+  </div>
+</section>
+
+</div><!-- /.landing -->
+
+<!-- ============ FOOTER (shared across the site) ============ -->
+<footer class="site-footer">
+  <div class="site-footer-brand">The Porch Project</div>
+  <div class="site-footer-tagline">Steiner Ranch, Austin TX</div>
+  <div class="site-footer-divider"></div>
+  <div class="site-footer-links">
+    <a href="index.html">Home</a>
+    <a href="welcome.html">Newcomers</a>
+    <a href="directory.html">Directory</a>
+    <a href="directory.html#events">Events</a>
+    <a href="dinner-club.html">Dinner Club</a>
+    <a href="faces-of-steiner/index.html">Faces of Steiner</a>
+    <a href="blog/index.html">Blog</a>
+  </div>
+  <p>&copy; 2026 The Porch Project. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
