@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Analytics (GA4) — same property as the rest of the site -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P33RNWQCBJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P33RNWQCBJ');
+</script>
+
+<title>Neighbor-Owned Getaways · The Porch Project</title>
+<meta name="description" content="Vacation rentals owned by Steiner Ranch neighbors. Book your next getaway with someone from your own community, and ask about the Steiner discount.">
+
+<meta property="og:title" content="Neighbor-Owned Getaways · The Porch Project">
+<meta property="og:description" content="Vacation rentals owned by your Steiner Ranch neighbors. Ask the owner about the Steiner discount.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://porchproject.co/getaways.html">
+<meta property="og:image" content="https://porchproject.co/getaways/st-augustine-front-porch.jpg">
+
+<!-- Shared site styles (nav, footer, design tokens) -->
+<link rel="stylesheet" href="styles.css">
+
+<!-- Flodesk universal embed code (powers the signup form) -->
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
+
+<style>
+  /* Page-specific styles. Same local palette aliases as dinner-club.html. */
+  :root{
+    --green:#2C3E2D;
+    --terracotta:#D44D20;
+    --sage:#ACCAB2;
+    --cream:#FAF5EF;
+    --honey:#E9A752;
+    --latte:#786140;
+    --green-soft:#3d5340;
+    --ink:#2b2620;
+    --paper:#fffdf9;
+  }
+
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'DM Sans',system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1;color:var(--green);margin:0;}
+  .landing a:not(.btn){color:var(--terracotta);}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+
+  .eyebrow{
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    font-weight:600;color:var(--latte);
+  }
+
+  /* ---- buttons ---- */
+  .btn{
+    display:inline-block;font-family:'DM Sans',sans-serif;font-weight:600;
+    font-size:1rem;text-decoration:none;border-radius:999px;
+    padding:13px 26px;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor:pointer;border:none;text-align:center;
+  }
+  .btn-primary{background:var(--terracotta);color:#fff;box-shadow:0 6px 18px rgba(212,77,32,.28);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(212,77,32,.34);color:#fff;}
+  .btn-ghost{background:transparent;color:var(--green);border:1.5px solid var(--green);}
+  .btn-ghost:hover{background:var(--green);color:var(--cream);}
+  a.btn:focus-visible{outline:3px solid var(--honey);outline-offset:3px;}
+
+  /* ---- hero ---- */
+  .hero{
+    background:
+      radial-gradient(1200px 500px at 80% -10%, rgba(172,202,178,.45), transparent 60%),
+      linear-gradient(180deg, var(--paper), var(--cream));
+    padding:64px 0 52px;
+    border-bottom:1px solid rgba(120,97,64,.14);
+  }
+  .hero .eyebrow{margin-bottom:18px;}
+  .hero h1{font-size:clamp(2.6rem,7.5vw,4.4rem);letter-spacing:-.01em;}
+  .hero p.lead{font-size:1.18rem;max-width:36em;margin:20px 0 0;color:var(--green-soft);}
+
+  .reveal{opacity:0;transform:translateY(14px);animation:rise .7s ease forwards;}
+  .reveal.d1{animation-delay:.08s;}
+  .reveal.d2{animation-delay:.16s;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+
+  .landing section{padding:56px 0;}
+  .sec-head{max-width:40em;margin-bottom:30px;}
+  .sec-head h2{font-size:clamp(2rem,5vw,2.8rem);margin-bottom:10px;}
+  .sec-head p{color:var(--green-soft);margin:0;font-size:1.05rem;}
+
+  /* ---- rental listing ---- */
+  .rental{
+    display:grid;grid-template-columns:1.15fr 1fr;
+    background:var(--paper);border:1px solid rgba(120,97,64,.16);border-radius:20px;
+    overflow:hidden;box-shadow:0 12px 32px rgba(44,62,45,.08);
+  }
+  .rental + .rental{margin-top:32px;}
+  .rental-photos{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:2fr 1fr;gap:4px;min-height:420px;background:var(--sage);}
+  .rental-photos img{width:100%;height:100%;object-fit:cover;display:block;}
+  .rental-photos img:first-child{grid-column:1 / -1;}
+  /* shown until real photos are added */
+  .photo-placeholder{
+    grid-column:1 / -1;grid-row:1 / -1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:linear-gradient(160deg,#cfe0d3,var(--sage));color:var(--green);text-align:center;padding:24px;
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:600;
+  }
+  .photo-placeholder small{font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:var(--green-soft);margin-top:6px;}
+  .see-all{
+    position:absolute;right:14px;bottom:14px;background:rgba(255,253,249,.94);color:var(--green);
+    border:none;border-radius:999px;padding:9px 16px;font:600 .88rem 'DM Sans',sans-serif;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.18);
+  }
+  .see-all:hover{background:#fff;}
+  .see-all:focus-visible{outline:3px solid var(--honey);outline-offset:2px;}
+
+  /* ---- full gallery ---- */
+  .gallery{
+    width:min(1000px,94vw);max-height:90vh;padding:0;border:none;border-radius:18px;
+    background:var(--paper);box-shadow:0 24px 60px rgba(0,0,0,.35);
+  }
+  .gallery::backdrop{background:rgba(30,40,31,.72);}
+  .gallery-head{
+    position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;
+    padding:16px 20px;background:var(--paper);border-bottom:1px solid rgba(120,97,64,.14);
+  }
+  .gallery-head h3{font-size:1.5rem;}
+  .gallery-close{background:none;border:none;font-size:2rem;line-height:1;color:var(--green);cursor:pointer;padding:0 6px;}
+  .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:12px;}
+  .gallery-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block;}
+  @media (max-width:640px){.gallery-grid{grid-template-columns:1fr;}}
+
+  .rental-body{padding:34px 34px 32px;display:flex;flex-direction:column;}
+  .rental-loc{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--terracotta);}
+  .rental h3{font-size:2.1rem;margin:8px 0 6px;}
+  .rental-owner{font-size:.95rem;color:var(--latte);margin:0 0 18px;}
+  .rental-owner strong{color:var(--green);font-weight:600;}
+  .facts{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0 0 20px;padding:0;}
+  .facts li{background:#eef4ef;color:var(--green);border-radius:999px;padding:5px 13px;font-size:.88rem;font-weight:500;}
+  .rental-desc{margin:0 0 24px;color:var(--green-soft);font-size:1rem;}
+  .rental-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:auto;}
+  .discount{
+    margin-top:18px;padding:12px 16px;border-radius:12px;background:#fdf1e3;
+    border:1px dashed rgba(233,167,82,.8);font-size:.93rem;color:var(--ink);
+  }
+  .discount a{font-weight:600;}
+
+  /* ---- list-yours band ---- */
+  .band{
+    background:var(--green);color:var(--cream);border-radius:22px;
+    padding:46px 40px;text-align:center;
+  }
+  .band h2{color:var(--cream);font-size:clamp(1.9rem,5vw,2.7rem);}
+  .band p{max-width:34em;margin:14px auto 24px;color:rgba(250,245,239,.86);}
+  .band .band-note{font-size:.92rem;margin:18px auto 0;}
+  .band .band-note a{color:var(--honey);}
+
+  @media (max-width:820px){
+    .rental{grid-template-columns:1fr;}
+    .rental-photos{min-height:320px;}
+    .rental-body{padding:26px 22px;}
+  }
+  @media (max-width:640px){
+    .rental-actions .btn{width:100%;}
+    .band{padding:36px 22px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{animation:none;opacity:1;transform:none;}
+    html{scroll-behavior:auto;}
+    .btn:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION (shared across the site) -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-logo">
+      <span>&#127807;</span> The Porch Project
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.site-nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    <ul class="site-nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="welcome.html">Newcomers</a></li>
+      <li><a href="directory.html">Directory</a></li>
+      <li><a href="directory.html#events">Events</a></li>
+      <li><a href="dinner-club.html">Dinner Club</a></li>
+      <li><a href="faces-of-steiner/index.html">Faces of Steiner</a></li>
+      <li><a href="getaways.html" class="active">Getaways</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="landing">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow reveal">The Porch Project &middot; Steiner Ranch</p>
+    <h1 class="reveal d1">Neighbor-Owned Getaways</h1>
+    <p class="lead reveal d2">Vacation homes owned by your Steiner Ranch neighbors. The homes can be anywhere, but the owners live right here. Book your next trip with someone from your own community, and be sure to ask about the Steiner discount.</p>
+  </div>
+</header>
+
+<!-- ============ RENTALS ============ -->
+<section id="rentals">
+  <div class="wrap">
+
+    <!-- RENTAL 1: St. Augustine -->
+    <article class="rental" id="st-augustine">
+      <div class="rental-photos">
+        <img src="getaways/st-augustine-front-porch.jpg" alt="Front porch of the St. Augustine rental with a yellow 'sunshine' pillow on a wooden chair">
+        <img src="getaways/st-augustine-living-room.jpg" alt="Bright living room with a white slipcovered sofa and coral prints">
+        <img src="getaways/st-augustine-bedroom-navy.jpg" alt="Primary bedroom with a navy accent wall and en suite bath">
+        <button class="see-all" type="button" data-gallery="st-augustine">See all 11 photos</button>
+      </div>
+      <div class="rental-body">
+        <span class="rental-loc">St. Augustine, Florida</span>
+        <h3>Historic District Hideaway</h3>
+        <p class="rental-owner">Owned by <strong>Meredith &amp; Thomas Hoffmann</strong>, Steiner Ranch neighbors</p>
+        <ul class="facts">
+          <li>3 bedrooms</li>
+          <li>2 baths</li>
+          <li>Sleeps 6</li>
+          <li>Pet-friendly (pet fee)</li>
+        </ul>
+        <p class="rental-desc">Stay in the heart of America's oldest city. This three-bedroom home sits in St. Augustine's historic district, close enough to walk to the cobblestone streets, restaurants, and centuries-old landmarks, yet tucked far enough away that the evenings are peaceful and quiet. Spend your mornings exploring the Castillo de San Marcos and your afternoons on the beach, just a short drive away.</p>
+        <div class="rental-actions">
+          <a class="btn btn-primary" href="https://www.vrbo.com/737362" target="_blank" rel="noopener" data-rental="St. Augustine" data-action="book">View &amp; book on VRBO</a>
+          <a class="btn btn-ghost" href="mailto:meredithhoffmann@mac.com?subject=Steiner%20discount%20-%20St.%20Augustine%20rental" data-rental="St. Augustine" data-action="contact">Contact owner</a>
+        </div>
+        <p class="discount">&#127968; Steiner neighbor? <a href="mailto:meredithhoffmann@mac.com?subject=Steiner%20discount%20-%20St.%20Augustine%20rental" data-rental="St. Augustine" data-action="contact">Contact the owner</a> for the Steiner discount.</p>
+      </div>
+    </article>
+
+    <!-- Full photo gallery for St. Augustine (opened by "See all photos") -->
+    <dialog class="gallery" id="gallery-st-augustine" aria-label="St. Augustine rental photos">
+      <div class="gallery-head">
+        <h3>Historic District Hideaway</h3>
+        <button type="button" class="gallery-close" aria-label="Close gallery">&times;</button>
+      </div>
+      <div class="gallery-grid">
+        <img loading="lazy" src="getaways/st-augustine-front-porch.jpg" alt="Front porch with a wooden chair and yellow pillow">
+        <img loading="lazy" src="getaways/st-augustine-living-room.jpg" alt="Living room with white sofa, navy armchair, and coral prints">
+        <img loading="lazy" src="getaways/st-augustine-kitchen.jpg" alt="Kitchen with granite counters and a breakfast bar">
+        <img loading="lazy" src="getaways/st-augustine-dining.jpg" alt="Round dining table set for four">
+        <img loading="lazy" src="getaways/st-augustine-bedroom-navy.jpg" alt="Bedroom with a navy accent wall and en suite bath">
+        <img loading="lazy" src="getaways/st-augustine-bedroom-sage.jpg" alt="Sage green bedroom with tall windows">
+        <img loading="lazy" src="getaways/st-augustine-bedroom-twins.jpg" alt="Twin bedroom with rope pendant lights">
+        <img loading="lazy" src="getaways/st-augustine-bath-1.jpg" alt="Bathroom with walk-in shower and granite vanity">
+        <img loading="lazy" src="getaways/st-augustine-bath-2.jpg" alt="Second bathroom with marble vanity and octopus print">
+        <img loading="lazy" src="getaways/st-augustine-patio.jpg" alt="Back patio with umbrella table">
+        <img loading="lazy" src="getaways/st-augustine-book-detail.jpg" alt="St. Augustine history book and starfish on the coffee table">
+      </div>
+    </dialog>
+
+    <!-- RENTAL 2: Miramar Beach -->
+    <article class="rental" id="miramar-beach">
+      <div class="rental-photos">
+        <img src="getaways/miramar-beach.jpg" alt="Boardwalk through the dunes to Miramar Beach's white sand and emerald water">
+        <img src="getaways/miramar-living-room.jpg" alt="Living room with vaulted beamed ceiling and blue sofa">
+        <img src="getaways/miramar-porch-swing.jpg" alt="Covered porch swing overlooking live oaks and the golf course">
+        <button class="see-all" type="button" data-gallery="miramar-beach">See all 12 photos</button>
+      </div>
+      <div class="rental-body">
+        <span class="rental-loc">Miramar Beach, Florida &middot; Destin area</span>
+        <h3>Emerald Coast Escape</h3>
+        <p class="rental-owner">Owned by <strong>Salissa &amp; Cris Erickson</strong>, Steiner Ranch neighbors &middot; <a href="faces-of-steiner/salissa.html">Meet Salissa in Faces of Steiner</a></p>
+        <ul class="facts">
+          <li>2 bedrooms</li>
+          <li>2 baths</li>
+          <li>Sleeps 7</li>
+          <li>Steps to the beach</li>
+          <li>Community pool</li>
+          <li>Golf course views</li>
+        </ul>
+        <p class="rental-desc">Your escape to paradise awaits. This spacious two-bedroom condo sits just steps from Miramar Beach's sugar-white sand and dazzling emerald water, with everything you need for a relaxing beach getaway. Spend your days on the shore, then head into nearby Destin for fresh seafood and sunsets on the Gulf.</p>
+        <div class="rental-actions">
+          <a class="btn btn-primary" href="https://evolve.com/vacation-rentals/501288" target="_blank" rel="noopener" data-rental="Miramar Beach" data-action="book">View &amp; book on Evolve</a>
+          <a class="btn btn-ghost" href="mailto:salissag@gmail.com?subject=Golf%20cart%20discount%20-%20Miramar%20Beach%20rental" data-rental="Miramar Beach" data-action="contact">Contact owner</a>
+        </div>
+        <p class="discount">&#9971; Steiner neighbor perk: book your stay, then <a href="mailto:salissag@gmail.com?subject=Golf%20cart%20discount%20-%20Miramar%20Beach%20rental" data-rental="Miramar Beach" data-action="contact">reach out to Salissa directly</a> for a golf cart rental discount.</p>
+      </div>
+    </article>
+
+    <!-- Full photo gallery for Miramar Beach (opened by "See all photos") -->
+    <dialog class="gallery" id="gallery-miramar-beach" aria-label="Miramar Beach rental photos">
+      <div class="gallery-head">
+        <h3>Emerald Coast Escape</h3>
+        <button type="button" class="gallery-close" aria-label="Close gallery">&times;</button>
+      </div>
+      <div class="gallery-grid">
+        <img loading="lazy" src="getaways/miramar-beach.jpg" alt="Boardwalk to the beach with emerald water">
+        <img loading="lazy" src="getaways/miramar-living-room.jpg" alt="Living room with vaulted beamed ceiling">
+        <img loading="lazy" src="getaways/miramar-kitchen.jpg" alt="Kitchen with stainless appliances and dining table">
+        <img loading="lazy" src="getaways/miramar-balcony.jpg" alt="Long covered balcony with seating and dining table">
+        <img loading="lazy" src="getaways/miramar-porch-swing.jpg" alt="Porch swing overlooking the golf course">
+        <img loading="lazy" src="getaways/miramar-entry-porch.jpg" alt="Entry porch with Adirondack chairs and Beach House sign">
+        <img loading="lazy" src="getaways/miramar-bedroom-king.jpg" alt="Bedroom with king bed">
+        <img loading="lazy" src="getaways/miramar-bunk-room.jpg" alt="Bunk room with staircase bunk bed">
+        <img loading="lazy" src="getaways/miramar-bunk-trundle.jpg" alt="Bunk room with trundle pulled out">
+        <img loading="lazy" src="getaways/miramar-bath-1.jpg" alt="Bathroom with walk-in shower">
+        <img loading="lazy" src="getaways/miramar-bath-2.jpg" alt="Second bathroom with tub and shower">
+        <img loading="lazy" src="getaways/miramar-pool.jpg" alt="Community pool surrounded by pines">
+      </div>
+    </dialog>
+
+  </div>
+</section>
+
+<!-- ============ LIST YOURS ============ -->
+<section id="list-yours" style="padding-top:0;">
+  <div class="wrap">
+    <div class="band">
+      <p class="eyebrow" style="color:var(--honey);">Own a vacation rental?</p>
+      <h2>Share your getaway with neighbors</h2>
+      <p>Live in Steiner Ranch and own a vacation rental, near or far? I'd love to feature it here, so neighbors can book with someone they know. Send me a note with your rental's location, the booking link, and any perk you'd like to offer Steiner guests, and I'll take it from there.</p>
+      <a class="btn btn-primary" href="mailto:hello@porchproject.co?subject=List%20my%20rental%20on%20Neighbor-Owned%20Getaways" data-rental="(list yours)" data-action="contact">Get your place listed</a>
+      <p class="band-note">Or write to <a href="mailto:hello@porchproject.co?subject=List%20my%20rental%20on%20Neighbor-Owned%20Getaways" data-rental="(list yours)" data-action="contact">hello@porchproject.co</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section id="subscribe" style="padding-top:0;">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center;margin:0 auto 24px;">
+      <p class="eyebrow">Stay in the loop</p>
+      <h2>Get the newsletter</h2>
+      <p>New getaways, events, and neighbor stories, straight to your inbox.</p>
+    </div>
+    <div style="max-width:480px;margin:0 auto;">
+      <div id="fd-form-6a431bec28b82ee8e4ff3e2e"></div>
+      <script>
+        window.fd('form', {
+          formId: '6a431bec28b82ee8e4ff3e2e',
+          containerEl: '#fd-form-6a431bec28b82ee8e4ff3e2e'
+        });
+      </script>
+    </div>
+  </div>
+</section>
+
+</div><!-- /.landing -->
+
+<!-- ============ FOOTER (shared across the site) ============ -->
+<footer class="site-footer">
+  <div class="site-footer-brand">The Porch Project</div>
+  <div class="site-footer-tagline">Steiner Ranch, Austin TX</div>
+  <div class="site-footer-divider"></div>
+  <div class="site-footer-links">
+    <a href="index.html">Home</a>
+    <a href="welcome.html">Newcomers</a>
+    <a href="directory.html">Directory</a>
+    <a href="directory.html#events">Events</a>
+    <a href="dinner-club.html">Dinner Club</a>
+    <a href="faces-of-steiner/index.html">Faces of Steiner</a>
+    <a href="getaways.html">Getaways</a>
+    <a href="blog/index.html">Blog</a>
+  </div>
+  <p>&copy; 2026 The Porch Project. All rights reserved.</p>
+</footer>
+
+<!-- Click tracking: shows up in GA4 as "getaway_click" events (rental + action) -->
+<script>
+  document.querySelectorAll('[data-rental]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      if (typeof gtag === 'function') {
+        gtag('event', 'getaway_click', {
+          rental: el.dataset.rental,
+          link_action: el.dataset.action,
+          transport_type: 'beacon'
+        });
+      }
+    });
+  });
+
+  // "See all photos" opens that rental's gallery; click the backdrop or × to close
+  document.querySelectorAll('.see-all').forEach(function (btn) {
+    var dlg = document.getElementById('gallery-' + btn.dataset.gallery);
+    btn.addEventListener('click', function () {
+      dlg.showModal();
+      if (typeof gtag === 'function') {
+        gtag('event', 'getaway_click', { rental: btn.dataset.gallery, link_action: 'photos' });
+      }
+    });
+    dlg.querySelector('.gallery-close').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+  });
+</script>
+
+</body>
+</html>
