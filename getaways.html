@@ -122,9 +122,13 @@
     overflow:hidden;box-shadow:0 12px 32px rgba(44,62,45,.08);
   }
   .rental + .rental{margin-top:32px;}
-  .rental-photos{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:2fr 1fr;gap:4px;min-height:420px;background:var(--sage);}
-  .rental-photos img{width:100%;height:100%;object-fit:cover;display:block;}
-  .rental-photos img:first-child{grid-column:1 / -1;}
+  /* Photos are absolutely positioned inside the box so every browser (incl. Safari)
+     crops them to the same layout: one big photo on top, two below. */
+  .rental-photos{position:relative;min-height:460px;background:var(--sage);overflow:hidden;}
+  .rental-photos img{position:absolute;object-fit:cover;display:block;max-width:none;}
+  .rental-photos img:nth-of-type(1){top:0;left:0;width:100%;height:calc(66% - 2px);}
+  .rental-photos img:nth-of-type(2){bottom:0;left:0;width:calc(50% - 2px);height:calc(34% - 2px);}
+  .rental-photos img:nth-of-type(3){bottom:0;right:0;width:calc(50% - 2px);height:calc(34% - 2px);}
   /* shown until real photos are added */
   .photo-placeholder{
     grid-column:1 / -1;grid-row:1 / -1;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -183,7 +187,7 @@
 
   @media (max-width:820px){
     .rental{grid-template-columns:1fr;}
-    .rental-photos{min-height:320px;}
+    .rental-photos{min-height:0;height:380px;}
     .rental-body{padding:26px 22px;}
   }
   @media (max-width:640px){
