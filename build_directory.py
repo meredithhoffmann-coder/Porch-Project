@@ -132,6 +132,269 @@ def ga4_click_script():
 """
 
 
+# ─── Site menu + footer (keep in sync with index.html) ──────────────────────
+LIST_BUSINESS_FORM = "https://docs.google.com/forms/d/e/1FAIpQLSd_zx7pP5Z4ewQqgY7RiAxoq1GYVuKvvwcJb8VqO5rW0i0y6w/viewform?usp=header"
+NAV_ITEMS = [
+    ("index.html", "Home"),
+    ("welcome.html", "Newcomers"),
+    ("directory.html", "Directory"),
+    ("directory.html#events", "Events"),
+    ("dinner-club.html", "Dinner Club"),
+    ("faces-of-steiner/index.html", "Faces of Steiner"),
+    ("getaways.html", "Getaways"),
+    ("blog/index.html", "Blog"),
+]
+
+
+def site_nav(prefix):
+    # prefix is the path back to the site root, e.g. "../../" for /directory/<slug>/
+    active = ' class="active"'
+    lis = "\n".join(
+        f'      <li><a href="{prefix}{h}"{active if t == "Directory" else ""}>{t}</a></li>'
+        for h, t in NAV_ITEMS
+    )
+    return f"""<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="{prefix}index.html" class="site-nav-logo">
+      <span>&#127807;</span> The Porch Project
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.site-nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    <ul class="site-nav-links">
+{lis}
+      <li><a href="{LIST_BUSINESS_FORM}" target="_blank" class="nav-list-btn">+ List Your Business</a></li>
+    </ul>
+  </div>
+</nav>"""
+
+
+def site_footer(prefix):
+    links = "\n".join(f'    <a href="{prefix}{h}">{t}</a>' for h, t in NAV_ITEMS)
+    return f"""<footer class="site-footer">
+  <div class="site-footer-brand">The Porch Project</div>
+  <div class="site-footer-tagline">{esc(COMMUNITY)}, Austin TX</div>
+  <div class="site-footer-divider"></div>
+  <div class="site-footer-links">
+{links}
+  </div>
+  <p>&copy; {datetime.now(timezone.utc).year} The Porch Project. All rights reserved.</p>
+</footer>"""
+
+
+# ─── Newsletter pop-up (same as the homepage; Flodesk form) ─────────────────
+FLODESK_LOADER = """<!-- Flodesk universal embed code (powers the signup form) -->
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+  </script>
+"""
+
+NEWSLETTER_POPUP = """<!-- NEWSLETTER POP-UP (same as homepage; shows once per visitor per 7 days, site-wide) -->
+<style>
+/* ── NEWSLETTER POP-UP ── */
+.pp-nl-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(44,62,45,0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.pp-nl-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.pp-nl-modal {
+  position: relative;
+  background: var(--pp-white);
+  border-radius: 20px;
+  max-width: 440px;
+  width: 100%;
+  padding: 44px 40px 40px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(44,62,45,0.28);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+.pp-nl-modal-overlay.open .pp-nl-modal {
+  transform: translateY(0) scale(1);
+}
+.pp-nl-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: var(--pp-cream);
+  color: var(--pp-medium);
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.pp-nl-modal-close:hover {
+  background: var(--pp-sage-tint);
+  color: var(--pp-green);
+}
+.pp-nl-modal-leaf {
+  font-size: 30px;
+  color: var(--pp-sage);
+  margin-bottom: 12px;
+}
+.pp-nl-modal h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--pp-green);
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.pp-nl-modal p {
+  font-size: 15px;
+  color: var(--pp-medium);
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0 auto 22px;
+}
+.pp-nl-modal-form {
+  margin-top: 4px;
+}
+.pp-nl-modal-dismiss {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--pp-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.pp-nl-modal-dismiss:hover { color: var(--pp-medium); }
+
+/* Override Flodesk's built-in chrome so the embed matches the pop-up.
+   Scoped to .pp-nl-modal-form only — the blog's embed is unaffected. */
+.pp-nl-modal-form [class*="__title"],
+.pp-nl-modal-form [class*="__subtitle"] {
+  display: none !important;
+}
+.pp-nl-modal-form [class*="__container"],
+.pp-nl-modal-form [class*="__content"] {
+  padding: 0 !important;
+  background: transparent !important;
+}
+.pp-nl-modal-form [class*="__button"] {
+  background: var(--pp-green) !important;
+  color: var(--pp-white) !important;
+  font-family: 'DM Sans', -apple-system, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  border-radius: 50px !important;
+  letter-spacing: 0.3px !important;
+  box-shadow: none !important;
+  transition: background 0.2s ease !important;
+}
+.pp-nl-modal-form [class*="__button"]:hover {
+  background: var(--pp-gold) !important;
+}
+
+@media (max-width: 768px) {
+  .pp-nl-modal { padding: 40px 26px 32px; border-radius: 16px; }
+  .pp-nl-modal h2 { font-size: 27px; }
+}
+</style>
+<div class="pp-nl-modal-overlay" id="ppNewsletter" role="dialog" aria-modal="true" aria-labelledby="ppNewsletterTitle" aria-hidden="true">
+  <div class="pp-nl-modal">
+    <button class="pp-nl-modal-close" id="ppNewsletterClose" aria-label="Close">&times;</button>
+    <div class="pp-nl-modal-leaf">&#127807;</div>
+    <h2 id="ppNewsletterTitle">Join the neighborhood</h2>
+    <p>Get new local finds, community events, and neighborhood stories in your inbox &mdash; from The Porch Project.</p>
+    <!-- Flodesk newsletter signup form (same list as the blog) -->
+    <div class="pp-nl-modal-form"><div id="fd-popup-form-6a431bec28b82ee8e4ff3e2e"></div></div>
+    <button class="pp-nl-modal-dismiss" id="ppNewsletterDismiss">No thanks</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var STORAGE_KEY = 'pp_newsletter_seen';
+  var SHOW_AFTER_MS = 2500;      // show ~2.5s after load
+  var SNOOZE_DAYS = 7;           // don't show again for 7 days once seen
+
+  var overlay = document.getElementById('ppNewsletter');
+  if (!overlay) return;
+
+  // Respect returning visitors who already saw it recently.
+  try {
+    var last = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+    if (last && (Date.now() - last) < SNOOZE_DAYS * 86400000) return;
+  } catch (e) {}
+
+  var formLoaded = false;
+  function loadForm() {
+    if (formLoaded || typeof window.fd !== 'function') return;
+    formLoaded = true;
+    window.fd('form', {
+      formId: '6a431bec28b82ee8e4ff3e2e',
+      containerEl: '#fd-popup-form-6a431bec28b82ee8e4ff3e2e'
+    });
+  }
+
+  function markSeen() {
+    try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch (e) {}
+  }
+  function openModal() {
+    loadForm();
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    markSeen();
+  }
+  function closeModal() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  document.getElementById('ppNewsletterClose').addEventListener('click', closeModal);
+  document.getElementById('ppNewsletterDismiss').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+  });
+
+  setTimeout(openModal, SHOW_AFTER_MS);
+})();
+</script>
+"""
+
+
 # ─── Page template ──────────────────────────────────────────────────────────
 def contact_rows(row, biz_name):
     items = []
@@ -257,8 +520,9 @@ def business_page(row, slug):
     .pp-foot{{margin-top:40px;font-size:.9rem;color:#9a9a9a}}
     .pp-foot a{{color:#356a3a;text-decoration:none}}
   </style>
-{ga4_head()}</head>
+{ga4_head()}{FLODESK_LOADER}</head>
 <body>
+{site_nav("../../")}
   <main class="pp-page">
     <a class="pp-back" href="{SITE_URL}/directory.html">← Back to the {esc(COMMUNITY)} directory</a>
     <div class="pp-head">
@@ -276,7 +540,8 @@ def business_page(row, slug):
     </section>
     <p class="pp-foot">Listed in the <a href="{SITE_URL}/directory.html">{esc(COMMUNITY)} neighborhood directory</a> · <a href="{SITE_URL}/">Porch Project</a></p>
   </main>
-{ga4_click_script()}</body>
+{site_footer("../../")}
+{NEWSLETTER_POPUP}{ga4_click_script()}</body>
 </html>
 """
 
@@ -315,14 +580,16 @@ def index_page(entries):
     a{{color:#356a3a;text-decoration:none}} a:hover{{text-decoration:underline}}
     .pp-intro{{color:#6b6b6b;margin-bottom:8px}}
   </style>
-{ga4_head()}</head>
+{ga4_head()}{FLODESK_LOADER}</head>
 <body>
+{site_nav("../")}
   <main class="pp-page">
     <h1>{esc(COMMUNITY)} Business Directory</h1>
     <p class="pp-intro">Local businesses recommended by {esc(COMMUNITY)} neighbors. Also browse the <a href="{SITE_URL}/directory.html">interactive directory</a>.</p>
 {body}
   </main>
-</body>
+{site_footer("../")}
+{NEWSLETTER_POPUP}</body>
 </html>
 """
 
