@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2C3E2D">
+<title>Offline — The Porch Project</title>
+<link rel="stylesheet" href="/styles.css">
+<style>
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#FAF5EF;color:#2C3E2D;font-family:'DM Sans',-apple-system,sans-serif;text-align:center;padding:24px}
+  .card{max-width:380px}
+  img{width:88px;height:88px;border-radius:20px;margin-bottom:20px}
+  h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:600;margin:0 0 10px}
+  p{color:#786140;line-height:1.6;margin:0 0 22px}
+  button{background:#2C3E2D;color:#FAF5EF;border:0;border-radius:999px;padding:12px 26px;font:600 1rem 'DM Sans',sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+  <div class="card">
+    <img src="/icons/icon-192.png" alt="">
+    <h1>You're off the porch for a sec</h1>
+    <p>Looks like you don't have a signal right now. Pages you've already visited will still open — everything else will be here when you're back online.</p>
+    <button onclick="location.reload()">Try again</button>
+  </div>
+</body>
+</html>

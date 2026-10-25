@@ -181,6 +181,18 @@ def site_footer(prefix):
 
 
 # ─── Newsletter pop-up (same as the homepage; Flodesk form) ─────────────────
+PWA_HEAD = """  <!-- Porch app (PWA): home-screen icon, offline support, install banner -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#2C3E2D">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Porch">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <script src="/pwa.js" defer></script>
+"""
+
 FLODESK_LOADER = """<!-- Flodesk universal embed code (powers the signup form) -->
 <script>
   (function(w, d, t, h, s, n) {
@@ -520,7 +532,7 @@ def business_page(row, slug):
     .pp-foot{{margin-top:40px;font-size:.9rem;color:#9a9a9a}}
     .pp-foot a{{color:#356a3a;text-decoration:none}}
   </style>
-{ga4_head()}{FLODESK_LOADER}</head>
+{ga4_head()}{FLODESK_LOADER}{PWA_HEAD}</head>
 <body>
 {site_nav("../../")}
   <main class="pp-page">
@@ -580,7 +592,7 @@ def index_page(entries):
     a{{color:#356a3a;text-decoration:none}} a:hover{{text-decoration:underline}}
     .pp-intro{{color:#6b6b6b;margin-bottom:8px}}
   </style>
-{ga4_head()}{FLODESK_LOADER}</head>
+{ga4_head()}{FLODESK_LOADER}{PWA_HEAD}</head>
 <body>
 {site_nav("../")}
   <main class="pp-page">
