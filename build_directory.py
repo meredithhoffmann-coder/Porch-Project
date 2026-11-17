@@ -139,6 +139,7 @@ NAV_ITEMS = [
     ("welcome.html", "Newcomers"),
     ("directory.html", "Directory"),
     ("directory.html#events", "Events"),
+    ("holiday.html", "Holiday Guide"),  # seasonal: remove after the holidays
     ("dinner-club.html", "Dinner Club"),
     ("faces-of-steiner/index.html", "Faces of Steiner"),
     ("getaways.html", "Getaways"),
@@ -150,7 +151,7 @@ def site_nav(prefix):
     # prefix is the path back to the site root, e.g. "../../" for /directory/<slug>/
     active = ' class="active"'
     lis = "\n".join(
-        f'      <li><a href="{prefix}{h}"{active if t == "Directory" else ""}>{t}</a></li>'
+        f'      <li><a href="{prefix}{h}"{active if t == "Directory" else (' class="nav-holiday"' if t == "Holiday Guide" else "")}>{t}</a></li>'
         for h, t in NAV_ITEMS
     )
     return f"""<nav class="site-nav">
