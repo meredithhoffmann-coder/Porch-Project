@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Analytics (GA4) — same property as the blog -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P33RNWQCBJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P33RNWQCBJ');
+</script>
+
+<title>Holiday Guide 2026 · The Porch Project</title>
+<meta name="description" content="The Porch Project Holiday Guide 2026: specials from Steiner Ranch businesses for neighbors, holiday events, family activities and gifts that stay in the neighborhood.">
+
+<!-- Social share preview (add your own image when ready) -->
+<meta property="og:title" content="The Porch Project Holiday Guide 2026">
+<meta property="og:description" content="Neighbor specials, holiday happenings and gifts that stay in Steiner Ranch.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://porchproject.co/holiday.html">
+<!-- <meta property="og:image" content="https://porchproject.co/images/dinner-club-preview.jpg"> -->
+
+<!-- Shared site styles (nav, footer, design tokens) -->
+<link rel="stylesheet" href="styles.css">
+
+<!-- Flodesk universal embed code (powers the signup form) -->
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
+
+<style>
+  /* Landing-page-specific styles. Colors reuse the site's brand palette
+     (defined in styles.css) under local aliases so the mockup markup stays
+     unchanged and everything matches The Porch Project. */
+  :root{
+    --green:#2C3E2D;
+    --terracotta:#D44D20;
+    --sage:#ACCAB2;
+    --cream:#FAF5EF;
+    --honey:#E9A752;
+    --latte:#786140;
+    --green-soft:#3d5340;
+    --ink:#2b2620;
+    --paper:#fffdf9;
+  }
+
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'DM Sans',system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1;color:var(--green);margin:0;}
+  .landing a:not(.btn){color:var(--terracotta);}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+
+  /* ---- eyebrow ---- */
+  .eyebrow{
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    font-weight:600;color:var(--latte);
+  }
+
+  /* ---- buttons ---- */
+  .btn{
+    display:inline-block;font-family:'DM Sans',sans-serif;font-weight:600;
+    font-size:1rem;text-decoration:none;border-radius:999px;
+    padding:14px 30px;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor:pointer;border:none;
+  }
+  .btn-primary{background:var(--terracotta);color:#fff;box-shadow:0 6px 18px rgba(212,77,32,.28);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(212,77,32,.34);color:#fff;}
+  .btn-ghost{background:transparent;color:var(--green);border:1.5px solid var(--green);}
+  .btn-ghost:hover{background:var(--green);color:var(--cream);}
+  a.btn:focus-visible,button:focus-visible{outline:3px solid var(--honey);outline-offset:3px;}
+
+  /* ---- hero ---- */
+  .hero{
+    background:
+      radial-gradient(1200px 500px at 80% -10%, rgba(172,202,178,.45), transparent 60%),
+      linear-gradient(180deg, var(--paper), var(--cream));
+    padding:64px 0 56px;
+    border-bottom:1px solid rgba(120,97,64,.14);
+  }
+  .hero .eyebrow{margin-bottom:18px;}
+  .hero h1{font-size:clamp(2.8rem,8vw,4.6rem);letter-spacing:-.01em;}
+  .hero p.lead{
+    font-size:1.18rem;max-width:34em;margin:20px 0 30px;color:var(--green-soft);
+  }
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+  .hero-note{font-size:.9rem;color:var(--latte);margin-top:18px;}
+
+  /* animated arrival */
+  .reveal{opacity:0;transform:translateY(14px);animation:rise .7s ease forwards;}
+  .reveal.d1{animation-delay:.08s;}
+  .reveal.d2{animation-delay:.16s;}
+  .reveal.d3{animation-delay:.24s;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+
+  /* ---- section shell ---- */
+  .landing section{padding:56px 0;}
+  .sec-head{max-width:40em;margin-bottom:34px;}
+  .sec-head h2{font-size:clamp(2rem,5vw,2.9rem);margin-bottom:10px;}
+  .sec-head p{color:var(--green-soft);margin:0;font-size:1.05rem;}
+
+  /* ---- holiday guide ---- */
+  .jump{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 6px;}
+  .jump a{font-size:.9rem;font-weight:600;text-decoration:none;color:var(--green)!important;background:var(--paper);border:1px solid rgba(120,97,64,.2);border-radius:999px;padding:8px 16px;}
+  .jump a:hover{background:var(--green);color:var(--cream)!important;}
+  .landing section.tint{background:#F3E6DC;}
+  .offers{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .offer{background:var(--paper);border:1px solid rgba(120,97,64,.16);border-radius:16px;padding:26px 24px;scroll-margin-top:90px;display:flex;flex-direction:column;}
+  .offer:target{border-color:var(--terracotta);box-shadow:0 0 0 3px rgba(212,77,32,.18);}
+  .offer .tag{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta);font-weight:600;margin:0;}
+  .offer h3{font-size:1.6rem;margin:8px 0 6px;}
+  .offer .deal{font-weight:700;color:var(--green);margin:0 0 10px;}
+  .offer p{margin:0 0 12px;font-size:.98rem;}
+  .offer dl{margin:4px 0 16px;font-size:.92rem;}
+  .offer dt{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--latte);font-weight:600;margin-top:10px;}
+  .offer dd{margin:2px 0 0;color:var(--green-soft);}
+  .offer .btn{align-self:flex-start;margin-top:auto;padding:10px 22px;font-size:.92rem;}
+  .offer.feature{max-width:720px;}
+  .offer .credit{font-size:.82rem;color:var(--latte);margin:14px 0 0;}
+  .offer.pending{display:none;}
+  .card-photo{display:none;width:calc(100% + 48px);max-width:none;margin:-26px -24px 18px;aspect-ratio:16/10;object-fit:cover;border-radius:16px 16px 0 0;}
+  .card-photo.ok{display:block;}
+  .offer.feature-wide{grid-column:1/-1;}
+  .photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:4px 0 16px;}
+  .photos:empty{display:none;}
+  .photos img.ok{display:block;}
+  .photos img{display:none;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;}
+  .ev-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+  .ev{display:flex;gap:18px;background:var(--paper);border:1px solid rgba(120,97,64,.16);border-radius:16px;padding:20px 22px;scroll-margin-top:90px;}
+  .ev:target{border-color:var(--terracotta);box-shadow:0 0 0 3px rgba(212,77,32,.18);}
+  .ev.pending{display:none;}
+  .ev-date{flex:0 0 64px;height:64px;border-radius:12px;background:var(--green);color:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;text-align:center;}
+  .ev-date span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;}
+  .ev-date b{font-family:var(--serif, Georgia, serif);font-size:1.25rem;white-space:nowrap;}
+  .ev-body h3{font-size:1.3rem;margin:0 0 4px;}
+  .ev-meta{font-size:.86rem;font-weight:600;color:var(--terracotta);margin:0 0 6px;}
+  .ev-body p{margin:0 0 8px;font-size:.95rem;}
+  .ev-link{font-size:.9rem;font-weight:600;color:var(--green)!important;}
+  .print-offer{max-width:760px;margin:22px auto 0;text-align:center;background:#F3E6DC;border-radius:14px;padding:20px 22px;}
+  .print-offer h3{font-size:1.3rem;margin:0 0 6px;}
+  .print-offer p{margin:0;color:var(--green-soft);}
+  .tt-questions{margin:0 0 14px;padding-left:22px;}
+  .tt-questions li{margin:6px 0;font-size:.98rem;}
+  .more{margin:26px 0 0;color:var(--green-soft);}
+  .menu-card{background:var(--paper);border:2px solid var(--green);border-radius:6px;padding:44px 40px;max-width:760px;margin:0 auto;text-align:center;box-shadow:0 0 0 8px var(--paper),0 0 0 9px rgba(44,62,45,.35);}
+  .menu-card h2{font-size:clamp(2.2rem,6vw,3.2rem);margin:8px 0 4px;}
+  .menu-sub{color:var(--latte);margin:0 0 26px;}
+  .menu-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px 40px;text-align:left;}
+  .menu-card h3{font-size:1.5rem;margin:18px 0 0;border-bottom:1px dotted rgba(120,97,64,.4);padding-bottom:4px;}
+  .menu-note{font-size:.8rem;font-style:italic;color:var(--latte);margin:4px 0 0;}
+  .menu-card ul{list-style:none;margin:8px 0 0;padding:0;}
+  .menu-card li{padding:6px 0;font-size:.97rem;}
+  .menu-foot{margin:28px 0 0;font-size:.9rem;color:var(--latte);}
+  .menu-foot{display:flex;align-items:center;justify-content:center;gap:14px;}
+
+  .landing section.cta{text-align:center;background:var(--green);color:var(--cream);}
+  .cta h2{color:var(--cream);font-size:clamp(2rem,5vw,2.8rem);}
+  .cta p{max-width:34em;margin:12px auto 22px;color:#dfe8e0;}
+  .fd-inline{max-width:520px;margin:0 auto;}
+  .menu-header{display:block;width:100%;height:auto;border-radius:10px;margin:-24px 0 18px;}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+  .menu-note-inline{font-size:.82rem;color:var(--latte);}
+  .menu-scan{font-size:.85rem;color:var(--green-soft);margin:-14px 0 18px;}
+  .menu-card li.has-qr{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .menu-card .qr{flex:0 0 auto;width:44px;height:44px;line-height:0;}
+  .menu-card .qr svg{width:44px;height:44px;display:block;}
+  .menu-card .menu-foot .qr,.menu-card .menu-foot .qr svg{width:34px;height:34px;}
+  .menu-card .qr:empty{display:none;}
+  @media print{body{background:#fff;}.landing section{padding:0!important;}.menu-card{border-width:1.5px;padding:20px 26px;}.menu-header{margin:-10px 0 10px;}.menu-sub{margin:0 0 10px;}.menu-scan{margin:0 0 6px;}.menu-card h3{margin:10px 0 0;}.menu-card li{padding:1px 0;font-size:.84rem;line-height:1.32;}.menu-sub{font-size:.95rem;}.menu-scan{font-size:.8rem;}.menu-note{margin:2px 0 0;}.menu-card ul{margin:4px 0 0;}.menu-note-inline{font-size:.74rem;}.menu-foot{margin:12px 0 0;}@page{margin:.35in;}}
+  @media (max-width:760px){.offers,.menu-cols{grid-template-columns:1fr;}.menu-card{padding:32px 22px;}}
+  @media print{.site-nav,.site-footer,.hero,#host,#gifts,#happenings,#camps,#family,.cta,.pp-nl-modal-overlay,.print-offer{display:none!important;}.menu-card{box-shadow:none;}}
+</style>
+<!-- Porch app (PWA): home-screen icon, offline support, install banner -->
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#2C3E2D">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Porch">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<script src="/pwa.js" defer></script>
+</head>
+<body>
+
+<!-- NAVIGATION (shared across the site) -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-logo">
+      <span>&#127807;</span> The Porch Project
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.site-nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    <ul class="site-nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="welcome.html">Newcomers</a></li>
+      <li><a href="directory.html">Directory</a></li>
+      <li><a href="directory.html#events">Events</a></li>
+      <li><a href="dinner-club.html">Dinner Club</a></li>
+      <li><a href="faces-of-steiner/index.html">Faces of Steiner</a></li>
+      <li><a href="getaways.html">Getaways</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+      <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSd_zx7pP5Z4ewQqgY7RiAxoq1GYVuKvvwcJb8VqO5rW0i0y6w/viewform?usp=header" target="_blank" class="nav-list-btn">+ List Your Business</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="landing">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow reveal">The Porch Project &middot; Steiner Ranch</p>
+    <h1 class="reveal d1">The Holiday Guide 2026</h1>
+    <p class="lead reveal d2">Hosting season, made easier. Specials for neighbors from businesses in and around Steiner, help getting the house ready, things to do with a full house, and gift ideas.</p>
+    <nav class="jump reveal d3" aria-label="Jump to a section">
+      <a href="#host">Get Ready to Host</a>
+      <a href="#gifts">Gifts</a>
+      <a href="#happenings">Holiday Happenings</a>
+      <a href="#camps">Holiday Camps</a>
+      <a href="#family">At Home with Family</a>
+      <a href="#houseguest-menu">The Houseguest Menu</a>
+    </nav>
+    <p class="hero-note reveal d3">Most offers need just one thing: mention The Porch Project. Details for each are below.</p>
+    <p class="hero-note reveal d3"><strong>I chose every business in this guide, and none of them paid to be included.</strong></p>
+  </div>
+</header>
+
+<!-- ============ GET READY TO HOST ============ -->
+<section id="host">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Neighbor specials</p>
+      <h2>Get Ready to Host</h2>
+      <p>Food, poinsettias, a tidy house and yard, holiday lights and rides from the airport, from neighbors who'd love to help before the guests arrive.</p>
+    </div>
+    <div class="offers">
+
+      <article class="offer" id="rooted-cafe">
+        <img class="card-photo" src="holiday/rooted-cafe.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Food &amp; hosting</p>
+        <h3>Rooted Cafe</h3>
+        <p class="deal">Thanksgiving Sides Package, $89 (serves 4&ndash;6)</p>
+        <p>Let Rooted handle the sides so you can focus on the turkey and the people. Plus, a bonus $5 gift card with every $20 gift card you buy this season.</p>
+        <dl>
+          <dt>How to get it</dt><dd>Order the sides package online. Gift card bonus is in-store.</dd>
+          <dt>Dates</dt><dd>Sides: preorder by Nov 20, pick up Nov 23&ndash;25. Gift card bonus: Nov 23 &ndash; Dec 18.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="Rooted Cafe" href="directory/rooted-cafe-catering/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="silvialicious-pies">
+        <img class="card-photo" src="holiday/silvialicious-pies.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Food &amp; hosting</p>
+        <h3>Holiday Pies from Silvialicious</h3>
+        <p class="deal">Homemade pies from $30</p>
+        <p>Let a Steiner baker handle dessert. Silvia's pies come in chocolate pecan, pecan, apple, salted caramel apple and pumpkin, and she makes other baked goods too.</p>
+        <a class="btn btn-ghost" data-business="Silvialicious" href="directory/silvialicious/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="austin-platinum-painters">
+        <img class="card-photo" src="holiday/austin-platinum-painters.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Holiday services</p>
+        <h3>Austin Platinum Painters</h3>
+        <p class="deal">10% off paint projects estimated over $2,000</p>
+        <p>Freshen up the house before the in-laws arrive. Austin Platinum Painters is offering Porch Project neighbors 10% off bigger paint jobs.</p>
+        <dl>
+          <dt>How to get it</dt><dd>Mention The Porch Project.</dd>
+          <dt>Fine print</dt><dd>Projects estimated over $2,000.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="Austin Platinum Painters" href="directory/austin-platinum-painters-llc/">See their listing &rarr;</a>
+      </article>
+
+
+
+      <article class="offer" id="vhs-poinsettias">
+        <img class="card-photo" src="holiday/vhs-poinsettias.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Order by Tue, Nov 17</p>
+        <h3>Poinsettia Sale for the Vandegrift Lady Vipers Lacrosse Team</h3>
+        <p class="deal">Poinsettias, $20 each</p>
+        <p>Deck the halls and support the Lady Vipers lacrosse team at the same time.</p>
+        <dl>
+          <dt>Delivery</dt><dd>Delivered to you by the first week of December.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="VHS Lady Vipers Poinsettia Sale" href="https://docs.google.com/forms/d/e/1FAIpQLSfsfiN-h7_wHMWw31LrmA6b6QwLJKi3jeM1sbAEiLuZI-IxPA/viewform" target="_blank" rel="noopener">Order poinsettias &rarr;</a>
+      </article>
+
+      <article class="offer" id="jenny-help-me">
+        <img class="card-photo" src="holiday/jenny-help-me.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Neighbor favorite &middot; organizing</p>
+        <h3>Jenny Help Me</h3>
+        <p>Guest room buried under boxes? This Steiner-owned team sorts, organizes and clears clutter so the house is ready for company. (They're the team behind my own garage purge this fall.)</p>
+        <a class="btn btn-ghost" data-business="Jenny Help Me" href="directory/jenny-help-me/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="sparkle-squad">
+        <img class="card-photo" src="holiday/sparkle-squad.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Neighbor favorite &middot; holiday lights</p>
+        <h3>Sparkle Squad</h3>
+        <p>Holiday light installation, window cleaning, gutters and pressure washing, so the house shines before the first guest pulls up.</p>
+        <a class="btn btn-ghost" data-business="Sparkle Squad" href="directory/sparkle-squad/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="joshua-tree-experts">
+        <img class="card-photo" src="holiday/joshua-tree-experts.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Neighbor favorite &middot; tree care</p>
+        <h3>Joshua Tree Experts</h3>
+        <p>Get the yard guest-ready with pruning, storm cleanup and tree health care from a team led by an ISA Certified Arborist.</p>
+        <a class="btn btn-ghost" data-business="Joshua Tree Experts" href="directory/joshua-tree-experts/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="steiner-babysitting">
+        <p class="tag">Neighbor resource &middot; date night</p>
+        <h3>Steiner Ranch Babysitting Group</h3>
+        <p class="deal">Find a local sitter for a night out</p>
+        <p>Grandparents in town or friends visiting? Plan a grown-ups' night out. This neighborhood Facebook group connects Steiner families with local babysitters.</p>
+        <a class="btn btn-ghost" data-business="Steiner Ranch Babysitting Group" href="https://www.facebook.com/groups/steinerranchbabysitting" target="_blank" rel="noopener">Visit the group &rarr;</a>
+      </article>
+
+      <article class="offer" id="lakeway-car-service">
+        <img class="card-photo" src="holiday/lakeway-car-service.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Neighbor favorite &middot; transportation</p>
+        <h3>Strong Car Service of Lakeway</h3>
+        <p>A local car service to get you, or the family and friends visiting, where they need to go around Austin, so nobody has to fight the airport pickup line.</p>
+        <a class="btn btn-ghost" data-business="Strong Car Service of Lakeway" href="directory/strong-car-service-of-lakeway/">See their listing &rarr;</a>
+      </article>
+    </div>
+    <p class="more">Need a house cleaner, window washer, caterer or handyman? <a href="directory.html">Find Steiner pros in the directory &rarr;</a></p>
+  </div>
+</section>
+
+<!-- ============ GIFTS ============ -->
+<section id="gifts" class="tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Neighbor specials</p>
+      <h2>Gifts That Stay in the Neighborhood</h2>
+      <p>Gift ideas from neighbors and nearby businesses, most with a Porch Project discount.</p>
+    </div>
+    <div class="offers">
+
+      <article class="offer feature-wide" id="ahw-gift-baskets">
+        <p class="tag">Ready-made gifts</p>
+        <h3>Gift Baskets from A Health and Wellness Shop</h3>
+        <p class="deal">High-quality baskets, ready to go</p>
+        <p>Need a hostess gift, a teacher gift or something for the neighbor who watched your dog? A Health and Wellness Shop has beautiful baskets ready to grab.</p>
+        <!-- PHOTOS: add images to /holiday/ with these names (any that are missing are hidden) -->
+        <div class="photos">
+          <img src="holiday/ahw-basket-1.jpg" alt="Gift basket from A Health and Wellness Shop" onload="this.classList.add('ok')" onerror="this.remove()">
+          <img src="holiday/ahw-basket-2.jpg" alt="Gift basket from A Health and Wellness Shop" onload="this.classList.add('ok')" onerror="this.remove()">
+          <img src="holiday/ahw-basket-3.jpg" alt="Gift basket from A Health and Wellness Shop" onload="this.classList.add('ok')" onerror="this.remove()">
+        </div>
+        <a class="btn btn-ghost" data-business="A Health and Wellness Shop" href="directory/a-health-and-wellness-shop/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="norstrom-photography">
+        <img class="card-photo" src="holiday/norstrom-photography.jpg" alt="" style="object-position:center 30%" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Experiences</p>
+        <h3>Norstrom Photography</h3>
+        <p class="deal">$25 off a session</p>
+        <p>Give the gift of a photo session with Ashley Norstrom, or book your own while everyone's home for the holidays.</p>
+        <dl>
+          <dt>How to get it</dt><dd>Use code <strong>PORCH</strong> when you book.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="Norstrom Photography" href="directory/ash-norstrom-photography-llc/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="yolo-lets-go">
+        <img class="card-photo" src="holiday/yolo-lets-go.jpg" alt="" style="object-position:center 15%" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Experiences</p>
+        <h3>YOLO Let's Go Travel</h3>
+        <p class="deal">50% off custom trip-planning fees</p>
+        <p>Skip the wrapping paper this year and give the gift of travel. Neighbor Doree plans personalized trips (family adventures, anniversary escapes, multigenerational cruises) and handles every detail.</p>
+        <dl>
+          <dt>How to get it</dt><dd>Mention The Porch Project newsletter.</dd>
+          <dt>Valid</dt><dd>New trip-planning engagements confirmed by Dec 31, 2026, for travel at any future date.</dd>
+          <dt>Fine print</dt><dd>Applies to itinerary planning fees only. Excludes airfare, accommodations, cruises, tours, transportation and other travel costs. Can't be combined with other promotions or applied retroactively. Fees confirmed before work begins.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="YOLO Let's Go Travel" href="directory/yolo-let-s-go/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="refined-barber-company">
+        <img class="card-photo" src="holiday/refined-barber-company.jpg" alt="" style="object-position:center 55%" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Gifts for him</p>
+        <h3>Refined Barber Company</h3>
+        <p class="deal">10% off all products</p>
+        <p>Small-batch men's hygiene products you won't find at a store like Target, all made by small businesses in the US: shampoos, hair and beard grooming essentials, and ready-to-give gift sets. Easy stocking stuffers for the guys on your list.</p>
+        <dl>
+          <dt>How to get it</dt><dd>Mention The Porch Project sent you.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="Refined Barber Company" href="directory/refined-barber-company/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="map-and-meaning">
+        <img class="card-photo" src="holiday/map-and-meaning.jpg" alt="" style="object-position:center 35%" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Order by Wed, Nov 18</p>
+        <h3>Map &amp; Meaning</h3>
+        <p class="deal">20% off + free porch drop-off</p>
+        <p>Steiner neighbor Linda makes custom map prints of the places that matter: your first home, your wedding venue, your kid's college campus, or Steiner Ranch itself. Drop a heart or pin on the exact spot, add your own words and dates, and pick a colorway. 8x10, 11x14 or digital.</p>
+        <dl>
+          <dt>How to get it</dt><dd>Use code <strong>STEINER</strong> at checkout.</dd>
+          <dt>Dates</dt><dd>Order by Wednesday, Nov 18. Hand-delivered to your porch Friday, Nov 20, in a gift-ready envelope.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="Map and Meaning" href="directory/map-and-meaning/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="wesley-harper-books">
+        <img class="card-photo" src="holiday/wesley-harper-books.jpg" alt="" style="object-position:center 55%" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Gifts &middot; Steiner authors</p>
+        <h3>Steiner Book Delivery from The Library of Wesley Harper</h3>
+        <p class="deal">Books by Steiner authors, delivered to your porch</p>
+        <p>Author April Garner and The Library of Wesley Harper teamed up on a one-stop shop for books written by Steiner neighbors. Pick a book and it’s delivered right to your front porch. An easy gift that keeps it local.</p>
+        <dl>
+          <dt>How it works</dt><dd>Choose your book. When you enter your address, local delivery pops up. Books arrive on your porch within five business days.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="The Library of Wesley Harper" href="directory/the-library-of-wesley-harper/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="rooted-gift-cards">
+        <img class="card-photo" src="holiday/rooted-gift-cards.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Gift cards</p>
+        <h3>Rooted Cafe Gift Cards</h3>
+        <p class="deal">Bonus $5 card with every $20 gift card</p>
+        <p>An easy teacher, neighbor or stocking gift, and you get a little something for yourself, too.</p>
+        <dl>
+          <dt>How to get it</dt><dd>In-store at Rooted.</dd>
+          <dt>Dates</dt><dd>Nov 23 &ndash; Dec 18.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="Rooted Cafe" href="directory/rooted-cafe-catering/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="motherhood-begins">
+        <img class="card-photo" src="holiday/motherhood-begins.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">For expecting families</p>
+        <h3>Motherhood Begins</h3>
+        <p class="deal">Newborn Care Package $599 (regularly $675)</p>
+        <p>In-home lactation support from Isabel Price, IBCLC: three visits plus messaging in between, so new parents aren't figuring it out alone. A thoughtful gift for a family with a baby on the way.</p>
+        <dl>
+          <dt>How to get it</dt><dd>Book at motherhoodbegins.com or call (512) 522-8156.</dd>
+          <dt>Valid</dt><dd>Book by Dec 31, 2026.</dd>
+          <dt>Fine print</dt><dd>For babies under 3 months. In-home within her service area.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="Motherhood Begins" href="directory/motherhood-begins/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="lakeway-eye-center">
+        <img class="card-photo" src="holiday/lakeway-eye-center.jpg" alt="" style="object-position:center 22%" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Treat yourself</p>
+        <h3>Lakeway Eye Center</h3>
+        <p class="deal">20% off your glasses purchase</p>
+        <p>New frames for the holiday photos? Dr. Sima Mozdbar's team is giving Porch Project neighbors 20% off glasses.</p>
+        <dl>
+          <dt>How to get it</dt><dd>Mention The Porch Project.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="Lakeway Eye Center" href="directory/lakeway-eye-center/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="max-strength-fitness">
+        <img class="card-photo" src="holiday/max-strength-fitness.jpg" alt="" style="object-position:center 12%" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Experiences &middot; adults 45+</p>
+        <h3>Max Strength Fitness</h3>
+        <p class="deal">Bring someone you're thankful for: 4 free sessions with a 12-month package</p>
+        <p>Private, one-on-one strength training in a quiet studio right here in Steiner. Just 20 minutes, twice a week, with safe, science-backed workouts built for strength and longevity.</p>
+        <dl>
+          <dt>Where</dt><dd>4300 N Quinlan Park Rd #125 &middot; (737) 214-1331</dd>
+          <dt>Valid</dt><dd>Through Dec 31, 2026.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="Max Strength Fitness" href="directory/max-strength-fitness/">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="naples-soap">
+        <img class="card-photo" src="holiday/naples-soap.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Gifts for her &middot; gives back</p>
+        <h3>Naples Soap Company</h3>
+        <p class="deal">15% off online orders of $50+</p>
+        <p>Natural bath and body products that are gentle on sensitive skin, from bath bombs to gift sets. Naples Soap donated bath bombs to the Hearts &amp; Arts Foundation for the self-care boxes its Junior Creators made this month.</p>
+        <dl>
+          <dt>How to get it</dt><dd>Use code <strong>HEARTS15</strong> at checkout.</dd>
+          <dt>Valid</dt><dd>Through Dec 15, 2026.</dd>
+        </dl>
+        <a class="btn btn-ghost" data-business="Naples Soap Company" href="https://www.naplessoap.com" target="_blank" rel="noopener">Shop online &rarr;</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ HAPPENINGS ============ -->
+<section id="happenings">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Mark your calendar</p>
+      <h2>Holiday Happenings</h2>
+      <p>Markets, cookie classes, holiday meals and more around the Ranch, in date order.</p>
+    </div>
+    <ol class="ev-list">
+      <li class="ev" id="toy-drive">
+        <div class="ev-date"><span>Now</span><b>&ndash;12/5</b></div>
+        <div class="ev-body">
+          <h3>Toy Drive</h3>
+          <p class="ev-meta">Drop off through Sat, Dec 5 &middot; Towne Square Community Center</p>
+          <p>Drop off a toy at the community center anytime through Dec 5.</p>
+          
+        </div>
+      </li>
+      <li class="ev" id="silvialicious">
+        <div class="ev-date"><span>Nov</span><b>21</b></div>
+        <div class="ev-body">
+          <h3>Silvialicious Thanksgiving Cookie Decorating</h3>
+          <p class="ev-meta">Sat, Nov 21 &middot; Parent &amp; me 1:30&ndash;2:30pm, teens &amp; adults 3&ndash;5pm &middot; $60 &middot; Austin Arts Academy, 12813 Oxen Way</p>
+          <p>Parent &amp; me is for ages 5&ndash;12 with an adult (3 cookies, sibling add-on discount); the teen &amp; adult class is 13+ (6 cookies). Beginners welcome, supplies included. Only 16 seats, and tickets close Tue, Nov 17.</p>
+          <a class="ev-link" data-business="Silvialicious" href="directory/silvialicious/">See their listing &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="steakhouse-brunch">
+        <div class="ev-date"><span>Nov</span><b>22</b></div>
+        <div class="ev-body">
+          <h3>Thanksgiving Holiday Brunch at Steiner Ranch Steakhouse</h3>
+          <p class="ev-meta">Sun, Nov 22 &middot; 10am&ndash;3pm &middot; $49.99 adults, $14.95 kids &middot; Steiner Ranch Steakhouse</p>
+          <p>Peel-and-eat shrimp, lobster mac &amp; cheese, Wagyu, omelets and Steiner pastries and desserts. Call to reserve.</p>
+          <a class="ev-link" data-business="Steiner Ranch Steakhouse" href="directory/steiner-ranch-steakhouse/">See their listing &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="turkey-trot">
+        <div class="ev-date"><span>Nov</span><b>26</b></div>
+        <div class="ev-body">
+          <h3>Steiner Ranch Turkey Trot</h3>
+          <p class="ev-meta">Thanksgiving morning, Thu, Nov 26 &middot; Kids 1K at 8am, 5K at 8:30am &middot; Towne Square</p>
+          <p>Start Thanksgiving with the neighborhood. Run, walk or cheer from the sidelines, then head home to the feast.</p>
+          <a class="ev-link" data-business="Steiner Ranch Turkey Trot" href="https://www.ahealthandwellness.shop/steiner-ranch-turkeytrot" target="_blank" rel="noopener">Register &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="lake-austin-thanksgiving">
+        <div class="ev-date"><span>Nov</span><b>27&ndash;29</b></div>
+        <div class="ev-body">
+          <h3>Thanksgiving at Lake Austin Spa Resort</h3>
+          <p class="ev-meta">Thanksgiving weekend &middot; Stillwater at Lake Austin Spa Resort</p>
+          <p>A lakeside Thanksgiving feast by Chef James Limon: holiday favorites with seasonal Texas Hill Country flavors and waterfront views.</p>
+          <a class="ev-link" data-business="Lake Austin Spa Resort" href="https://www.opentable.com/r/stillwater-at-lake-austin-spa-resort-austin" target="_blank" rel="noopener">Reserve a table &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="black-friday-hike">
+        <div class="ev-date"><span>Nov</span><b>27</b></div>
+        <div class="ev-body">
+          <h3>Black Friday Coffee &amp; Hike</h3>
+          <p class="ev-meta">Fri, Nov 27 &middot; 8:30am &middot; meet in front of A Health and Wellness Shop</p>
+          <p>Skip the stores and start the day outside. All levels welcome, hosted by Lisa Minck and Alcohol-Free in Steiner for alcohol-free and "sober curious" neighbors.</p>
+          <a class="ev-link" data-business="Alcohol-Free in Steiner" href="directory/alcohol-free-in-steiner/">See their listing &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="rooted-market">
+        <div class="ev-date"><span>Dec</span><b>3</b></div>
+        <div class="ev-body">
+          <h3>Sip &amp; Savor Holiday Pop-Up Market at Rooted</h3>
+          <p class="ev-meta">Thu, Dec 3 &middot; 5:30&ndash;8pm &middot; Rooted Cafe</p>
+          <p>Local makers, festive sips and bites. Knock out some shopping and run into half the neighborhood.</p>
+          <a class="ev-link" data-business="Rooted Cafe" href="directory/rooted-cafe-catering/">See their listing &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="posh-mercantile">
+        <div class="ev-date"><span>Dec</span><b>4&ndash;5</b></div>
+        <div class="ev-body">
+          <h3>Posh Mercantile's Favorite Things Christmas Party</h3>
+          <p class="ev-meta">Fri, Dec 4, 10am&ndash;1pm &middot; Sat, Dec 5, 6&ndash;9pm &middot; 10815 RR 2222, Suite 202 (Four Points)</p>
+          <p>Posh Mercantile's 8th annual holiday celebration. Browse women's clothing, jewelry and accessories and leave with some holiday cheer.</p>
+          <a class="ev-link" data-business="Posh Mercantile" href="directory/posh-mercantile/">See their listing &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="gingerbread-social">
+        <div class="ev-date"><span>Dec</span><b>5</b></div>
+        <div class="ev-body">
+          <h3>Gingerbread Social Benefiting Ronald McDonald House</h3>
+          <p class="ev-meta">Sat, Dec 5 &middot; 12&ndash;2pm &middot; $45 &middot; ages 5+ &middot; Vaqueros in Steiner Ranch</p>
+          <p>Kids get their own gingerbread house to decorate, a candy spread and a photo to remember it by, all while helping families at Ronald McDonald House stay close to their children during care.</p>
+          <a class="ev-link" data-business="Gingerbread Social" href="https://www.sweethomesteinerranch.com/" target="_blank" rel="noopener">Get tickets &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="winter-village">
+        <div class="ev-date"><span>Dec</span><b>5</b></div>
+        <div class="ev-body">
+          <h3>Steiner Ranch Winter Village</h3>
+          <p class="ev-meta">Sat, Dec 5 &middot; 2&ndash;7pm &middot; Bella Mar Community Center</p>
+          <p>A local artisan and holiday market, photos with Santa, music, and horse &amp; carriage rides.</p>
+          
+        </div>
+      </li>
+      <li class="ev" id="silvialicious-santa">
+        <div class="ev-date"><span>Dec</span><b>19</b></div>
+        <div class="ev-body">
+          <h3>Silvialicious Christmas Cookie Decorating</h3>
+          <p class="ev-meta">Sat, Dec 19 &middot; Parent &amp; me 1:30&ndash;2:30pm, teens &amp; adults 3&ndash;5pm &middot; $60 &middot; Austin Arts Academy, 12813 Oxen Way</p>
+          <p>"Here Comes Santa" for ages 5&ndash;12 with an adult, and "Breakfast with Santa" for 13 and up. Tickets close Tue, Dec 15.</p>
+          <a class="ev-link" data-business="Silvialicious" href="directory/silvialicious/">See their listing &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="lakeview-christmas">
+        <div class="ev-date"><span>Dec</span><b>23&ndash;24</b></div>
+        <div class="ev-body">
+          <h3>Christmas at Lakeview</h3>
+          <p class="ev-meta">Wed, Dec 23 at 5pm &middot; Thu, Dec 24 at 2pm &middot; Lakeview Bible Church</p>
+          <p>Christmas services at Lakeview. No tickets needed, but an RSVP is appreciated.</p>
+          <a class="ev-link" data-business="Lakeview Bible Church" href="directory/lakeview-bible-church/">See their listing &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="lake-austin-nye">
+        <div class="ev-date"><span>Dec</span><b>31</b></div>
+        <div class="ev-body">
+          <h3>New Year's Eve at Lake Austin</h3>
+          <p class="ev-meta">Thu, Dec 31 &middot; Stillwater at Lake Austin Spa Resort</p>
+          <p>Skip the crowds: happy hour and music, a New Year's Eve dinner by Chef James Limon, then programs to start 2027 with intention.</p>
+          <a class="ev-link" data-business="Lake Austin Spa Resort" href="https://www.opentable.com/r/stillwater-at-lake-austin-spa-resort-austin" target="_blank" rel="noopener">Reserve a table &rarr;</a>
+        </div>
+      </li>
+    </ol>
+    <p class="more">More events all season long: <a href="directory.html#events">see the full events calendar &rarr;</a></p>
+  </div>
+</section>
+
+<!-- ============ HOLIDAY CAMPS ============ -->
+<section id="camps" class="tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">School's out</p>
+      <h2>Holiday Camps</h2>
+      <p>Leander ISD is out Nov 23&ndash;27 for Thanksgiving and Dec 21 &ndash; Jan 1 for winter break. Here's where the kids can create, learn and play while you get ready.</p>
+    </div>
+    <ol class="ev-list">
+      <li class="ev" id="spanish-art-camp">
+        <div class="ev-date"><span>Nov</span><b>23&ndash;25</b></div>
+        <div class="ev-body">
+          <h3>Spanish &amp; Art Camp (ages 3&ndash;8)</h3>
+          <p class="ev-meta">Mon&ndash;Wed, Nov 23&ndash;25 &middot; 9am&ndash;1pm &middot; $200 for all three days &middot; Steiner Ranch (location shared at registration)</p>
+          <p>Kids learn Spanish and make art while you finish your Thanksgiving prep.</p>
+          <a class="ev-link" data-business="Spanish and Art Camp" href="tel:5129989022">Call 512-998-9022 to register &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="austin-arts-academy-camp">
+        <div class="ev-date"><span>Nov</span><b>23</b></div>
+        <div class="ev-body">
+          <h3>Austin Arts Academy Thanksgiving Break Art Camp</h3>
+          <p class="ev-meta">Mon, Nov 23 &middot; 10am&ndash;2pm &middot; $70 &middot; 12813 Oxen Way</p>
+          <p>Make pumpkin snails from air-dry clay. On other days, kids pick their project: a cozy bear or cat on canvas, a magnetic ice skater, or a sewing project. Extended care available.</p>
+          <a class="ev-link" data-business="Austin Arts Academy" href="directory/austin-arts-academy/">See their listing &rarr;</a>
+        </div>
+      </li>
+    </ol>
+    <p class="more">Running a winter break camp? Email <a href="mailto:hello@porchproject.co">hello@porchproject.co</a> to be added.</p>
+  </div>
+</section>
+
+<!-- ============ FAMILY AT HOME ============ -->
+<section id="family">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Free &middot; Thanksgiving week through Dec 31</p>
+      <h2>At Home with Family</h2>
+    </div>
+    <article class="offer feature" id="trash-to-treasure">
+      <p class="tag">Protect Your Tots!</p>
+      <h3>From Trash to Treasure: A Tater Tot Story for Your Holiday Table</h3>
+      <p>Neighbor Leslie "King Tot" Grigg is a descendant of the inventors of the Tater Tot, and he's shared a free storytelling activity for families. Pull up the picture together at the table and take turns with three questions:</p>
+      <ol class="tt-questions">
+        <li>What could you create from something people usually throw away?</li>
+        <li>When have you turned a setback into something good?</li>
+        <li>What family story would you like your children or grandchildren to remember?</li>
+      </ol>
+      <dl>
+        <dt>Who it's for</dt><dd>Kids, parents and grandparents together. Free, no registration.</dd>
+      </dl>
+      <!-- TODO: upload Trash_to_Treasure_Steve.pdf to /holiday/ in the repo -->
+      <a class="btn btn-primary" data-business="Protect Your Tots" href="holiday/trash-to-treasure.pdf" target="_blank" rel="noopener">Open the activity &rarr;</a>
+      <p class="credit">Courtesy of <a href="https://www.protectyourtots.com" target="_blank" rel="noopener" data-business="Protect Your Tots">Protect Your Tots!&trade;</a>, strengthening families and preventing child abuse.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ HOUSEGUEST MENU ============ -->
+<section id="houseguest-menu">
+  <div class="wrap">
+    <div class="menu-card">
+      <img class="menu-header" src="holiday/houseguest-menu-header.jpg" alt="The Houseguest Menu">
+      <h2 class="sr-only">The Houseguest Menu</h2>
+      <p class="menu-sub"><em>Compliments of your host (who may be napping)</em></p>
+      <p class="menu-scan">Scan a code with your phone camera for maps, contacts and reservations.</p>
+
+      <div class="menu-cols">
+        <div>
+          <h3>Starters</h3><p class="menu-note">an hour or less</p>
+          <ul>
+            <li>Coffee at Jireh's Java or A Health and Wellness Shop (bring one back for the host)</li>
+            <li class="has-qr"><span>Grab a book from a <a href="little-libraries.html">Little Library</a><br><em class="menu-note-inline">(6 locations around Steiner &ndash; use QR code to see map)</em></span><span class="qr" data-qr="https://porchproject.co/little-libraries.html" title="Little Library map"></span></li>
+            <li class="has-qr"><span>Hike one of Steiner's many trails (scan for the trail map)</span><span class="qr" data-qr="https://steinerranchhoa.org/wp-content/uploads/2023/09/steiner_ranch_trails_map.pdf" title="Steiner Ranch trail map"></span></li>
+            <li class="has-qr"><span>Pickleball at Bella Mar or sand volleyball at John Simpson Park (scan to book a court)</span><span class="qr" data-qr="https://www.yourcourts.com/security/showLogin?currentController=facility&amp;currentAction=viewschedule&amp;query=" title="Book a court"></span></li>
+                      <li class="has-qr"><span>Swap family stories at the table with a free "Trash to Treasure" Tater Tot storytelling activity</span><span class="qr" data-qr="https://porchproject.co/holiday.html#trash-to-treasure" title="Trash to Treasure storytelling activity"></span></li>
+          </ul>
+          <h3>Mains</h3><p class="menu-note">make an afternoon of it</p>
+          <ul>
+            <li class="has-qr"><span>Paddle Lake Austin with Peace Paddling</span><span class="qr" data-qr="https://porchproject.co/directory/peace-paddling/" title="Peace Paddling contact"></span></li>
+            <li>Go fishing at the end of Quinlan</li>
+            <li class="has-qr"><span>Lunch at Lake Austin Spa Resort</span><span class="qr" data-qr="https://www.lakeaustin.com/experience/dining/" title="Lake Austin Spa reservations"></span></li>
+            <li class="has-qr"><span>Join a RunHub group run</span><span class="qr" data-qr="https://porchproject.co/directory/runhubatx/" title="RunHub ATX"></span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Happy Hour</h3>
+          <ul>
+            <li>A glass of wine at Sloan and Parker</li>
+            <li>Happy hour bites at Old Saigon</li>
+            <li>Happy hour at Vaqueros</li>
+            <li>Live music and a drink at Steiner Steakhouse</li>
+          </ul>
+          <h3>Host's Night Off</h3>
+          <ul>
+            <li>Wood-fired pizza from The Bull Pizza</li>
+            <li>Family-friendly dinner at Farmand's Restaurant</li>
+            <li>Takeout or eat in at Soho Asian Fusion</li>
+            <li class="has-qr"><span>Dinner on the water at Lake Austin Spa Resort (scan to book a table)</span><span class="qr" data-qr="https://www.lakeaustin.com/experience/dining/" title="Lake Austin Spa Resort dining reservations"></span></li>
+                      <li class="has-qr"><span>Grown-ups' night out? Find a sitter in the Steiner Ranch Babysitting group</span><span class="qr" data-qr="https://www.facebook.com/groups/steinerranchbabysitting" title="Steiner Ranch Babysitting group"></span></li>
+          </ul>
+          <h3>Something Sweet</h3>
+          <ul>
+            <li class="has-qr"><span>Get or gift a massage or pedicure (scan for options in the Porch Project directory)</span><span class="qr" data-qr="https://porchproject.co/directory.html" title="Porch Project business directory"></span></li>
+            <li class="has-qr"><span>Browse A Health and Wellness Shop for gift baskets, wellness finds and goodies to take home</span><span class="qr" data-qr="https://porchproject.co/directory/a-health-and-wellness-shop/" title="A Health and Wellness Shop"></span></li>
+                      <li class="has-qr"><span>Shop women's clothing and accessories at Posh Mercantile, a Steiner-owned boutique just down the road at Four Points</span><span class="qr" data-qr="https://porchproject.co/directory/posh-mercantile/" title="Posh Mercantile"></span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="menu-foot"><span>More to do this season: porchproject.co</span><span class="qr" data-qr="https://porchproject.co/" title="porchproject.co"></span></p>
+    </div>
+    <div class="print-offer">
+      <h3>Want printed copies for your guest room?</h3>
+      <p>I'm happy to print the Houseguest Menu on cardstock for you so it's easy for guests to find. Email <a href="mailto:hello@porchproject.co?subject=Houseguest%20Menu%20cards">hello@porchproject.co</a> with how many you'd like.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIGN-UP ============ -->
+<section class="cta">
+  <div class="wrap">
+    <h2>Get the next one in your inbox</h2>
+    <p>The Porch Project newsletter: what's happening around Steiner Ranch, the neighbors behind it, and specials just for subscribers.</p>
+    <div id="fd-form-holiday" class="fd-inline"></div>
+  </div>
+</section>
+
+</div>
+
+
+<!-- QR codes for the Houseguest Menu: each code is drawn from the link in its data-qr attribute -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+  (function(){
+    if (typeof qrcode !== 'function') return;
+    document.querySelectorAll('.qr[data-qr]').forEach(function(el){
+      var url = el.getAttribute('data-qr');
+      if (!url || url.indexOf('TODO') === 0) return;   // links not filled in yet stay hidden
+      var q = qrcode(0, 'L'); q.addData(url); q.make();
+      el.innerHTML = q.createSvgTag({cellSize: 2, margin: 0, scalable: true});
+      el.setAttribute('aria-label', 'QR code: ' + el.title);
+    });
+  })();
+</script>
+
+<script>
+  /* Inline newsletter form + click tracking for offers */
+  (function(){
+    function loadInline(){ if (typeof window.fd==='function') { window.fd('form',{formId:'6a431bec28b82ee8e4ff3e2e',containerEl:'#fd-form-holiday'}); } else { setTimeout(loadInline,300); } }
+    loadInline();
+    document.querySelectorAll('a[data-business]').forEach(function(a){
+      a.addEventListener('click',function(){
+        if (typeof gtag==='function') gtag('event','business_link_click',{business:a.dataset.business,link_type:'holiday_guide',link_url:a.href});
+      });
+    });
+  })();
+</script>
+
+<footer class="site-footer">
+  <div class="site-footer-brand">The Porch Project</div>
+  <div class="site-footer-tagline">Steiner Ranch, Austin TX</div>
+  <div class="site-footer-divider"></div>
+  <div class="site-footer-links">
+    <a href="index.html">Home</a>
+    <a href="welcome.html">Newcomers</a>
+    <a href="directory.html">Directory</a>
+    <a href="directory.html#events">Events</a>
+    <a href="dinner-club.html">Dinner Club</a>
+    <a href="faces-of-steiner/index.html">Faces of Steiner</a>
+    <a href="getaways.html">Getaways</a>
+    <a href="blog/index.html">Blog</a>
+  </div>
+  <p>&copy; 2026 The Porch Project. All rights reserved.</p>
+</footer>
+
+<!-- NEWSLETTER POP-UP (same as homepage; shows once per visitor per 7 days, site-wide) -->
+<style>
+/* ── NEWSLETTER POP-UP ── */
+.pp-nl-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(44,62,45,0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.pp-nl-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.pp-nl-modal {
+  position: relative;
+  background: var(--pp-white);
+  border-radius: 20px;
+  max-width: 440px;
+  width: 100%;
+  padding: 44px 40px 40px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(44,62,45,0.28);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+.pp-nl-modal-overlay.open .pp-nl-modal {
+  transform: translateY(0) scale(1);
+}
+.pp-nl-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: var(--pp-cream);
+  color: var(--pp-medium);
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.pp-nl-modal-close:hover {
+  background: var(--pp-sage-tint);
+  color: var(--pp-green);
+}
+.pp-nl-modal-leaf {
+  font-size: 30px;
+  color: var(--pp-sage);
+  margin-bottom: 12px;
+}
+.pp-nl-modal h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--pp-green);
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.pp-nl-modal p {
+  font-size: 15px;
+  color: var(--pp-medium);
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0 auto 22px;
+}
+.pp-nl-modal-form {
+  margin-top: 4px;
+}
+.pp-nl-modal-dismiss {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--pp-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.pp-nl-modal-dismiss:hover { color: var(--pp-medium); }
+
+/* Override Flodesk's built-in chrome so the embed matches the pop-up.
+   Scoped to .pp-nl-modal-form only — the blog's embed is unaffected. */
+.pp-nl-modal-form [class*="__title"],
+.pp-nl-modal-form [class*="__subtitle"] {
+  display: none !important;
+}
+.pp-nl-modal-form [class*="__container"],
+.pp-nl-modal-form [class*="__content"] {
+  padding: 0 !important;
+  background: transparent !important;
+}
+.pp-nl-modal-form [class*="__button"] {
+  background: var(--pp-green) !important;
+  color: var(--pp-white) !important;
+  font-family: 'DM Sans', -apple-system, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  border-radius: 50px !important;
+  letter-spacing: 0.3px !important;
+  box-shadow: none !important;
+  transition: background 0.2s ease !important;
+}
+.pp-nl-modal-form [class*="__button"]:hover {
+  background: var(--pp-gold) !important;
+}
+
+@media (max-width: 768px) {
+  .pp-nl-modal { padding: 40px 26px 32px; border-radius: 16px; }
+  .pp-nl-modal h2 { font-size: 27px; }
+}
+</style>
+<div class="pp-nl-modal-overlay" id="ppNewsletter" role="dialog" aria-modal="true" aria-labelledby="ppNewsletterTitle" aria-hidden="true">
+  <div class="pp-nl-modal">
+    <button class="pp-nl-modal-close" id="ppNewsletterClose" aria-label="Close">&times;</button>
+    <div class="pp-nl-modal-leaf">&#127807;</div>
+    <h2 id="ppNewsletterTitle">Join the neighborhood</h2>
+    <p>Get new local finds, community events, and neighborhood stories in your inbox &mdash; from The Porch Project.</p>
+    <!-- Flodesk newsletter signup form (same list as the blog) -->
+    <div class="pp-nl-modal-form"><div id="fd-popup-form-6a431bec28b82ee8e4ff3e2e"></div></div>
+    <button class="pp-nl-modal-dismiss" id="ppNewsletterDismiss">No thanks</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var STORAGE_KEY = 'pp_newsletter_seen';
+  var SHOW_AFTER_MS = 2500;      // show ~2.5s after load
+  var SNOOZE_DAYS = 7;           // don't show again for 7 days once seen
+
+  var overlay = document.getElementById('ppNewsletter');
+  if (!overlay) return;
+
+  // Respect returning visitors who already saw it recently.
+  try {
+    var last = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+    if (last && (Date.now() - last) < SNOOZE_DAYS * 86400000) return;
+  } catch (e) {}
+
+  var formLoaded = false;
+  function loadForm() {
+    if (formLoaded || typeof window.fd !== 'function') return;
+    formLoaded = true;
+    window.fd('form', {
+      formId: '6a431bec28b82ee8e4ff3e2e',
+      containerEl: '#fd-popup-form-6a431bec28b82ee8e4ff3e2e'
+    });
+  }
+
+  function markSeen() {
+    try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch (e) {}
+  }
+  function openModal() {
+    loadForm();
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    markSeen();
+  }
+  function closeModal() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  document.getElementById('ppNewsletterClose').addEventListener('click', closeModal);
+  document.getElementById('ppNewsletterDismiss').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+  });
+
+  setTimeout(openModal, SHOW_AFTER_MS);
+})();
+</script>
+</body>
+</html>
