@@ -204,6 +204,17 @@
 }
 
 /* ── FEATURE CARDS ── */
+/* SEASONAL: Holiday Guide banner */
+.holiday-banner{max-width:952px;margin:0 auto 28px;display:flex;align-items:stretch;background:#2C3E2D;border-radius:18px;overflow:hidden;text-decoration:none;color:#FAF5EF;box-shadow:0 10px 30px rgba(44,62,45,.18);transition:transform .2s ease;}
+.holiday-banner:hover{transform:translateY(-2px);}
+.holiday-banner-img{width:34%;min-height:220px;background-size:cover;background-position:center 60%;flex-shrink:0;}
+.holiday-banner-text{padding:28px 30px;display:flex;flex-direction:column;justify-content:center;gap:8px;}
+.holiday-banner-eyebrow{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#F2C46D;font-weight:600;}
+.holiday-banner h2{margin:0;font-size:1.7rem;line-height:1.2;color:#FAF5EF;}
+.holiday-banner p{margin:0;color:rgba(250,245,239,.85);font-size:.98rem;}
+.holiday-banner-cta{margin-top:6px;font-weight:600;color:#F2C46D;}
+@media (max-width:1000px){.holiday-banner{margin:0 24px 24px;}}
+@media (max-width:640px){.holiday-banner{flex-direction:column;}.holiday-banner-img{width:100%;min-height:180px;}.holiday-banner-text{padding:22px;}.holiday-banner h2{font-size:1.4rem;}}
 .features {
   max-width: 1000px;
   margin: 0 auto;
@@ -391,6 +402,7 @@
       <li><a href="welcome.html">Newcomers</a></li>
       <li><a href="directory.html">Directory</a></li>
       <li><a href="directory.html#events">Events</a></li>
+      <li><a href="holiday.html" class="nav-holiday">Holiday Guide</a></li>
       <li><a href="dinner-club.html">Dinner Club</a></li>
       <li><a href="faces-of-steiner/index.html">Faces of Steiner</a></li>
       <li><a href="getaways.html">Getaways</a></li>
@@ -418,6 +430,17 @@
   <div class="stat-label" style="font-size:1.1rem; letter-spacing:0.04em;">Everything Steiner Ranch, organized.</div>
 </div>
 
+
+<!-- SEASONAL: Holiday Guide banner (remove after the holidays) -->
+<a href="holiday.html" class="holiday-banner">
+  <div class="holiday-banner-img" style="background-image:url('holiday/ahw-basket-1.jpg')" role="img" aria-label="Holiday gift basket"></div>
+  <div class="holiday-banner-text">
+    <span class="holiday-banner-eyebrow">New this season</span>
+    <h2>The Porch Project Holiday Guide</h2>
+    <p>Neighbor specials, gifts, holiday happenings, camps and a printable Houseguest Menu for your visitors.</p>
+    <span class="holiday-banner-cta">Open the guide &rarr;</span>
+  </div>
+</a>
 
 <!-- FEATURE CARDS -->
 <section class="features">

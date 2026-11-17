@@ -127,6 +127,10 @@
   .sec-head p{color:var(--green-soft);margin:0;font-size:1.05rem;}
 
   /* ---- holiday guide ---- */
+  .share-row{display:flex;align-items:center;gap:12px;margin:18px 0 4px;flex-wrap:wrap;}
+  .share-btn{display:inline-flex;align-items:center;gap:8px;background:var(--terracotta);color:#fff;border:0;border-radius:999px;padding:10px 20px;font:inherit;font-weight:600;font-size:.95rem;cursor:pointer;}
+  .share-btn:hover{filter:brightness(.95);}
+  .share-msg{font-size:.9rem;color:var(--green-soft);}
   .jump{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 6px;}
   .jump a{font-size:.9rem;font-weight:600;text-decoration:none;color:var(--green)!important;background:var(--paper);border:1px solid rgba(120,97,64,.2);border-radius:999px;padding:8px 16px;}
   .jump a:hover{background:var(--green);color:var(--cream)!important;}
@@ -223,6 +227,7 @@
       <li><a href="welcome.html">Newcomers</a></li>
       <li><a href="directory.html" target="_blank" rel="noopener">Directory</a></li>
       <li><a href="directory.html#events" target="_blank" rel="noopener">Events</a></li>
+      <li><a href="holiday.html" class="nav-holiday active">Holiday Guide</a></li>
       <li><a href="dinner-club.html">Dinner Club</a></li>
       <li><a href="faces-of-steiner/index.html">Faces of Steiner</a></li>
       <li><a href="getaways.html">Getaways</a></li>
@@ -248,6 +253,13 @@
       <a href="#family">At Home with Family</a>
       <a href="#houseguest-menu">The Houseguest Menu</a>
     </nav>
+    <div class="share-row reveal d3">
+      <button type="button" class="share-btn" id="share-guide">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v7h14v-7"/></svg>
+        Share this guide
+      </button>
+      <span class="share-msg" id="share-msg" role="status"></span>
+    </div>
     <p class="hero-note reveal d3">Most offers need just one thing: mention The Porch Project. Details for each are below.</p>
     <p class="hero-note reveal d3"><strong>I chose every business in this guide, and none of them paid to be included.</strong></p>
   </div>
@@ -793,6 +805,23 @@
       var q = qrcode(0, 'L'); q.addData(url); q.make();
       el.innerHTML = q.createSvgTag({cellSize: 2, margin: 0, scalable: true});
       el.setAttribute('aria-label', 'QR code: ' + el.title);
+    });
+  })();
+</script>
+
+<script>
+  /* Share this guide: phone share sheet, or copy the link on computers */
+  (function(){
+    var btn=document.getElementById('share-guide'), msg=document.getElementById('share-msg');
+    if(!btn) return;
+    var url='https://porchproject.co/holiday.html', title='The Porch Project Holiday Guide';
+    var text='Neighbor specials, gifts, holiday happenings and a Houseguest Menu for Steiner Ranch.';
+    btn.addEventListener('click', function(){
+      if (typeof gtag==='function') gtag('event','share_holiday_guide');
+      if (navigator.share) { navigator.share({title:title,text:text,url:url}).catch(function(){}); return; }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function(){ msg.textContent='Link copied! Paste it into a text or email.'; }, function(){ msg.textContent=url; });
+      } else { msg.textContent=url; }
     });
   })();
 </script>
