@@ -101,6 +101,16 @@
   .camp-days li{margin:3px 0;}
   .card-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;}
   .card-actions .btn{margin-top:0;}
+  .cal{position:relative;display:inline-block;margin:2px 0 0 14px;}
+  .cal summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:.88rem;font-weight:600;color:var(--terracotta);}
+  .cal summary::-webkit-details-marker{display:none;}
+  .cal summary svg{width:15px;height:15px;}
+  .cal-menu{position:absolute;z-index:20;left:0;top:calc(100% + 6px);min-width:220px;background:var(--paper);border:1px solid rgba(120,97,64,.2);border-radius:12px;box-shadow:0 10px 26px rgba(44,62,45,.18);padding:8px;}
+  .cal-menu p{margin:6px 8px 2px!important;font-size:.72rem!important;letter-spacing:.08em;text-transform:uppercase;color:var(--latte);}
+  .cal-menu a{display:block;padding:7px 8px;border-radius:8px;font-size:.88rem;color:var(--green)!important;text-decoration:none;}
+  .cal-menu a:hover{background:rgba(172,202,178,.3);}
+  .ev-body > p + .cal{margin-left:0;}
+  @media (max-width:640px){.cal{display:block;margin:10px 0 0;}.cal-menu{min-width:240px;}}
   /* ---- hero ---- */
   .hero{
     background:
@@ -594,7 +604,7 @@
         <div class="ev-date"><span>Nov</span><b>19</b></div>
         <div class="ev-body">
           <h3>Farmers Market: Stock Up and Shop Local</h3>
-          <p class="ev-meta">Thursdays, Nov 19, Dec 3 &amp; Dec 10 &middot; 4&ndash;7pm &middot; 2900 N Quinlan Park Rd</p>
+          <p class="ev-meta">Thursdays, Nov 19, Dec 3, Dec 10 &amp; Dec 17 &middot; 4&ndash;7pm &middot; 2900 N Quinlan Park Rd</p>
           <p>Stock up for hosting and cross a few gifts off your list, right here on Thursdays. Fresh produce and baked treats for the table, plus artisan goods that make great gifts, from neighbors and local vendors.</p>
         </div>
       </li>
@@ -704,6 +714,14 @@
           <p class="ev-meta">Sat, Dec 19 &middot; Parent &amp; me 1:30&ndash;2:30pm, teens &amp; adults 3&ndash;5pm &middot; $60 &middot; Austin Arts Academy, 12813 Oxen Way</p>
           <p>"Here Comes Santa" for ages 5&ndash;12 with an adult, and "Breakfast with Santa" for 13 and up. Tickets close Tue, Dec 15.</p>
           <a class="ev-link" data-business="Silvialicious" href="directory/silvialicious/" target="_blank" rel="noopener">See their listing &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="caroling">
+        <div class="ev-date"><span>Dec</span><b>22</b></div>
+        <div class="ev-body">
+          <h3>Caroling at Towne Square</h3>
+          <p class="ev-meta">Tue, Dec 22 &middot; 5pm &middot; Towne Square &middot; Free</p>
+          <p>Join your neighbors to sing carols together. A great family outing to get into the holiday spirit. If it rains, it moves to Wed, Dec 23, same time and place.</p>
         </div>
       </li>
       <li class="ev" id="lakeview-christmas">
@@ -1128,6 +1146,34 @@
   });
 
   setTimeout(openModal, SHOW_AFTER_MS);
+})();
+</script>
+<script>
+/* "Add to calendar" for Holiday Happenings and Camps. Times are Austin time. */
+(function(){
+  var CAL={"toy-drive": {"t": "Toy Drive: last day to drop off", "l": "Towne Square Community Center, Steiner Ranch", "o": [["2026-12-05"]]}, "farmers-market": {"t": "Farmers Market", "l": "2900 N Quinlan Park Rd, Austin, TX", "o": [["2026-11-19", "16:00", "19:00", "Nov 19"], ["2026-12-03", "16:00", "19:00", "Dec 3"], ["2026-12-10", "16:00", "19:00", "Dec 10"], ["2026-12-17", "16:00", "19:00", "Dec 17"]]}, "silvialicious": {"t": "Silvialicious Thanksgiving Cookie Decorating", "l": "Austin Arts Academy, 12813 Oxen Way, Austin, TX", "o": [["2026-11-21", "13:30", "14:30", "Parent & me"], ["2026-11-21", "15:00", "17:00", "Teens & adults"]]}, "breaking-bread": {"t": "Breaking Bread Co. Pop-Up", "l": "4500 Steiner Ranch Blvd, Apt 1818, Austin, TX", "o": [["2026-11-21", "09:00", "11:00", "Sat, Nov 21"], ["2026-11-22", "09:00", "11:00", "Sun, Nov 22"]]}, "steakhouse-brunch": {"t": "Thanksgiving Brunch at Steiner Ranch Steakhouse", "l": "Steiner Ranch Steakhouse, Austin, TX", "o": [["2026-11-22", "10:00", "15:00"]]}, "turkey-trot": {"t": "Steiner Ranch Turkey Trot", "l": "Towne Square, Steiner Ranch", "o": [["2026-11-26", "08:00", "09:30"]]}, "lake-austin-thanksgiving": {"t": "Thanksgiving at Lake Austin Spa Resort", "l": "Stillwater at Lake Austin Spa Resort, Austin, TX", "o": [["2026-11-27", null, null, "Fri, Nov 27"], ["2026-11-28", null, null, "Sat, Nov 28"], ["2026-11-29", null, null, "Sun, Nov 29"]]}, "black-friday-hike": {"t": "Black Friday Coffee & Hike", "l": "A Health and Wellness Shop, Steiner Ranch", "o": [["2026-11-27", "08:30", "10:00"]]}, "dinner-club": {"t": "Porch Project Dinner Club", "l": "Steiner Ranch (restaurant shared when you register)", "o": [["2026-12-01", "18:30", "21:30"]]}, "rooted-market": {"t": "Sip & Savor Holiday Pop-Up Market at Rooted", "l": "Rooted Cafe, Steiner Ranch", "o": [["2026-12-03", "17:30", "20:00"]]}, "posh-mercantile": {"t": "Posh Mercantile's Favorite Things Christmas Party", "l": "10815 RR 2222, Suite 202, Austin, TX", "o": [["2026-12-04", "10:00", "13:00", "Fri, Dec 4"], ["2026-12-05", "18:00", "21:00", "Sat, Dec 5"]]}, "gingerbread-social": {"t": "Gingerbread Social Benefiting Ronald McDonald House", "l": "Vaqueros, Steiner Ranch", "o": [["2026-12-05", "12:00", "14:00"]]}, "winter-village": {"t": "Steiner Ranch Winter Village", "l": "Bella Mar Community Center, Steiner Ranch", "o": [["2026-12-05", "14:00", "19:00"]]}, "silvialicious-santa": {"t": "Silvialicious Christmas Cookie Decorating", "l": "Austin Arts Academy, 12813 Oxen Way, Austin, TX", "o": [["2026-12-19", "13:30", "14:30", "Parent & me"], ["2026-12-19", "15:00", "17:00", "Teens & adults"]]}, "caroling": {"t": "Caroling at Towne Square", "l": "Towne Square, Steiner Ranch", "d": "Rain date: Wed, Dec 23, same time and place.", "o": [["2026-12-22", "17:00", "18:00"]]}, "lakeview-christmas": {"t": "Christmas at Lakeview", "l": "Lakeview Bible Church, Austin, TX", "o": [["2026-12-23", "17:00", "18:00", "Wed, Dec 23, 5pm"], ["2026-12-24", "14:00", "15:00", "Thu, Dec 24, 2pm"]]}, "lake-austin-nye": {"t": "New Year's Eve at Lake Austin", "l": "Stillwater at Lake Austin Spa Resort, Austin, TX", "o": [["2026-12-31"]]}, "spanish-art-camp": {"t": "Spanish & Art Camp", "l": "Steiner Ranch (location shared at registration)", "o": [["2026-11-23", "09:00", "13:00", "Mon, Nov 23"], ["2026-11-24", "09:00", "13:00", "Tue, Nov 24"], ["2026-11-25", "09:00", "13:00", "Wed, Nov 25"]]}, "austin-arts-academy-camp": {"t": "Austin Arts Academy Thanksgiving Art Camp", "l": "Austin Arts Academy, 12813 Oxen Way, Austin, TX", "o": [["2026-11-23", "10:00", "14:00"]]}, "austin-arts-academy-winter": {"t": "Austin Arts Academy Winter Art Camp", "l": "Austin Arts Academy, 12813 Oxen Way, Austin, TX", "o": [["2026-12-28", "10:00", "14:00", "Mon, Dec 28"], ["2026-12-29", "10:00", "14:00", "Tue, Dec 29"], ["2026-12-30", "10:00", "14:00", "Wed, Dec 30"], ["2027-01-04", "10:00", "14:00", "Mon, Jan 4"], ["2027-01-18", "10:00", "14:00", "Mon, Jan 18"]]}};
+  var ICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+  function d8(d){return d.replace(/-/g,'');}
+  function next(d){var x=new Date(d+'T12:00:00Z');x.setUTCDate(x.getUTCDate()+1);return x.toISOString().slice(0,10).replace(/-/g,'');}
+  function dt(o){return o[1]?{s:d8(o[0])+'T'+o[1].replace(':','')+'00',e:d8(o[0])+'T'+(o[2]||o[1]).replace(':','')+'00',all:false}:{s:d8(o[0]),e:next(o[0]),all:true};}
+  function esc(s){return String(s||'').replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');}
+  function gUrl(ev,o){var t=dt(o);var q=['action=TEMPLATE','text='+encodeURIComponent(ev.t),'dates='+t.s+'/'+t.e,'location='+encodeURIComponent(ev.l||''),'details='+encodeURIComponent((ev.d?ev.d+'\n\n':'')+'From The Porch Project Holiday Guide: https://porchproject.co/holiday.html')];if(!t.all)q.push('ctz=America/Chicago');return 'https://www.google.com/calendar/render?'+q.join('&');}
+  function ics(id,ev){var now=new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z';var L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Porch Project//Holiday Guide//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
+    ev.o.forEach(function(o,i){var t=dt(o);L.push('BEGIN:VEVENT','UID:'+id+'-'+i+'-'+o[0]+'@porchproject.co','DTSTAMP:'+now);
+      if(t.all){L.push('DTSTART;VALUE=DATE:'+t.s,'DTEND;VALUE=DATE:'+t.e);}else{L.push('DTSTART;TZID=America/Chicago:'+t.s,'DTEND;TZID=America/Chicago:'+t.e);}
+      L.push('SUMMARY:'+esc(ev.t+(ev.o.length>1&&o[3]&&/&|adult/i.test(o[3])?' ('+o[3]+')':'')));if(ev.l)L.push('LOCATION:'+esc(ev.l));
+      L.push('DESCRIPTION:'+esc((ev.d?ev.d+'\n\n':'')+'From The Porch Project Holiday Guide: https://porchproject.co/holiday.html'),'END:VEVENT');});
+    L.push('END:VCALENDAR');return 'data:text/calendar;charset=utf-8,'+encodeURIComponent(L.join('\r\n'));}
+  function track(id,kind){try{gtag('event','holiday_add_to_calendar',{event_id:id,calendar:kind});}catch(e){}}
+  Object.keys(CAL).forEach(function(id){
+    var li=document.getElementById(id); if(!li) return; var body=li.querySelector('.ev-body'); if(!body) return; var ev=CAL[id];
+    var multi=ev.o.length>1, h='<p>Apple, Outlook &amp; phones</p><a href="'+ics(id,ev)+'" download="'+id+'.ics" data-k="apple">'+(multi?'Add all dates':'Add to calendar')+'</a><p>Google Calendar</p>';
+    ev.o.forEach(function(o){h+='<a href="'+gUrl(ev,o)+'" target="_blank" rel="noopener" data-k="google">'+(multi?(o[3]||o[0]):'Add to Google Calendar')+'</a>';});
+    var d=document.createElement('details'); d.className='cal'; d.innerHTML='<summary>'+ICON+'Add to calendar</summary><div class="cal-menu">'+h+'</div>';
+    d.addEventListener('click',function(e){var a=e.target.closest('a');if(a){track(id,a.getAttribute('data-k'));setTimeout(function(){d.open=false;},300);}});
+    body.appendChild(d);
+  });
+  document.addEventListener('click',function(e){document.querySelectorAll('details.cal[open]').forEach(function(d){if(!d.contains(e.target))d.open=false;});});
 })();
 </script>
 </body>
