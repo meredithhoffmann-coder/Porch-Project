@@ -134,6 +134,8 @@
   .jump{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 6px;}
   .jump a{font-size:.9rem;font-weight:600;text-decoration:none;color:var(--green)!important;background:var(--paper);border:1px solid rgba(120,97,64,.2);border-radius:999px;padding:8px 16px;}
   .jump a:hover{background:var(--green);color:var(--cream)!important;}
+  @media (min-width:641px){.jump{flex-wrap:wrap;gap:8px;}.jump a{padding:8px 13px;font-size:.86rem;white-space:nowrap;}}
+  @media (min-width:641px) and (max-width:959px){.jump{display:grid;grid-template-columns:repeat(3,1fr);}.jump a{text-align:center;}}
   @media (max-width:640px){.jump{display:grid;grid-template-columns:1fr 1fr;gap:8px;}.jump a{text-align:center;padding:9px 8px;font-size:.84rem;}}
   .landing section.tint{background:#F3E6DC;}
   .offers{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
