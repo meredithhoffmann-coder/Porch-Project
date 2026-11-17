@@ -112,6 +112,19 @@
   }
   .hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
   .hero-note{font-size:.9rem;color:var(--latte);margin-top:18px;}
+  .hero-top{display:grid;grid-template-columns:1.45fr 1fr;gap:44px;align-items:center;}
+  .hero-photo{margin:0;position:relative;}
+  .hero-photo img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 55%;border-radius:20px;box-shadow:0 18px 40px rgba(44,62,45,.22);border:6px solid var(--paper);transform:rotate(1.5deg);}
+  .hero-photo figcaption{font-size:.8rem;color:var(--latte);margin-top:12px;text-align:right;}
+  .hero-photo figcaption a{color:var(--latte)!important;}
+  .hero-top .lead{margin-bottom:0!important;}
+  @media (max-width:760px){
+    .hero{padding-top:28px;}
+    .hero-top{grid-template-columns:1fr;gap:22px;}
+    .hero-photo{order:-1;}
+    .hero-photo img{aspect-ratio:16/10;object-position:center 68%;transform:none;border-width:4px;}
+    .hero-photo figcaption{text-align:left;margin-top:8px;}
+  }
 
   /* animated arrival */
   .reveal{opacity:0;transform:translateY(14px);animation:rise .7s ease forwards;}
@@ -131,12 +144,13 @@
   .share-btn{display:inline-flex;align-items:center;gap:8px;background:var(--terracotta);color:#fff;border:0;border-radius:999px;padding:10px 20px;font:inherit;font-weight:600;font-size:.95rem;cursor:pointer;}
   .share-btn:hover{filter:brightness(.95);}
   .share-msg{font-size:.9rem;color:var(--green-soft);}
-  .jump{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 6px;}
-  .jump a{font-size:.9rem;font-weight:600;text-decoration:none;color:var(--green)!important;background:var(--paper);border:1px solid rgba(120,97,64,.2);border-radius:999px;padding:8px 16px;}
-  .jump a:hover{background:var(--green);color:var(--cream)!important;}
-  @media (min-width:641px){.jump{flex-wrap:wrap;gap:8px;}.jump a{padding:8px 13px;font-size:.86rem;white-space:nowrap;}}
-  @media (min-width:641px) and (max-width:959px){.jump{display:grid;grid-template-columns:repeat(3,1fr);}.jump a{text-align:center;}}
-  @media (max-width:640px){.jump{display:grid;grid-template-columns:1fr 1fr;gap:8px;}.jump a{text-align:center;padding:9px 8px;font-size:.84rem;}}
+  .jump{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 8px;}
+  .jump a{display:flex;align-items:center;justify-content:center;gap:7px;font-size:.95rem;font-weight:700;letter-spacing:.01em;text-decoration:none;color:var(--cream)!important;background:var(--green);border:0;border-bottom:3px solid var(--honey);border-radius:12px;padding:12px 18px;box-shadow:0 4px 12px rgba(44,62,45,.18);transition:transform .15s ease,box-shadow .15s ease,background .15s ease;}
+  .jump a .ji{font-size:1.05rem;line-height:1;}
+  .jump a:hover,.jump a:focus-visible{background:var(--terracotta);border-bottom-color:var(--green);transform:translateY(-2px);box-shadow:0 8px 18px rgba(44,62,45,.24);}
+  @media (min-width:960px){.jump{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;}.jump a{padding:12px 8px;font-size:.88rem;text-align:center;flex-direction:column;gap:4px;}.jump a .ji{font-size:1.3rem;}}
+  @media (min-width:641px) and (max-width:959px){.jump{display:grid;grid-template-columns:repeat(3,1fr);}.jump a{text-align:center;flex-direction:column;gap:4px;}.jump a .ji{font-size:1.25rem;}}
+  @media (max-width:640px){.jump{display:grid;grid-template-columns:1fr 1fr;gap:9px;}.jump a{text-align:center;flex-direction:column;gap:3px;padding:11px 8px;font-size:.88rem;}.jump a .ji{font-size:1.2rem;}}
   .landing section.tint{background:#F3E6DC;}
   .offers{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
   .offer{background:var(--paper);border:1px solid rgba(120,97,64,.16);border-radius:16px;padding:26px 24px;scroll-margin-top:90px;display:flex;flex-direction:column;}
@@ -248,16 +262,24 @@
 <!-- ============ HERO ============ -->
 <header class="hero">
   <div class="wrap">
-    <p class="eyebrow reveal">The Porch Project &middot; Steiner Ranch</p>
-    <h1 class="reveal d1">The Holiday Guide 2026</h1>
-    <p class="lead reveal d2">Hosting season, made easier. Specials for neighbors from businesses in and around Steiner, help getting the house ready, things to do with a full house, and gift ideas.</p>
+    <div class="hero-top">
+      <div class="hero-text">
+        <p class="eyebrow reveal">The Porch Project &middot; Steiner Ranch</p>
+        <h1 class="reveal d1">The Holiday Guide 2026</h1>
+        <p class="lead reveal d2">Hosting season, made easier. Specials for neighbors from businesses in and around Steiner, help getting the house ready, things to do with a full house, and gift ideas.</p>
+      </div>
+      <figure class="hero-photo reveal d2">
+        <img src="holiday/ahw-basket-1.jpg" alt="Holiday gift basket with two sweater-pattern mugs and a bag of protein coffee" width="900" height="900">
+        <figcaption>Gift basket from <a data-business="A Health and Wellness Shop" href="directory/a-health-and-wellness-shop/" target="_blank" rel="noopener">A Health and Wellness Shop</a></figcaption>
+      </figure>
+    </div>
     <nav class="jump reveal d3" aria-label="Jump to a section">
-      <a href="#host">Get Ready to Host</a>
-      <a href="#gifts">Gifts</a>
-      <a href="#happenings">Holiday Happenings</a>
-      <a href="#camps">Holiday Camps</a>
-      <a href="#family">At Home with Family</a>
-      <a href="#houseguest-menu">The Houseguest Menu</a>
+      <a href="#host"><span class="ji" aria-hidden="true">🏠</span>Get Ready to Host</a>
+      <a href="#gifts"><span class="ji" aria-hidden="true">🎁</span>Gifts</a>
+      <a href="#happenings"><span class="ji" aria-hidden="true">✨</span>Holiday Happenings</a>
+      <a href="#camps"><span class="ji" aria-hidden="true">🎨</span>Holiday Camps</a>
+      <a href="#family"><span class="ji" aria-hidden="true">🧸</span>At Home with Family</a>
+      <a href="#houseguest-menu"><span class="ji" aria-hidden="true">🍽️</span>The Houseguest Menu</a>
     </nav>
     <div class="share-row reveal d3">
       <button type="button" class="share-btn" id="share-guide">
