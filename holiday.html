@@ -97,6 +97,10 @@
   .btn-ghost:hover{background:var(--green);color:var(--cream);}
   a.btn:focus-visible,button:focus-visible{outline:3px solid var(--honey);outline-offset:3px;}
 
+  .camp-days{margin:4px 0 12px;padding-left:18px;font-size:.95rem;}
+  .camp-days li{margin:3px 0;}
+  .card-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;}
+  .card-actions .btn{margin-top:0;}
   /* ---- hero ---- */
   .hero{
     background:
@@ -323,6 +327,22 @@
         <p class="deal">Homemade pies from $30</p>
         <p>Let a Steiner baker handle dessert. Silvia's pies come in chocolate pecan, pecan, apple, salted caramel apple and pumpkin, and she makes other baked goods too.</p>
         <a class="btn btn-ghost" data-business="Silvialicious" href="directory/silvialicious/" target="_blank" rel="noopener">See their listing &rarr;</a>
+      </article>
+
+      <article class="offer" id="breaking-bread-co">
+        <img class="card-photo" src="holiday/breaking-bread-co.jpg" alt="Breaking Bread Co. Thanksgiving Stock-Up Menu" style="object-position:center 12%" onload="this.classList.add('ok')" onerror="this.remove()">
+        <p class="tag">Food &amp; hosting</p>
+        <h3>Breaking Bread Co. ATX</h3>
+        <p class="deal">Thanksgiving Stock-Up Menu: sourdough from $12, rolls from $5</p>
+        <p>A neighbor baker's last bake before taking Thanksgiving week off. Stock up on sourdough (regular, rosemary parmesan, garlic herb &amp; cheese, jalape&ntilde;o &amp; cheese, cranberry orange), cinnamon, pumpkin, apple caramel and blueberry rolls with icing on the side, plus bagels and scones.</p>
+        <dl>
+          <dt>How to get it</dt><dd>Preorder by messaging them on Instagram.</dd>
+          <dt>Pickup</dt><dd>Sat &amp; Sun, Nov 21&ndash;22.</dd>
+        </dl>
+        <div class="card-actions">
+          <a class="btn btn-primary" data-business="Breaking Bread Co. ATX" href="holiday/breaking-bread-menu.pdf" target="_blank" rel="noopener">See the full menu &rarr;</a>
+          <a class="btn btn-ghost" data-business="Breaking Bread Co. ATX" href="directory/breaking-bread-co-atx/" target="_blank" rel="noopener">See their listing &rarr;</a>
+        </div>
       </article>
 
       <article class="offer" id="austin-platinum-painters">
@@ -570,6 +590,14 @@
           
         </div>
       </li>
+      <li class="ev" id="farmers-market">
+        <div class="ev-date"><span>Nov</span><b>19</b></div>
+        <div class="ev-body">
+          <h3>Farmers Market: Stock Up and Shop Local</h3>
+          <p class="ev-meta">Thursdays, Nov 19, Dec 3 &amp; Dec 10 &middot; 4&ndash;7pm &middot; 2900 N Quinlan Park Rd</p>
+          <p>Stock up for hosting and cross a few gifts off your list, right here on Thursdays. Fresh produce and baked treats for the table, plus artisan goods that make great gifts, from neighbors and local vendors.</p>
+        </div>
+      </li>
       <li class="ev" id="silvialicious">
         <div class="ev-date"><span>Nov</span><b>21</b></div>
         <div class="ev-body">
@@ -577,6 +605,15 @@
           <p class="ev-meta">Sat, Nov 21 &middot; Parent &amp; me 1:30&ndash;2:30pm, teens &amp; adults 3&ndash;5pm &middot; $60 &middot; Austin Arts Academy, 12813 Oxen Way</p>
           <p>Parent &amp; me is for ages 5&ndash;12 with an adult (3 cookies, sibling add-on discount); the teen &amp; adult class is 13+ (6 cookies). Beginners welcome, supplies included. Only 16 seats, and tickets close Tue, Nov 17.</p>
           <a class="ev-link" data-business="Silvialicious" href="directory/silvialicious/" target="_blank" rel="noopener">See their listing &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="breaking-bread">
+        <div class="ev-date"><span>Nov</span><b>21&ndash;22</b></div>
+        <div class="ev-body">
+          <h3>Breaking Bread Co. Thanksgiving Stock-Up</h3>
+          <p class="ev-meta">Sat &amp; Sun, Nov 21&ndash;22 &middot; Pop-up starts 9am &middot; 4500 Steiner Ranch Blvd, Apt 1818</p>
+          <p>One last neighborhood bake before Thanksgiving week off: sourdough, cinnamon and specialty rolls, bagels and scones. Preorder on Instagram or come early, because they sell out. Their bread is also stocked at Jireh's Java during the week.</p>
+          <a class="ev-link" data-business="Breaking Bread Co. ATX" href="#breaking-bread-co">See the menu &rarr;</a>
         </div>
       </li>
       <li class="ev" id="steakhouse-brunch">
@@ -715,7 +752,23 @@
         <div class="ev-body">
           <h3>Austin Arts Academy Thanksgiving Break Art Camp</h3>
           <p class="ev-meta">Mon, Nov 23 &middot; 10am&ndash;2pm &middot; $70 &middot; 12813 Oxen Way</p>
-          <p>Make pumpkin snails from air-dry clay. On other days, kids pick their project: a cozy bear or cat on canvas, a magnetic ice skater, or a sewing project. Extended care available.</p>
+          <p>Kids make pumpkin snails from air-dry clay. Extended care available.</p>
+          <a class="ev-link" data-business="Austin Arts Academy" href="directory/austin-arts-academy/" target="_blank" rel="noopener">See their listing &rarr;</a>
+        </div>
+      </li>
+      <li class="ev" id="austin-arts-academy-winter">
+        <div class="ev-date"><span>Dec</span><b>28&ndash;30</b></div>
+        <div class="ev-body">
+          <h3>Austin Arts Academy Winter Art Camps</h3>
+          <p class="ev-meta">10am&ndash;2pm &middot; $70 a day &middot; 12813 Oxen Way &middot; Extended care available</p>
+          <p>Sign up for one day or several. Each day has its own project:</p>
+          <ul class="camp-days">
+            <li><b>Mon, Dec 28:</b> Cozy Cocoa Canvas</li>
+            <li><b>Tue, Dec 29:</b> Alpine Village Collage</li>
+            <li><b>Wed, Dec 30:</b> Sledding Critter Canvas</li>
+            <li><b>Mon, Jan 4:</b> Winter Woodland Parade</li>
+            <li><b>Mon, Jan 18:</b> Woodland Cocoa Stand</li>
+          </ul>
           <a class="ev-link" data-business="Austin Arts Academy" href="directory/austin-arts-academy/" target="_blank" rel="noopener">See their listing &rarr;</a>
         </div>
       </li>
