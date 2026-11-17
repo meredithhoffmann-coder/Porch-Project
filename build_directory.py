@@ -162,7 +162,7 @@ def site_nav(prefix):
     <button class="nav-toggle" onclick="document.querySelector('.site-nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
     <ul class="site-nav-links">
 {lis}
-      <li><a href="{LIST_BUSINESS_FORM}" target="_blank" class="nav-list-btn">+ List Your Business</a></li>
+      <li><a href="{LIST_BUSINESS_FORM}" target="_blank" class="nav-list-btn">Apply for a Listing</a></li>
     </ul>
   </div>
 </nav>"""
