@@ -169,6 +169,9 @@
   .ev-meta{font-size:.86rem;font-weight:600;color:var(--terracotta);margin:0 0 6px;}
   .ev-body p{margin:0 0 8px;font-size:.95rem;}
   .ev-link{font-size:.9rem;font-weight:600;color:var(--green)!important;}
+  .menu-intro{max-width:760px;margin:0 auto 28px;}
+  .menu-actions{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 8px;}
+  .menu-actions-note{font-size:.9rem;color:var(--green-soft);margin:6px 0 0;}
   .print-offer{max-width:760px;margin:22px auto 0;text-align:center;background:#F3E6DC;border-radius:14px;padding:20px 22px;}
   .print-offer h3{font-size:1.3rem;margin:0 0 6px;}
   .print-offer p{margin:0;color:var(--green-soft);}
@@ -201,7 +204,7 @@
   .menu-card .qr:empty{display:none;}
   @media print{body{background:#fff;}.landing section{padding:0!important;}.menu-card{border-width:1.5px;padding:20px 26px;}.menu-header{margin:-10px 0 10px;}.menu-sub{margin:0 0 10px;}.menu-scan{margin:0 0 6px;}.menu-card h3{margin:10px 0 0;}.menu-card li{padding:1px 0;font-size:.84rem;line-height:1.32;}.menu-sub{font-size:.95rem;}.menu-scan{font-size:.8rem;}.menu-note{margin:2px 0 0;}.menu-card ul{margin:4px 0 0;}.menu-note-inline{font-size:.74rem;}.menu-foot{margin:12px 0 0;}@page{margin:.35in;}}
   @media (max-width:760px){.offers,.menu-cols{grid-template-columns:1fr;}.menu-card{padding:32px 22px;}}
-  @media print{.site-nav,.site-footer,.hero,#host,#gifts,#happenings,#camps,#family,.cta,.pp-nl-modal-overlay,.print-offer{display:none!important;}.menu-card{box-shadow:none;}}
+  @media print{.site-nav,.site-footer,.hero,#host,#gifts,#happenings,#camps,#family,.cta,.pp-nl-modal-overlay,.print-offer,.menu-intro{display:none!important;}.menu-card{box-shadow:none;}}
 </style>
 <!-- Porch app (PWA): home-screen icon, offline support, install banner -->
 <link rel="manifest" href="/manifest.webmanifest">
@@ -726,6 +729,16 @@
 <!-- ============ HOUSEGUEST MENU ============ -->
 <section id="houseguest-menu">
   <div class="wrap">
+    <div class="sec-head menu-intro">
+      <p class="eyebrow">For your guests</p>
+      <h2>The Houseguest Menu</h2>
+      <p>Visitors in town and wondering what to do? This one-page menu lists easy things to do around Steiner, from coffee and trails to happy hours and dinner out. Each item has a QR code guests can scan with their phone for maps, contact info and reservations. Leave it on the guest bed or the kitchen counter and let them explore (while you enjoy a quiet hour).</p>
+      <div class="menu-actions">
+        <a class="btn btn-primary" href="holiday/houseguest-menu.pdf" target="_blank" rel="noopener" data-business="Houseguest Menu PDF">Print it at home &rarr;</a>
+        <a class="btn btn-ghost" href="mailto:hello@porchproject.co?subject=Houseguest%20Menu%20cardstock%20copies&amp;body=Hi%20Meredith!%20I%27d%20love%20___%20copies%20of%20the%20Houseguest%20Menu%20on%20cardstock.%20My%20name%20and%20street%3A%20" data-business="Houseguest Menu cardstock request">Request cardstock copies</a>
+      </div>
+      <p class="menu-actions-note">Want it on cardstock? I'm happy to print copies for you. Email <strong>hello@porchproject.co</strong> with how many you'd like.</p>
+    </div>
     <div class="menu-card">
       <img class="menu-header" src="holiday/houseguest-menu-header.jpg" alt="The Houseguest Menu">
       <h2 class="sr-only">The Houseguest Menu</h2>
@@ -775,10 +788,6 @@
         </div>
       </div>
       <p class="menu-foot"><span>More to do this season: porchproject.co</span><span class="qr" data-qr="https://porchproject.co/" title="porchproject.co"></span></p>
-    </div>
-    <div class="print-offer">
-      <h3>Want printed copies for your guest room?</h3>
-      <p>I'm happy to print the Houseguest Menu on cardstock for you so it's easy for guests to find. Email <a href="mailto:hello@porchproject.co?subject=Houseguest%20Menu%20cards">hello@porchproject.co</a> with how many you'd like.</p>
     </div>
   </div>
 </section>
