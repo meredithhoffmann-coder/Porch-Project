@@ -50,7 +50,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-P33RNWQCBJ');
+    gtag('config', 'G-P33RNWQCBJ', (function(){try{return localStorage.getItem('pp_internal')==='1'?{traffic_type:'internal'}:{};}catch(e){return {};}})());
   </script>
 </head>
 <body>
