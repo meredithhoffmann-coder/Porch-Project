@@ -109,7 +109,7 @@ def ga4_head():
     window.dataLayer = window.dataLayer || [];
     function gtag(){{dataLayer.push(arguments);}}
     gtag('js', new Date());
-    gtag('config', '{GA4_ID}');
+    gtag('config', '{GA4_ID}', (function(){{try{{return localStorage.getItem('pp_internal')==='1'?{{traffic_type:'internal'}}:{{}};}}catch(e){{return {{}};}}}})());  // porchproject.co/me.html marks your own devices as internal
   </script>
 """
 

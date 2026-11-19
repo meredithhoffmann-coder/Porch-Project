@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Don't count my visits · The Porch Project</title>
+<!-- No Google Analytics on this page on purpose.
+     Sets localStorage pp_internal=1; every page's GA tag then sends traffic_type=internal,
+     which GA's "Internal Traffic" data filter removes from reports. -->
+<style>
+  body{font-family:system-ui,-apple-system,sans-serif;background:#FAF6EE;color:#2C3E2D;margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;}
+  .card{max-width:440px;background:#fff;border-radius:18px;padding:32px 28px;box-shadow:0 10px 30px rgba(44,62,45,.12);text-align:center;}
+  h1{font-family:Georgia,serif;font-weight:600;margin:0 0 10px;font-size:1.6rem;}
+  p{line-height:1.5;margin:0 0 18px;}
+  .status{font-weight:700;padding:12px;border-radius:10px;margin:0 0 18px;}
+  .on{background:#E3EFE5;color:#2C3E2D;} .off{background:#FBE9DF;color:#9A3F28;}
+  button{font:inherit;font-weight:700;border:0;border-radius:999px;padding:12px 22px;cursor:pointer;background:#C8553D;color:#fff;}
+  button.ghost{background:transparent;color:#C8553D;border:2px solid #C8553D;margin-top:10px;}
+  small{display:block;color:#7A6A55;margin-top:18px;line-height:1.45;}
+  a{color:#C8553D;}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Don't count my visits</h1>
+  <p>For Porch Project team devices only. This keeps your own browsing out of Google Analytics on <strong>this browser on this device</strong>.</p>
+  <div id="status" class="status"></div>
+  <button id="on" type="button">Don't count this device</button>
+  <button id="off" class="ghost" type="button">Count this device again</button>
+  <small>Do this once on each phone, computer and browser you use (Safari and Chrome are separate, and so is the Porch app on your home screen). Clearing your browser data turns it off. Your GA "Internal Traffic" filter must be set to Active.<br><br><a href="/">Back to porchproject.co</a></small>
+</div>
+<script>
+  function get(){ try{ return localStorage.getItem('pp_internal')==='1'; }catch(e){ return null; } }
+  function show(){
+    var s=document.getElementById('status'), v=get();
+    if(v===null){ s.className='status off'; s.textContent='This browser blocks storage (private mode?), so this can’t be turned on here.'; return; }
+    s.className='status '+(v?'on':'off');
+    s.textContent=v?'✓ Your visits on this device are NOT counted.':'Your visits on this device ARE being counted.';
+  }
+  document.getElementById('on').onclick=function(){ try{localStorage.setItem('pp_internal','1');}catch(e){} show(); };
+  document.getElementById('off').onclick=function(){ try{localStorage.removeItem('pp_internal');}catch(e){} show(); };
+  show();
+</script>
+</body>
+</html>
